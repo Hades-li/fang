@@ -28,7 +28,7 @@
             <Select class="my-sel" v-model="model3" size="large" style="flex:1;">
                 <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
             </Select>
-            <Input class="my-input" v-model="value" size="large" placeholder="Enter something..." style="flex:5;"></Input>
+            <Input class="my-input" v-model="value" size="large" placeholder="地区，小区，地铁" style="flex:5;"></Input>
             <Button class="" type="primary" icon="ios-search" style="flex:1;margin-left: 10px">搜索</Button>
         </div>
     </div>
