@@ -28,6 +28,8 @@ const login = () => import('pages/login')
 // import Register from '../pages/Register.vue'
 const register = () => import('pages/register')
 
+const roomDetail = () => import('pages/roomDetail')
+
 Vue.use(Router);
 
 export default new Router({
@@ -61,6 +63,9 @@ export default new Router({
       },{
         path: 'adminHouseMgt',
         component: adminHouseMgt
+      },{
+          path:'/roomDetail',
+          component: roomDetail
       }]
     },
     {
