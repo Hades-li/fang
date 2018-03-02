@@ -30,6 +30,10 @@ const register = () => import('pages/register')
 
 const roomDetail = () => import('pages/roomDetail')
 
+// 成为房东
+const checkIn = () => import('pages/checkIn')
+
+
 Vue.use(Router);
 
 export default new Router({
@@ -66,6 +70,9 @@ export default new Router({
       },{
           path:'/roomDetail',
           component: roomDetail
+      },{
+        path: 'checkIn',
+        component: checkIn
       }]
     },
     {
