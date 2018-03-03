@@ -28,6 +28,8 @@ const login = () => import('pages/login')
 // import Register from '../pages/Register.vue'
 const register = () => import('pages/register')
 
+const roomDetail = () => import('pages/roomDetail')
+
 // 成为房东
 const checkIn = () => import('pages/checkIn')
 
@@ -65,6 +67,9 @@ export default new Router({
       },{
         path: 'adminHouseMgt',
         component: adminHouseMgt
+      },{
+          path:'/roomDetail',
+          component: roomDetail
       },{
         path: 'checkIn',
         component: checkIn
