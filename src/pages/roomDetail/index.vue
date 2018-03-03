@@ -6,7 +6,116 @@
         </Breadcrumb>
         <div class="detail-wrap clearfix">
             <div class="detail-left">
+                <!--图片滚动组件-->
                 <slide-img v-bind:dataList="dataList"></slide-img>
+                <!--平台保障-->
+                <div class="pingtai-wrap">
+                    <h3 class="titleMargin">平台保障</h3>
+                    <div class="icons">
+                        <div class="icon-item">
+                            <i class="icon fang">
+
+                            </i>
+                            <span>
+                                真实房源
+                            </span>
+                        </div>
+                        <div class="icon-item">
+                            <i class="icon fangdong">
+
+                            </i>
+                            <span>
+                                房东认证
+                            </span>
+                        </div>
+                        <div class="icon-item">
+                            <i class="icon baozhang">
+
+                            </i>
+                            <span>
+                                支付保障
+                            </span>
+                        </div>
+                        <div class="icon-item">
+                            <i class="icon more">
+
+                            </i>
+                            <span>
+                                了解更多
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--房源信息-->
+                <div class="fangyuan-wrap">
+                    <h3 class="titleMargin">房源信息</h3>
+                    <div class="inf">
+                        <div class="code">
+                            <i class="icon code"></i>
+                            <span>编号：0111017838A</span>
+                        </div>
+                        <div class="fy-text">
+                            <span>户型： 5室3厅2卫</span>
+                            <span>面积： 166.0㎡</span>
+                        </div>
+                        <div class="fy-text">
+                            <span>类型： 小区公寓</span>
+                            <span>楼层：6/6层</span>
+                        </div>
+                    </div>
+                </div>
+                <!--分割线-->
+                <div class="line mt30"></div>
+                <!--房源配置-->
+                <div class="fypz">
+                    <h3 class="titleMargin">房源配置</h3>
+                    <ul class="fypz-list">
+                        <li>
+                            <i style="background-image:url(http://image.mgzf.com/common/roomdetail/web/roomconfig/highlight/aircondNum.png)"></i>
+                            空调
+                        </li>
+                        <li>
+                            <i style="background-image:url(http://image.mgzf.com/common/roomdetail/web/roomconfig/highlight/bedNum.png)"></i>
+                            床
+                        </li>
+                        <li>
+                            <i style="background-image:url(http://image.mgzf.com/common/roomdetail/web/roomconfig/highlight/deskNum.png)"></i>
+                            书桌
+                        </li>
+                        <li>
+                            <i style="background-image:url(http://image.mgzf.com/common/roomdetail/web/roomconfig/highlight/wardrobeNum.png)"></i>
+                             衣柜
+                        </li>
+                        <li>
+                            <i style="background-image:url(http://image.mgzf.com/common/roomdetail/web/roomconfig/highlight/veranda.png)"></i>
+                            阳台
+                        </li>
+                        <li>
+                            <i style="background-image:url(http://image.mgzf.com/common/roomdetail/web/roomconfig/highlight/toilet.png)"></i>
+                            卫生间
+                        </li>
+                        <li>
+                            <i style="background-image:url(http://image.mgzf.com/common/roomdetail/web/roomconfig/highlight/waterheaterNum.png)"></i>
+                            热水器
+                        </li>
+                        <li>
+                            <i style="background-image:url(http://image.mgzf.com/common/roomdetail/web/roomconfig/highlight/washerNum.png)"></i>
+                            洗衣机
+                        </li>
+                        <li>
+                            <i style="background-image:url(http://image.mgzf.com/common/roomdetail/web/roomconfig/highlight/fridgeNum.png)"></i>
+                            冰箱
+                        </li>
+                        <li>
+                            <i style="background-image:url(http://image.mgzf.com/common/roomdetail/web/roomconfig/highlight/tv.png)"></i>
+                            电视
+                        </li>
+                        <li>
+                            <i style="background-image:url(http://image.mgzf.com/common/roomdetail/web/roomconfig/highlight/gasStoveNum.png)"></i>
+                            燃气灶
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="detail-right">
                 <h3 class="title">宝山区-好日子大家园A区-5室3厅2卫-166.0㎡</h3>
@@ -46,11 +155,32 @@
                 </div>
             </div>
         </div>
+        <div class="line"></div>
+        <!--房源描述-->
+        <div class="fy-desc">
+            <h3 class="titleMargin">房源描述</h3>
+            <p>
+                编号： BJZRGY0818176793_01
+                周边：区内部生活超市、各种餐饮相对齐全，各种生活百货也相对齐全，可以满足您的生活需求；距离双桥仅仅一个地铁站，国泰百货购物中心，永辉超市，东星时尚商场，电影院等可以满足您的生
+                交通：距离双桥地铁站很近，步行十五分钟即可到达，乘坐地铁很方便；如果您喜欢乘坐公交出行，小区门口有公交直达传媒大学地铁站，附近也有多量公交车到四惠国贸。交通便利，方便您出行，给你自由路线！
+            </p>
+        </div>
+        <div class="line mt30"></div>
+        <!--相似房源-->
+        <div class="fy-list">
+            <h3 class="titleMargin">相似房源</h3>
+            <div class="list">
+                <div class="wrap">
+                    <room-item v-for="i in 10" v-on:click.native="toRoomDetail"></room-item>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     import slideImg from './components/slideImg'
+    import roomItem from 'template/roomListItem'
 
     export default {
         name: "roomDetail",
@@ -75,8 +205,15 @@
                 ]
             }
         },
+        methods: {
+            // 跳转至详情
+            toRoomDetail() {
+                this.$router.push('/roomDetail')
+            }
+        },
         components: {
-            slideImg
+            slideImg,
+            roomItem
         }
     }
 </script>
@@ -102,6 +239,7 @@
             width: 460px;
         }
         .title {
+            margin-top: 0;
             font-size: 20px;
         }
         .sub-title {
@@ -194,5 +332,127 @@
             }
         }
     }
+    i.icon {
+        display: inline-block;
+        background-image:url(~assets/fang-ico.png);
+        &.fang{
+            width: 44px;
+            height: 44px;
+            background-position: 0 -586px;
+            background-repeat: no-repeat;
+        }
+        &.fangdong{
+            width: 44px;
+            height: 44px;
+            background-position: 0 -309px;
+            background-repeat: no-repeat;
+        }
+        &.baozhang{
+            width: 44px;
+            height: 44px;
+            background-position: 0 -489px;
+            background-repeat: no-repeat;
+        }
+        &.more{
+            width: 44px;
+            height: 44px;
+            background-position: 0 -222px;
+            background-repeat: no-repeat;
+        }
+        &.code{
+            width: 18px;
+            height: 18px;
+            background-position: 0 0;
+        }
+    }
 
+    .pingtai-wrap{
+        h3{
+
+        }
+        .icons{
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            background-color: #f1f1f1;
+            .icon-item{
+                .icon{
+                    margin-right: 10px;
+                    vertical-align: middle;
+                }
+                span{
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+
+    .titleMargin{
+        font-size: 24px;
+        margin: 25px 0;
+    }
+    .fangyuan-wrap{
+        .inf{
+            font-size: 14px;
+            .code{
+                line-height: 30px;
+                i{
+                    vertical-align: middle;
+                }
+                span{
+                    vertical-align: middle;
+                }
+            }
+            .fy-text{
+                line-height: 30px;
+                span{
+                    display: inline-block;
+                    width: 280px;
+                }
+            }
+        }
+    }
+    .fypz{
+        .fypz-list{
+            display: flex;
+            flex-wrap: wrap;
+            li{
+                margin-bottom: 10px;
+                margin-right: 24px;
+                text-align: center;
+                font-size: 12px;
+                i{
+                    display: block;
+                    width: 40px;
+                    height: 40px;
+                    background-size: cover;
+                    margin: 0px auto 13px;
+                }
+            }
+        }
+    }
+    .fy-desc{
+        p{
+
+        }
+    }
+    .fy-list{
+        .list{
+            overflow: hidden;
+            padding-top: 3px;
+            padding-left: 3px;
+            .wrap{
+                width: 1230px;
+                display: flex;
+                flex-wrap: wrap;
+
+            }
+        }
+    }
+    .line{
+        border-bottom:1px solid #ccc;
+    }
+    .mt30{
+        margin-top: 30px !important;
+    }
 </style>

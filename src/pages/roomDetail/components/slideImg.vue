@@ -15,14 +15,14 @@
             <!--蒙层-->
             <div class="img-cover">
                 <div class="num">
-                    1 / {{dataList.length}}
+                    {{slideIndex + 1}} / {{dataList.length}}
                 </div>
             </div>
         </div>
 
         <!--轮播小图-->
         <swiper class="swiper-wrap-small" :options="swiperOptionSmall" ref="slideSmall">
-            <swiper-slide v-for="item in dataList">
+            <swiper-slide v-for="(item,index) in dataList">
                 <img v-bind:src="item.url">
             </swiper-slide>
         </swiper>
@@ -38,6 +38,9 @@
         data() {
             const self = this
             return {
+                slideLarge: undefined,
+                slideSmall: undefined,
+                slideIndex: -1,
                 swiperOptionLarge: {
                     // Enable lazy loading
                     lazy: true,
@@ -47,17 +50,31 @@
                         prevEl: '.swiper-button-prev'
                     },
                     on: {
-                        slideChange: self.slideLargeChange
+                        slideChange () {
+                            const index = self.slideLarge.activeIndex
+                            self.slideIndex = index
+                            // self.changeSlide(index)
+                        }
                     }
                 },
                 swiperOptionSmall: {
                     spaceBetween: 10,
                     // centeredSlides: true,
                     slidesPerView: 'auto',
-                    touchRatio: 0.2,
+                    touchRatio: 0.5,
+                    // slidesOffsetBefore: 0,
                     slideToClickedSlide: true,
                     on: {
-                        click: self.slideSmallClick
+                        init () {
+                            this.slides.css('opacity',0.5)
+                            this.slides[0].style.opacity = 1
+                        },
+                        click () {
+                            const index = self.slideSmall.clickedIndex
+                            self.slideLarge.slideTo(index, 300, false)
+                            // self.changeSlide(index)
+
+                        }
                     }
                 }
             }
@@ -67,16 +84,20 @@
         },
         mounted() {
             this.$nextTick(() => {
-
+                this.slideLarge = this.$refs.slideLarge.swiper
+                this.slideSmall = this.$refs.slideSmall.swiper
+                // this.slideLarge.controller.control = this.slideSmall
+                // this.slideSmall.controller.control = this.slideLarge
             })
         },
-        methods: {
-            slideLargeChange (event) {
-                console.log(event)
-            },
-            slideSmallClick () {
-
+        watch: {
+            slideIndex (newVal,oldVal) {
+                this.slideSmall.slides.css('opacity',0.5)
+                this.slideSmall.slides[newVal].style.opacity = 1
             }
+        },
+        methods: {
+
         },
         components: {
             swiper,
@@ -124,6 +145,7 @@
         margin-top: 10px;
         .swiper-slide {
             width: 90px;
+            opacity: 0.5;
             img {
                 width: 90px;
                 height: 56px;
