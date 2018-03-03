@@ -36,15 +36,23 @@
                 theme1: 'light'
             }
         },
+
         methods: {
             // 跳转至详情
+            
             toRoomDetail() {
-                this.$router.push('/roomDetail')
+                this.$Spin.show();
+                setTimeout(() => {
+                    this.$Spin.hide();
+                    this.$router.push('/roomDetail')
+                }, 800);
+
             }
         },
         components: {
             roomItem
         }
+
     }
 </script>
 

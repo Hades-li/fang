@@ -3,8 +3,10 @@ import * as types from './mutation-types'
 import state from "./index"
 import axios from "axios"
 import qs from "qs"
+
 import router from "router"
 // import iView from "iView"
+
 
 export const actions = {
     // 登陆
@@ -37,18 +39,15 @@ export const actions = {
                     'mobile':data.user,
                     "password":data.password1,
                     "imgCode":'',
-                    "verificationCode":data.password3,
+                    "verificationCode":data.password,
                     "deviceType":"1"
                 }
         )).then(function (response) {
             if(response.data.success == false){
-                iView.Message.error({
-                    content:response.data.msg
-                })
+                alert(response.data.msg)
             }else if(response.data.success == true){
-                iView.Message.success({
-                    content:response.data.msg
-                })
+                alert(response.data.msg) 
+
             }
         }).catch(function (error) {
                 console.log(error);
@@ -65,9 +64,9 @@ export const actions = {
                 }
         )).then(function (response) {
                 if(response.data.success == false){
-                    iView.Message.error({
-                        content:response.data.msg
-                    })
+
+                    alert(response.data.msg) 
+
                 }else if(response.data.success == true){
 
                 }

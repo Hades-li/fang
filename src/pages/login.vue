@@ -2,7 +2,7 @@
   <div class="login">
 
     <div class="group_method" v-if="!register">
-      <span class="gohome"> 返回首页 </span>
+      <span class="gohome" @click="gohome()"> 返回首页 </span>
       <span class="rsgister"  @click="gologin()"> 注册账号 </span>
       <div class="tab_login">
         <span :class="login?'':'active'"  @click="changeLogin()" role="tab"> 账号登录 </span>
@@ -44,7 +44,7 @@
             
         </FormItem>
         <FormItem>
-            <Button class="btn" type="primary" @click="logingo('formInline2')">登陆</Button>
+            <Button class="btn" type="primary" @click="logingo(formInline2)">登陆</Button>
         </FormItem>
         </Form>
       </div>
@@ -52,7 +52,7 @@
 
     <div class="group_method method_2"  v-else>
         <h4> 注册 </h4>
-        <span class="gohome"> 返回首页 </span>
+        <span class="gohome"  @click="gohome()"> 返回首页 </span>
         <span class="rsgister" @click="gologin()"> 返回登陆 </span>
         <Form ref="formInline3" :model="formInline3" :rules="ruleInline3" >
         <FormItem prop="user">
@@ -143,18 +143,32 @@
       },
       toLoading (data) {
         this.loading = true;
-        this.smsMsg(data);
+        this.smsMsg(data);  
+
+
       },
       toLoading1(data){
         this.loading1 = true;
         this.smsMsg(data);
+        this.$Spin.show();
+        setTimeout(() => {
+
+        }, 800);
       },
       changeLogin(){
+
         this.login = !this.login;
         
       },
       gologin(){
          this.register = !this.register
+      },
+      gohome(){
+        this.$Spin.show();
+        setTimeout(() => {
+         this.$router.push({path: '/home'})
+          this.$Spin.hide();
+        }, 800);
       }
     },
     mounted() {

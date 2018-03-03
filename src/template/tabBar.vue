@@ -3,6 +3,7 @@
         <div class="tabBar_main">
             <div class="tb-left">
                 <img src="" alt="logo">
+                <a class="link" href="javascript:" @click="gopage('/home')">首页</a>
                 <div class="area">
                     <span>上海</span>
                     <Icon type="arrow-down-b"></Icon>
@@ -10,12 +11,12 @@
                         <a href="javascript:" v-for="i in 10">上海</a>
                     </div>
                 </div>
-                <a class="link" href="">立即找房</a>
+                <a class="link" href="javascript:" @click="gopage('/HomeDetil')">立即找房</a>
             </div>
             <div class="tb-right">
-                <a href="javascript:" class="link">房东入驻</a>
-                <a href="javascript:" class="login-btn tenant">租客登录</a>
-                <a href="javascript:" class="login-btn landlord">房东登录</a>
+                <a href="javascript:" @click="gopage('/checkIn')" class="link">房东入驻</a>
+                <a href="javascript:" @click="gopage('/login')" class="login-btn tenant">租客登录</a>
+                <a href="javascript:" @click="gopage('/login')" class="login-btn landlord">房东登录</a>
             </div>
 
         </div>
@@ -30,6 +31,16 @@
                 "getTabBar"
             ])
         },
+        methods:{
+            gopage(url){
+                this.$Spin.show();
+                setTimeout(() => {
+                    this.$router.push({path: url})
+                    this.$Spin.hide();
+                }, 800);
+            }
+            
+        }
     }
 </script>
 
