@@ -39,12 +39,12 @@
 
         methods: {
             // 跳转至详情
-            
+
             toRoomDetail() {
                 this.$Spin.show();
                 setTimeout(() => {
                     this.$Spin.hide();
-                    this.$router.push('/roomDetail')
+                    this.$router.push('/roomDetail/1')
                 }, 800);
 
             }

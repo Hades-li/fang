@@ -36,6 +36,7 @@
             overflow: hidden;
             color:#000;
             transition: all 300ms;
+            cursor: pointer;
             &:hover{
                 box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
             }

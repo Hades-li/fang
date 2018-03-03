@@ -208,7 +208,7 @@
         methods: {
             // 跳转至详情
             toRoomDetail() {
-                this.$router.push('/roomDetail')
+                this.$router.push('/roomDetail/2')
             }
         },
         components: {

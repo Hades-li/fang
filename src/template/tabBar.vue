@@ -11,7 +11,7 @@
                         <a href="javascript:" v-for="i in 10">上海</a>
                     </div>
                 </div>
-                <a class="link" href="javascript:" @click="gopage('/HomeDetil')">立即找房</a>
+                <a class="link" href="javascript:" @click="gopage('/homeDetil')">立即找房</a>
             </div>
             <div class="tb-right">
                 <a href="javascript:" @click="gopage('/checkIn')" class="link">房东入驻</a>
@@ -39,7 +39,7 @@
                     this.$Spin.hide();
                 }, 800);
             }
-            
+
         }
     }
 </script>
