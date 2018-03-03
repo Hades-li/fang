@@ -7,9 +7,17 @@
 </template>
 
 <script>
+  import { mapActions } from "vuex"
   export default {
     name: 'app',
-
+    created(){
+      // this.login()
+    },
+    methods:{
+      ...mapActions([
+        "login"
+      ])
+    }
   }
 </script>
 

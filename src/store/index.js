@@ -9,7 +9,8 @@ import * as getters from './getters'
 Vue.use(Vuex);
 
 const state = {
-  tabBar:666
+  tabBar:666,
+  MainUrl:"http://120.79.140.174:10080/"
 };
 
 export default new Vuex.Store({
