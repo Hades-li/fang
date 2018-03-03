@@ -1,9 +1,9 @@
 <template>
   <div class="login">
 
-    <div class="group_method">
+    <div class="group_method" v-if="!register">
       <span class="gohome"> 返回首页 </span>
-      <span class="rsgister"> 注册账号 </span>
+      <span class="rsgister"  @click="gologin()"> 注册账号 </span>
       <div class="tab_login">
         <span :class="login?'':'active'"  @click="changeLogin()" role="tab"> 账号登录 </span>
         <span :class="login?'active':''"  @click="changeLogin()"  role="tab" > 验证码登录  </span>
@@ -21,7 +21,7 @@
                 <Icon type="ios-locked-outline" slot="prepend"></Icon>
             </Input>
         </FormItem>
-        <Button class="btn" type="primary" @click="handleSubmit('formInline1')"> 登陆 </Button>
+        <Button class="btn" type="primary" @click="logingo('formInline1')"> 登陆 </Button>
         </Form>
       </div>
       
@@ -37,47 +37,76 @@
             <Input type="password" v-model="formInline2.password" placeholder="验证码">
                 <Icon type="ios-locked-outline" slot="prepend"></Icon>
             </Input>
-            <Button class="password_primary" type="primary" :loading="loading" @click="toLoading">
+            <Button class="password_primary" type="primary" :loading="loading" @click="toLoading({'mobile':formInline1.user,'sms_type':3})">
               <span v-if="!loading">获取验证码</span>
               <span v-else>59秒后获取</span>
             </Button>
             
         </FormItem>
         <FormItem>
-            <Button class="btn" type="primary" @click="handleSubmit('formInline2')">登陆</Button>
+            <Button class="btn" type="primary" @click="logingo('formInline2')">登陆</Button>
         </FormItem>
         </Form>
       </div>
+    </div>
 
+    <div class="group_method method_2"  v-else>
+        <h4> 注册 </h4>
+        <span class="gohome"> 返回首页 </span>
+        <span class="rsgister" @click="gologin()"> 返回登陆 </span>
+        <Form ref="formInline3" :model="formInline3" :rules="ruleInline3" >
+        <FormItem prop="user">
+            <Input type="text" v-model="formInline3.user" placeholder="手机号码">
+                <Icon type="ios-person-outline" slot="prepend"></Icon>
+            </Input>
+        </FormItem>
+        <FormItem prop="password">
+            <Input type="password" v-model="formInline3.password1" placeholder="密码">
+                <Icon type="ios-locked-outline" slot="prepend"></Icon>
+            </Input>
+        </FormItem>
 
+        <FormItem class="from2_password" prop="password" inline>
 
+            <Input type="password" v-model="formInline3.password3" placeholder="验证码">
+                <Icon type="ios-locked-outline" slot="prepend"></Icon>
+            </Input>
+            <Button class="password_primary" type="primary" :loading="loading1" @click="toLoading1({'mobile':formInline3.user,'sms_type':1})">
+              <span v-if="!loading1">获取验证码</span>
+              <span v-else>59秒后获取</span>
+            </Button>
+            
+        </FormItem>
+
+        <Button class="btn" type="primary" @click="registers(formInline3)"> 注册 </Button>
+        </Form>
     </div>
 
   </div>
 
 </template>
 <script>
-
-  import axios from 'axios'
-  import Qs from 'qs'
+  import { mapActions } from "vuex"
 
   export default {
     data () {
       return {
+        register:false,
         login:false,
         loading: false,
+        loading1:false,
         formInline1: {
           user: '',
           password: ''
         },
         ruleInline1: {
-          user: [
-            { required: true, message: '请您填写账号', trigger: 'blur' }
-          ],
-          password: [
-              { required: true, message: '请您填写密码', trigger: 'blur' },
-              { type: 'string', min: 6, message: '密码最少6为字符', trigger: 'blur' }
-            ]
+          // user: [
+          //   { required: true, message: '请您填写账号', trigger: 'blur' }
+          // ],
+          // password: [
+          //     { required: true, message: '请您填写密码', trigger: 'blur' },
+          //     { type: 'string', min: 6, message: '密码最少6为字符', trigger: 'blur' }
+          //   ]
         },
 
         formInline2: {
@@ -85,35 +114,51 @@
           password: ''
         },
         ruleInline2: {
-          user: [
-            { required: true, message: '请输入手机号', trigger: 'blur' },
-            { type: 'string', len: 11, message: '请输入正确手机号码', trigger: 'blur' }
-          ],
-          password: [
-              { required: true, message: '请输入验证码', trigger: 'blur' },
-              { type: 'string', len: 4, message: '验证码4为字符', trigger: 'blur' }
-            ]
+         
         },
-
+        
+        formInline3: {
+          user: '',
+          password1: '',
+          password2:'',
+          password3: '',
+        },
+        ruleInline3: {
+         
+        },
 
       }
     },
     methods: {
+      ...mapActions([
+        "logingo",
+        "registers",
+        "smsMsg"
+      ]),
       handleSubmit(name) {
 
       },
       formLoginReset(name){
 
       },
-      toLoading () {
+      toLoading (data) {
         this.loading = true;
+        this.smsMsg(data);
+      },
+      toLoading1(data){
+        this.loading1 = true;
+        this.smsMsg(data);
       },
       changeLogin(){
         this.login = !this.login;
+        
+      },
+      gologin(){
+         this.register = !this.register
       }
     },
     mounted() {
-
+     
     }
   }
 </script>
@@ -194,5 +239,14 @@
   }
   .password_primary{
     width: 40%;
+  }
+  .method_2{
+    padding:20px 50px;
+  }
+  .method_2 h4{
+    color: #f65000;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
   }
 </style>
