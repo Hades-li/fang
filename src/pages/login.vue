@@ -21,7 +21,7 @@
                 <Icon type="ios-locked-outline" slot="prepend"></Icon>
             </Input>
         </FormItem>
-        <Button class="btn" type="primary" @click="logingo('formInline1')"> 登陆 </Button>
+        <Button class="btn" type="primary" @click="logingo(formInline1)"> 登陆 </Button>
         </Form>
       </div>
       
@@ -34,7 +34,7 @@
         </FormItem>
         <FormItem class="from2_password" prop="password" inline>
 
-            <Input type="password" v-model="formInline2.password" placeholder="验证码">
+            <Input type="password" v-model="formInline2.smsCode" placeholder="验证码">
                 <Icon type="ios-locked-outline" slot="prepend"></Icon>
             </Input>
             <Button class="password_primary" type="primary" :loading="loading" @click="toLoading({'mobile':formInline1.user,'sms_type':3})">
@@ -97,7 +97,10 @@
         loading1:false,
         formInline1: {
           user: '',
-          password: ''
+          password: '',
+          smsCode:'',
+          type:2,
+          deviceType:"1"
         },
         ruleInline1: {
           // user: [
@@ -111,7 +114,10 @@
 
         formInline2: {
           user: '',
-          password: ''
+          password: '',
+          smsCode:'',
+          type:2,
+          deviceType:"1"
         },
         ruleInline2: {
          

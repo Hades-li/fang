@@ -9,17 +9,17 @@ import router from "router"
 
 
 export const actions = {
-    // 登陆
+    // 登陆 15913351558 234567
     logingo(context,data){
         axios.post(
             state.state.MainUrl + '/index?opt=100',
             qs.stringify(
                 {
-                    'mobile': 15913351558,
-                    "password":234567,
-                    "smsCode":'',
-                    "type":2,
-                    "deviceType":"1"
+                    'mobile': data.user,
+                    "password":data.password,
+                    "smsCode":data.smsCode,
+                    "type":data.type,
+                    "deviceType":data.deviceType
                 }
         )).then(function (response) {
                 console.log(response);

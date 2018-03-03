@@ -26,7 +26,7 @@
 
       <div class="HomeDetil_list"> 
         <ul>
-          <li v-for="i in 8"> 
+          <li v-for="i in 8" @click="pagego()"> 
             <img src="http://image.mgzf.com/imagefile/room/9/1/7219/7219_1426038499639.jpg!pc.list" alt=""> 
             <div> 
               <h3> 宝山区-龙湖北城天街 </h3>
@@ -56,7 +56,14 @@ export default{
   methods:{
     ...mapActions([
       "changeTabBar"
-    ])
+    ]),
+    pagego(){
+        this.$Spin.show();
+        setTimeout(() => {
+         this.$router.push({path: '/roomDetail'})
+          this.$Spin.hide();
+        }, 800);
+    }
   }    
 }
 </script>
