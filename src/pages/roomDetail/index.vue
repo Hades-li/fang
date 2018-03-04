@@ -210,7 +210,9 @@
             }
         },
         mounted () {
-            console.log(this.$host)
+            this.$store.dispatch('roomDetail/reqData', {
+                id: 1
+            })
         },
         methods: {
             // 跳转至详情
