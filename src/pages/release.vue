@@ -35,7 +35,7 @@
                 <Input v-model="formRight.input3"></Input>
             </FormItem>
             <FormItem label="上传图片">
-                <Input v-model="formRight.input3"></Input>
+                <upload></upload>
             </FormItem>
             <FormItem >
                 <Button type="primary">提交</Button>
@@ -50,6 +50,7 @@
 <script>
 
 import userTab from "../template/userTab"
+import upload from "../template/upload/index"
 export default{
   data(){
     return{
@@ -109,6 +110,7 @@ export default{
   },
   components:{
     userTab,
+    upload
   },
   created(){
     
