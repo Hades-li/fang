@@ -16,6 +16,8 @@ const register = () => import('pages/register')
 const roomDetail = () => import('pages/roomDetail')
 // 成为房东
 const checkIn = () => import('pages/checkIn')
+// 发布房源
+const release = () => import('pages/release')
 
 Vue.use(Router);
 
@@ -54,6 +56,9 @@ const routes = [
         },{
             path: 'checkIn',
             component: checkIn
+        },{
+            path: 'release',
+            component: release
         }]
     },
     {

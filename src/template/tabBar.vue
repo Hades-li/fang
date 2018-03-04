@@ -2,7 +2,7 @@
     <div class="tabBar">
         <div class="tabBar_main">
             <div class="tb-left">
-                <img src="" alt="logo">
+                <img src="../assets/logo.png" alt="logo">
                 <a class="link" href="javascript:" @click="gopage('/home')">首页</a>
                 <div class="area">
                     <span>上海</span>
@@ -13,12 +13,16 @@
                 </div>
                 <a class="link" href="javascript:" @click="gopage('/homeDetil')">立即找房</a>
             </div>
-            <div class="tb-right">
+            <!-- v-if="getuserIfo == null?true:false" -->
+            <div class="tb-right" >
                 <a href="javascript:" @click="gopage('/checkIn')" class="link">房东入驻</a>
                 <a href="javascript:" @click="gopage('/login')" class="login-btn tenant">租客登录</a>
                 <a href="javascript:" @click="gopage('/login')" class="login-btn landlord">房东登录</a>
             </div>
-
+            <!-- <div class="tb-right" v-else>
+                <a href="javascript:" @click="gopage('/checkIn')" style="margin-right: 10px;" class="link"> 房东入驻 </a>
+                <a href="javascript:" @click="gopage('/checkIn')" class="link"> 用户中心 </a>
+            </div> -->
         </div>
     </div>
 </template>
@@ -28,8 +32,11 @@
     export default {
         computed: {
             ...mapGetters([
-                "getTabBar"
+                // "getuserIfo"
             ])
+        },
+        created(){
+            // console.log(this.getuserIfo)
         },
         methods:{
             gopage(url){
@@ -66,7 +73,6 @@
         align-items: center;
         height: 100%;
         img {
-            width: 112px;
             height: 100%;
             background-color: #666;
         }
