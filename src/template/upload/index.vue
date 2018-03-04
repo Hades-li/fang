@@ -17,6 +17,16 @@
 <script>
     export default {
         name: "upload",
+        props: {
+            value: {
+                type: Array
+            }
+        },
+        watch: {
+            imgFiles(newValue) {
+                this.$emit('input', newValue);
+            }
+        },
         data () {
             return {
                 imgFiles: []

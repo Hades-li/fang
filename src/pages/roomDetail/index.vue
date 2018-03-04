@@ -176,7 +176,7 @@
             </div>
         </div>
         <!--测试上传按钮-->
-        <upload-btn></upload-btn>
+        <upload-btn v-model="imgFiles"></upload-btn>
     </div>
 </template>
 
@@ -189,6 +189,7 @@
         name: "roomDetail",
         data() {
             return {
+                imgFiles: [],
                 dataList: [
                     {
                         url: 'https://image.mgzf.com/mogoroom/2016-12/room/8/0/168/168_1481419664357.jpg'
