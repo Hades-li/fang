@@ -2,7 +2,7 @@
     <div class="tabBar">
         <div class="tabBar_main">
             <div class="tb-left">
-                <img src="" alt="logo">
+                <img src="../assets/logo.png" alt="logo">
                 <a class="link" href="javascript:" @click="gopage('/home')">首页</a>
                 <div class="area">
                     <span>上海</span>
@@ -73,7 +73,6 @@
         align-items: center;
         height: 100%;
         img {
-            width: 112px;
             height: 100%;
             background-color: #666;
         }
