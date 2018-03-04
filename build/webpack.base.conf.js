@@ -34,7 +34,11 @@ const webpackConfig = {
             'plugins': resolve('src/plugins')
         }
     },
+    externals: {
+        'AMap': 'AMap',
+    },
     module: {
+
         rules: [
 
             {

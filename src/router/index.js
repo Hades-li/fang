@@ -18,6 +18,8 @@ const roomDetail = () => import('pages/roomDetail')
 const checkIn = () => import('pages/checkIn')
 // 发布房源
 const release = () => import('pages/release')
+//地图找房
+const map = () => import("pages/map")
 
 Vue.use(Router);
 
@@ -59,6 +61,9 @@ const routes = [
         },{
             path: 'release',
             component: release
+        },{
+            path: 'map',
+            component: map
         }]
     },
     {
