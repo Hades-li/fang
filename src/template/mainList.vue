@@ -1,25 +1,15 @@
 <template>
     <div class="mainList">
-        <div class="mainList_div" v-for="i in 3">
+        <div class="mainList_div" >
             <h1 class="title"> 热门房源 </h1>
             <Menu class="menu" mode="horizontal" :theme="theme1" active-name="1">
                 <MenuItem name="1">
-
                     放心租
-                </MenuItem>
-                <MenuItem name="2">
-
-                    就不放心租
-                </MenuItem>
-
-                <MenuItem name="4">
-
-                    尼玛放心租
                 </MenuItem>
             </Menu>
             <div class="mainList_ul">
                 <div class="list">
-                    <room-item v-for="i in 7" v-on:click.native="toRoomDetail"></room-item>
+                    <room-item v-for="item in getHouseList"  v-on:click.native="toRoomDetail(item.id)" v-bind:data="item"></room-item>
                 </div>
             </div>
         </div>
@@ -28,7 +18,7 @@
 
 <script>
     import roomItem from 'template/roomListItem'
-
+    import { mapActions , mapGetters} from 'vuex'
     export default {
         name: 'mainList',
         data() {
@@ -36,15 +26,24 @@
                 theme1: 'light'
             }
         },
-
+        created(){
+            this.setHouseList(1) 
+        },
+        computed:{
+            ...mapGetters([
+               "getHouseList"
+            ])
+        },
         methods: {
-            // 跳转至详情
-
-            toRoomDetail() {
+             ...mapActions([
+                "setHouseList"
+            ]),
+             // 跳转至详情
+            toRoomDetail(id) {
                 this.$Spin.show();
                 setTimeout(() => {
                     this.$Spin.hide();
-                    this.$router.push('/roomDetail/1')
+                    this.$router.push({path:'/roomDetail/1',query:{id: id}})
                 }, 800);
 
             }

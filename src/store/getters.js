@@ -2,10 +2,12 @@
 export const getTabBar = state => {
     return state.tabBar
 }
-export const getuserIfo = state =>{
-    return state.set_user_Info
+export const getBnner = state =>{
+    return state.banner_list
 }
-
+export const getHouseList = state =>{
+    return state.house_list
+}
 
 
 
