@@ -27,7 +27,7 @@
             }
         },
         created(){
-            this.setHouseList(1) 
+            this.setHouseList(1)
         },
         computed:{
             ...mapGetters([
@@ -43,7 +43,7 @@
                 this.$Spin.show();
                 setTimeout(() => {
                     this.$Spin.hide();
-                    this.$router.push({path:'/roomDetail/1',query:{id: id}})
+                    this.$router.push({path:'/roomDetail',query:{id: id}})
                 }, 800);
 
             }

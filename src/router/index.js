@@ -51,7 +51,7 @@ const routes = [
             path: 'adminHouseMgt',
             component: adminHouseMgt
         },{
-            path:'/roomDetail/:id',
+            path:'/roomDetail',
             component: roomDetail
         },{
             path: 'checkIn',

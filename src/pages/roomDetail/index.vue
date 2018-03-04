@@ -1,8 +1,10 @@
 <template>
     <div class="room-detail" v-if="roomData">
         <Breadcrumb separator="->" class="bread">
-            <BreadcrumbItem to="/">什么区</BreadcrumbItem>
-            <BreadcrumbItem> XX 小区</BreadcrumbItem>
+            <BreadcrumbItem to="/">首页</BreadcrumbItem>
+            <BreadcrumbItem v-bind:to="`/homeDetil?key=${roomData.houseInfoVo.addressCounty}区`">{{roomData.houseInfoVo.addressCounty}}区</BreadcrumbItem>
+            <BreadcrumbItem v-bind:to="`/homeDetil?key=${roomData.houseInfoVo.addressHousingEstate}`">{{roomData.houseInfoVo.addressHousingEstate}}</BreadcrumbItem>
+            <BreadcrumbItem>当前房源</BreadcrumbItem>
         </Breadcrumb>
         <div class="detail-wrap clearfix">
             <div class="detail-left">
@@ -149,10 +151,10 @@
                 <div class="landlord-inf clearfix">
                     <img v-bind:src="roomData.userInfo.headImg" alt="">
                     <div class="inf-text">
-                        <div class="name">{{roomData.userInfo.realName}}</div>
+                        <div class="name">{{roomData.houseInfoVo.contacts}}</div>
                         <div class="phone">
                             <Icon class="icon-phone" type="ios-telephone"></Icon>
-                            {{roomData.userInfo.mobile}}
+                            {{roomData.houseInfoVo.contactsPhone}}
                         </div>
                     </div>
                     <Button class="yuyue-btn" style="font-size:16px; width: 218px; height: 46px" type="primary"
@@ -198,29 +200,13 @@
                     3: '半年付',
                     4: '年付',
                     5: '一次性付'
-                },
-                dataList: [
-                    {
-                        url: 'https://image.mgzf.com/mogoroom/2016-12/room/8/0/168/168_1481419664357.jpg'
-                    },
-                    {
-                        url: 'https://image.mgzf.com/mogoroom/2016-12/room/8/0/168/168_1481419946388.jpg'
-                    },
-                    {
-                        url: 'https://image.mgzf.com/mogoroom/2016-12/room/8/0/168/168_1481419664357.jpg'
-                    },
-                    {
-                        url: 'https://image.mgzf.com/mogoroom/2016-12/room/8/0/168/168_1481419946388.jpg'
-                    },
-                    {
-                        url: 'https://image.mgzf.com/mogoroom/2016-12/room/8/0/168/168_1481419664357.jpg'
-                    }
-                ]
+                }
             }
         },
         mounted() {
+            console.log(this.$route.query)
             this.$store.dispatch('roomDetail/reqData', {
-                id: 1
+                id: this.$route.query.id
             })
         },
         computed: {
@@ -272,7 +258,7 @@
         methods: {
             // 跳转至详情
             toRoomDetail() {
-                this.$router.push('/roomDetail/2')
+                this.$router.push('/roomDetail')
             }
         },
         components: {
