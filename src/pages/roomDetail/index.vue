@@ -205,6 +205,9 @@
                 ]
             }
         },
+        mounted () {
+            console.log(this.$cookie.get('1234'))
+        },
         methods: {
             // 跳转至详情
             toRoomDetail() {
