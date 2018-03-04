@@ -7,7 +7,7 @@ import qs from "qs"
 import router from "router"
 // import iView from "iView"
 
-
+// document.cookie = 'key=value'; 
 export const actions = {
     // 登陆 15913351558 234567
     logingo(context,data){
@@ -22,9 +22,12 @@ export const actions = {
                     "deviceType":data.deviceType
                 }
         )).then(function (response) {
-                console.log(response);
-                // router.go({name:"home"})
+            if(response.data.success == true){
                 router.push({path: '/home'});
+                // context.commit('SET_USER_IOFN', response.data)
+            }else{
+                alert(response.data.msg)
+            }
         }).catch(function (error) {
                 console.log(error);
         });
@@ -86,7 +89,10 @@ export const actions = {
 export const mutations = {
     [types.SET_TABBAR] (state,{tabBar}){
         state.tabBar = tabBar
-    }
+    },
+    // [types.SET_USER_IOFN](state,data){
+    //     state.set_user_Info = data
+    // }
 };
 
 
