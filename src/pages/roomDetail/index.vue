@@ -175,12 +175,15 @@
                 </div>
             </div>
         </div>
+        <!--测试上传按钮-->
+        <upload-btn></upload-btn>
     </div>
 </template>
 
 <script>
     import slideImg from './components/slideImg'
     import roomItem from 'template/roomListItem'
+    import uploadBtn from 'template/upload'
 
     export default {
         name: "roomDetail",
@@ -206,7 +209,7 @@
             }
         },
         mounted () {
-            console.log(this.$cookie.get('1234'))
+            console.log(this.$host)
         },
         methods: {
             // 跳转至详情
@@ -216,7 +219,8 @@
         },
         components: {
             slideImg,
-            roomItem
+            roomItem,
+            uploadBtn
         }
     }
 </script>

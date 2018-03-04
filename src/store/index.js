@@ -3,19 +3,24 @@
  */
 import Vuex from 'vuex'
 import Vue from 'vue'
-import {actions,mutations}from './actions'
+import {actions, mutations} from './actions'
 import * as getters from './getters'
+import roomDetail from './modules/roomDetail'
 
 Vue.use(Vuex);
 
 const state = {
-  tabBar:666,
-  MainUrl:"http://120.79.140.174:10080/"
+    tabBar: 666,
+    MainUrl: "http://120.79.140.174:10080/"
 };
 
 export default new Vuex.Store({
-  state,
-  getters,
-  actions,
-  mutations,
+    strict: process.env.NODE_ENV !== 'production',
+    state,
+    getters,
+    actions,
+    mutations,
+    modules:{
+        roomDetail
+    }
 })
