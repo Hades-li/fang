@@ -1,35 +1,13 @@
 <template>
     <div class="banner_s">
         <Carousel class="banner" loop autoplay>
-            <CarouselItem>
+            <CarouselItem v-for="item in getBnner">
                 <div class="demo-carousel">
                     <img class="banner_img"
-                         src="https://a0.muscache.com/im/pictures/6480447/b7ad1b90_original.jpg?aki_policy=x_large"
+                         :src="item.imageUrl"
                          alt="">
                 </div>
             </CarouselItem>
-            <CarouselItem>
-                <div class="demo-carousel">
-                    <img class="banner_img"
-                         src="https://a0.muscache.com/im/pictures/6480365/4d89fd9c_original.jpg?aki_policy=xx_large"
-                         alt="">
-                </div>
-            </CarouselItem>
-            <CarouselItem>
-                <div class="demo-carousel">
-                    <img class="banner_img"
-                         src="https://a0.muscache.com/im/pictures/6471439/1d1ce1d7_original.jpg?aki_policy=x_large"
-                         alt="">
-                </div>
-            </CarouselItem>
-            <CarouselItem>
-                <div class="demo-carousel">
-                    <img class="banner_img"
-                         src="https://a0.muscache.com/im/pictures/6470168/d1dbdb25_original.jpg?aki_policy=x_large"
-                         alt="">
-                </div>
-            </CarouselItem>
-
         </Carousel>
         <div class="seach">
             <div class="seach_main">
@@ -43,6 +21,7 @@
     </div>
 </template>
 <script>
+    import { mapActions,mapGetters } from "vuex"
     export default {
         data() {
             return {
@@ -77,6 +56,20 @@
                 model3: '',
 
             }
+        },
+        created(){
+            this.setBanner()
+        },
+        
+        computed:{
+            ...mapGetters([
+                "getBnner"
+            ])
+        },
+        methods:{
+            ...mapActions([
+                "setBanner"
+            ])
         }
     }
 </script>

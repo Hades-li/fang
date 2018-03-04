@@ -1,26 +1,45 @@
 <template>
+    <div>
     <div class="roomItem">
         <div class="item-content">
             <img style="height: 178px;width: 282px;"
                  src="http://image.mgzf.com/mogoroom/2018-01/mogoWeixin/9/1/3120619/3120619_1516100301211.jpg!pc.list">
             <div class="item-inf">
                 <div class="money">
-                    2456 <span>元/月</span>
+                    {{ data.houseRental }} <span>元/月</span>
                 </div>
                 <div class="text">
-                    嘉定区-索纳特酒店公寓（曹安店）-1室1厅1卫-35.0㎡
+                    {{ data.addressCity }} {{ data.addressCounty }} {{ data.addressArea }} {{ data.addressInfo}}
+                    <!-- 嘉定区-索纳特酒店公寓（曹安店）-1室1厅1卫-35.0㎡ -->
                 </div>
                 <div class="sub-text">
-                    宜家装修风格，温馨舒适
+                    {{ data.ancillaryFacilities }},{{ data.apartmentConvention }}
                 </div>
             </div>
         </div>
     </div>
+    </div>
+
 </template>
 
 <script>
+ 
+
     export default {
         name: "room-list-item",
+        data(){
+            return{
+
+            }
+        },
+        props:{
+          data:[Object]  
+        },
+
+
+        methods:{
+
+        }
     }
 </script>
 

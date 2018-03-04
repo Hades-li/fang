@@ -78,6 +78,35 @@ export const actions = {
                 console.log(error);
         });
     },
+    // 首页banenr
+    setBanner(context){
+        axios.post(state.state.MainUrl + '/index?opt=1000')
+            .then(function (response) {
+                response.data.success == false?alert(response.data.msg):context.commit('SET_BANNER', response.data.data)
+        }).catch(function (error) {
+                console.log(error);
+        });
+    },
+
+    // 房源列表  type列表类型
+    setHouseList(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=300',
+            qs.stringify(
+                {
+                    'type':type,
+                    "distance":800,
+                    "currPage":1,
+                    "pageSize":20,
+                    "longitude":"",
+                    "latitude":""
+                }
+        )).then(function (response) {
+            response.data.success == false?alert(response.data.msg):context.commit('SET_HOUSE_LIST', response.data.data)
+        }).catch(function (error) {
+                console.log(error);
+        });
+    },
 
     changeTabBar(context,tabBar){
         context.commit(types.SET_TABBAR,{
@@ -90,9 +119,12 @@ export const mutations = {
     [types.SET_TABBAR] (state,{tabBar}){
         state.tabBar = tabBar
     },
-    // [types.SET_USER_IOFN](state,data){
-    //     state.set_user_Info = data
-    // }
+    [types.SET_BANNER](state,data){
+        state.banner_list = data
+    },
+    [types.SET_HOUSE_LIST](state,data){
+        state.house_list = data
+    }
 };
 
 
