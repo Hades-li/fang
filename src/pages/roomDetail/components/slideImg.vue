@@ -67,7 +67,7 @@
                     on: {
                         init () {
                             this.slides.css('opacity',0.5)
-                            this.slides[0].style.opacity = 1
+                            this.slides.eq(0).css('opacity', 1)
                         },
                         click () {
                             const index = self.slideSmall.clickedIndex

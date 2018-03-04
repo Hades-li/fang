@@ -5,9 +5,7 @@ import {host,api} from 'plugins/tools'
 export default {
     namespaced: true,
     state: {
-        data: {
-
-        }
+        data: undefined
     },
     mutations: {
         setData(state, data) {

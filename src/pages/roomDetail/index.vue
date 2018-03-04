@@ -1,5 +1,5 @@
 <template>
-    <div class="room-detail">
+    <div class="room-detail" v-if="roomData">
         <Breadcrumb separator="->" class="bread">
             <BreadcrumbItem to="/">什么区</BreadcrumbItem>
             <BreadcrumbItem> XX 小区</BreadcrumbItem>
@@ -7,7 +7,7 @@
         <div class="detail-wrap clearfix">
             <div class="detail-left">
                 <!--图片滚动组件-->
-                <slide-img v-bind:dataList="dataList"></slide-img>
+                <slide-img v-bind:dataList="picList"></slide-img>
                 <!--平台保障-->
                 <div class="pingtai-wrap">
                     <h3 class="titleMargin">平台保障</h3>
@@ -52,15 +52,21 @@
                     <div class="inf">
                         <div class="code">
                             <i class="icon code"></i>
-                            <span>编号：0111017838A</span>
+                            <span>编号：{{roomData.houseInfoVo.houseNo}}</span>
                         </div>
                         <div class="fy-text">
-                            <span>户型： 5室3厅2卫</span>
-                            <span>面积： 166.0㎡</span>
+                            <span>户型：
+                                {{roomData.houseInfoVo.houseTypeRoomCount}}室
+                                {{roomData.houseInfoVo.houseTypeHallCount}}厅
+                                {{roomData.houseInfoVo.houseTypeKitchenCount}}厨
+                                {{roomData.houseInfoVo.houseTypeToiletCount}}卫
+                                {{roomData.houseInfoVo.houseTypeBalconyCount}}阳台
+                            </span>
+                            <span>面积： {{roomData.houseInfoVo.houseArea}}㎡</span>
                         </div>
                         <div class="fy-text">
-                            <span>类型： 小区公寓</span>
-                            <span>楼层：6/6层</span>
+                            <span>类型： {{houseType}}</span>
+                            <span>楼层：{{roomData.houseInfoVo.houseFloor}}/{{roomData.houseInfoVo.houseFloorMax}}层</span>
                         </div>
                     </div>
                 </div>
@@ -84,7 +90,7 @@
                         </li>
                         <li>
                             <i style="background-image:url(http://image.mgzf.com/common/roomdetail/web/roomconfig/highlight/wardrobeNum.png)"></i>
-                             衣柜
+                            衣柜
                         </li>
                         <li>
                             <i style="background-image:url(http://image.mgzf.com/common/roomdetail/web/roomconfig/highlight/veranda.png)"></i>
@@ -118,35 +124,35 @@
                 </div>
             </div>
             <div class="detail-right">
-                <h3 class="title">宝山区-好日子大家园A区-5室3厅2卫-166.0㎡</h3>
+                <h3 class="title">{{roomData.houseInfoVo.title}}</h3>
                 <div class="sub-title">
                     <Icon class="icon-pos" type="android-pin"></Icon>
-                    一二三告诉对方光合速率电咖啡壶
+                    {{`${roomData.houseInfoVo.addressProvince}省${roomData.houseInfoVo.addressCity}市${roomData.houseInfoVo.addressCounty}区${roomData.houseInfoVo.addressInfo}`}}
                 </div>
                 <div class="money-wrap">
                     <div class="text">
-                        付三
+                        {{ payType }}
                     </div>
                     <div class="price">
-                        5880
+                        {{roomData.houseInfoVo.houseRental}}
                         <span>元/月</span>
                     </div>
                 </div>
-                <div class="room-list">
-                    <h3>户型选择</h3>
-                    <ul>
-                        <li v-for="i in 10">
-                            1室1厅1卫-40㎡-Q型
-                        </li>
-                    </ul>
-                </div>
+                <!--<div class="room-list">-->
+                    <!--<h3>户型选择</h3>-->
+                    <!--<ul>-->
+                        <!--<li v-for="i in 10">-->
+                            <!--1室1厅1卫-40㎡-Q型-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</div>-->
                 <div class="landlord-inf clearfix">
-                    <img src="" alt="">
+                    <img v-bind:src="roomData.userInfo.headImg" alt="">
                     <div class="inf-text">
-                        <div class="name"> 李先生</div>
+                        <div class="name">{{roomData.userInfo.realName}}</div>
                         <div class="phone">
                             <Icon class="icon-phone" type="ios-telephone"></Icon>
-                            1234556654543
+                            {{roomData.userInfo.mobile}}
                         </div>
                     </div>
                     <Button class="yuyue-btn" style="font-size:16px; width: 218px; height: 46px" type="primary"
@@ -160,9 +166,7 @@
         <div class="fy-desc">
             <h3 class="titleMargin">房源描述</h3>
             <p>
-                编号： BJZRGY0818176793_01
-                周边：区内部生活超市、各种餐饮相对齐全，各种生活百货也相对齐全，可以满足您的生活需求；距离双桥仅仅一个地铁站，国泰百货购物中心，永辉超市，东星时尚商场，电影院等可以满足您的生
-                交通：距离双桥地铁站很近，步行十五分钟即可到达，乘坐地铁很方便；如果您喜欢乘坐公交出行，小区门口有公交直达传媒大学地铁站，附近也有多量公交车到四惠国贸。交通便利，方便您出行，给你自由路线！
+                {{roomData.houseInfoVo.houseContent}}
             </p>
         </div>
         <div class="line mt30"></div>
@@ -171,25 +175,30 @@
             <h3 class="titleMargin">相似房源</h3>
             <div class="list">
                 <div class="wrap">
-                    <room-item v-for="i in 10" v-on:click.native="toRoomDetail"></room-item>
+                    <!--<room-item v-for="i in 10" v-on:click.native="toRoomDetail"></room-item>-->
                 </div>
             </div>
         </div>
-        <!--测试上传按钮-->
-        <upload-btn v-model="imgFiles"></upload-btn>
     </div>
 </template>
 
 <script>
     import slideImg from './components/slideImg'
     import roomItem from 'template/roomListItem'
-    import uploadBtn from 'template/upload'
+    // import uploadBtn from 'template/upload'
 
     export default {
         name: "roomDetail",
         data() {
             return {
                 imgFiles: [],
+                payTypeParams: {
+                    1: '月付',
+                    2: '季付',
+                    3: '半年付',
+                    4: '年付',
+                    5: '一次性付'
+                },
                 dataList: [
                     {
                         url: 'https://image.mgzf.com/mogoroom/2016-12/room/8/0/168/168_1481419664357.jpg'
@@ -209,10 +218,56 @@
                 ]
             }
         },
-        mounted () {
+        mounted() {
             this.$store.dispatch('roomDetail/reqData', {
                 id: 1
             })
+        },
+        computed: {
+            roomData() {
+                return this.$store.state.roomDetail.data
+            },
+            picList() {
+                const list = []
+                if (this.roomData.housePictures) {
+                    this.roomData.housePictures.forEach((item) => {
+                        list.push({
+                            url: `${this.$host}${item.picture}`,
+                            desc: item.description
+                        })
+                    })
+                }
+                return list
+            },
+            payType() {
+                const type = {
+                    1: '月付',
+                    2: '季付',
+                    3: '半年付',
+                    4: '年付',
+                    5: '一次性付'
+                }
+                // parTypeParams[`${roomData.houseInfoVo.payType}`]
+                if (this.roomData.houseInfoVo.payType) {
+                    return type[`${this.roomData.houseInfoVo.payType}`]
+                } else {
+                    return ''
+                }
+            },
+            houseType() {
+                // 1住宅，2sohu公寓， 3外口公寓，4商办公寓
+                const type = {
+                    1: '住宅',
+                    2: 'sohu公寓',
+                    3: '外口公寓',
+                    4: '商办公寓'
+                }
+                if (this.roomData.houseInfoVo.houseType) {
+                    return type[`${this.roomData.houseInfoVo.houseType}`]
+                } else {
+                    return ''
+                }
+            }
         },
         methods: {
             // 跳转至详情
@@ -223,7 +278,7 @@
         components: {
             slideImg,
             roomItem,
-            uploadBtn
+            // uploadBtn
         }
     }
 </script>
@@ -342,96 +397,99 @@
             }
         }
     }
+
     i.icon {
         display: inline-block;
-        background-image:url(~assets/fang-ico.png);
-        &.fang{
+        background-image: url(~assets/fang-ico.png);
+        &.fang {
             width: 44px;
             height: 44px;
             background-position: 0 -586px;
             background-repeat: no-repeat;
         }
-        &.fangdong{
+        &.fangdong {
             width: 44px;
             height: 44px;
             background-position: 0 -309px;
             background-repeat: no-repeat;
         }
-        &.baozhang{
+        &.baozhang {
             width: 44px;
             height: 44px;
             background-position: 0 -489px;
             background-repeat: no-repeat;
         }
-        &.more{
+        &.more {
             width: 44px;
             height: 44px;
             background-position: 0 -222px;
             background-repeat: no-repeat;
         }
-        &.code{
+        &.code {
             width: 18px;
             height: 18px;
             background-position: 0 0;
         }
     }
 
-    .pingtai-wrap{
-        h3{
+    .pingtai-wrap {
+        h3 {
 
         }
-        .icons{
+        .icons {
             display: flex;
             justify-content: space-around;
             padding: 15px;
             background-color: #f1f1f1;
-            .icon-item{
-                .icon{
+            .icon-item {
+                .icon {
                     margin-right: 10px;
                     vertical-align: middle;
                 }
-                span{
+                span {
                     vertical-align: middle;
                 }
             }
         }
     }
 
-    .titleMargin{
+    .titleMargin {
         font-size: 24px;
         margin: 25px 0;
     }
-    .fangyuan-wrap{
-        .inf{
+
+    .fangyuan-wrap {
+        .inf {
             font-size: 14px;
-            .code{
+            .code {
                 line-height: 30px;
-                i{
+                i {
                     vertical-align: middle;
                 }
-                span{
+                span {
                     vertical-align: middle;
                 }
             }
-            .fy-text{
+            .fy-text {
                 line-height: 30px;
-                span{
+                span {
                     display: inline-block;
                     width: 280px;
                 }
             }
         }
     }
-    .fypz{
-        .fypz-list{
+
+    .fypz {
+        .fypz-list {
             display: flex;
             flex-wrap: wrap;
-            li{
+            li {
                 margin-bottom: 10px;
                 margin-right: 24px;
                 text-align: center;
                 font-size: 12px;
-                i{
+                i {
                     display: block;
                     width: 40px;
                     height: 40px;
@@ -441,17 +499,19 @@
             }
         }
     }
-    .fy-desc{
-        p{
+
+    .fy-desc {
+        p {
 
         }
     }
-    .fy-list{
-        .list{
+
+    .fy-list {
+        .list {
             overflow: hidden;
             padding-top: 3px;
             padding-left: 3px;
-            .wrap{
+            .wrap {
                 width: 1230px;
                 display: flex;
                 flex-wrap: wrap;
@@ -459,10 +519,12 @@
             }
         }
     }
-    .line{
-        border-bottom:1px solid #ccc;
+
+    .line {
+        border-bottom: 1px solid #ccc;
     }
-    .mt30{
+
+    .mt30 {
         margin-top: 30px !important;
     }
 </style>
