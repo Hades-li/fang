@@ -14,15 +14,17 @@
                 <a class="link" href="javascript:" @click="gopage('/homeDetil')">立即找房</a>
             </div>
             <!-- v-if="getuserIfo == null?true:false" -->
-            <div class="tb-right" >
+            <div class="tb-right" v-if="(JSON.parse(this.$cookie.get('userInfo')))==undefined?true:false">
                 <a href="javascript:" @click="gopage('/checkIn')" class="link">房东入驻</a>
                 <a href="javascript:" @click="gopage('/login')" class="login-btn tenant">租客登录</a>
                 <a href="javascript:" @click="gopage('/login')" class="login-btn landlord">房东登录</a>
             </div>
-            <!-- <div class="tb-right" v-else>
-                <a href="javascript:" @click="gopage('/checkIn')" style="margin-right: 10px;" class="link"> 房东入驻 </a>
-                <a href="javascript:" @click="gopage('/checkIn')" class="link"> 用户中心 </a>
-            </div> -->
+            <div class="tb-right" v-else>
+                <!-- JSON.parse(usermsg) -->
+                <a href="javascript:" v-if = "user.isLandlord == 1?false:true" @click="gopage('/checkIn')" style="margin-right: 10px;" class="link"> 房东入驻 </a>
+                <a href="javascript:" style="margin-right: 10px;" @click="gopage('/admininfo')" class="link"> 用户中心 </a>
+                <a href="javascript:"  class="link"> 欢迎 {{ user.realName }} </a>
+            </div>
         </div>
     </div>
 </template>
@@ -30,13 +32,20 @@
     import {mapGetters} from "vuex"
 
     export default {
+        data(){
+            return{
+                user:Object,
+            }
+        },
         computed: {
             ...mapGetters([
                 // "getuserIfo"
             ])
         },
         created(){
-            // console.log(this.getuserIfo)
+            this.user = JSON.parse(this.$cookie.get('userInfo')).data 
+            // console.log(JSON.parse(this.$cookie.get('userInfo')).data.isLandlord)
+            // console.log(JSON.parse(this.$cookie.get('userInfo')).data)
         },
         methods:{
             gopage(url){

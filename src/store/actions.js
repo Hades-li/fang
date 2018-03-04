@@ -3,6 +3,7 @@ import * as types from './mutation-types'
 import state from "./index"
 import axios from "axios"
 import qs from "qs"
+import cookie from "js-cookie"
 
 import router from "router"
 // import iView from "iView"
@@ -23,6 +24,8 @@ export const actions = {
                 }
         )).then(function (response) {
             if(response.data.success == true){
+                console.log(cookie.$cookie)
+                cookie.set('userInfo',JSON.stringify(response.data))
                 router.push({path: '/home'});
                 // context.commit('SET_USER_IOFN', response.data)
             }else{
