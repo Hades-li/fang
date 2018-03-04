@@ -19,5 +19,6 @@ _thumbs/
 */expressionengine/cache/*
 
 node_modules
+dist
 .idea
 
