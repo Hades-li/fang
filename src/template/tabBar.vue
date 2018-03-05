@@ -23,8 +23,8 @@
             <div class="tb-right" v-else>
                 <!-- JSON.parse(usermsg) -->
                 <a href="javascript:" v-if = "user.isLandlord == 1?false:true" @click="gopage('/checkIn')" style="margin-right: 10px;" class="link"> 房东入驻 </a>
-                <a href="javascript:" style="margin-right: 10px;" @click="gopage('/admininfo')" class="link"> 用户中心 </a>
-                <a href="javascript:"  class="link"> 欢迎 {{ user.realName }} </a>
+                <a href="javascript:" style="margin-right: 10px" @click="gopage('/admininfo')" class="link"> 欢迎 {{ user.realName }} </a>
+                <a href="javascript:" @click="goLogin" class="link logout">退出</a>
             </div>
         </div>
     </div>
@@ -44,7 +44,8 @@
             ])
         },
         created(){
-            this.user = JSON.parse(this.$cookie.get('userInfo')).data 
+            this.user = JSON.parse(this.$cookie.get('userInfo')).data
+            console.log(this.user)
             // console.log(JSON.parse(this.$cookie.get('userInfo')).data.isLandlord)
             // console.log(JSON.parse(this.$cookie.get('userInfo')).data)
         },
@@ -55,8 +56,11 @@
                     this.$router.push({path: url})
                     this.$Spin.hide();
                 }, 800);
+            },
+            goLogin() {
+                this.$cookie.remove('userInfo')
+                this.$router.push('/login')
             }
-
         }
     }
 </script>
@@ -134,6 +138,9 @@
             color: #B3B6CA;
             &:hover, &.active {
                 color: #fff;
+            }
+            &.logout{
+                color: #FF661A;
             }
         }
         .login-btn{

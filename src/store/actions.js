@@ -8,7 +8,7 @@ import cookie from "js-cookie"
 import router from "router"
 // import iView from "iView"
 
-// document.cookie = 'key=value'; 
+// document.cookie = 'key=value';
 export const actions = {
     // 登陆 15913351558 234567
     logingo(context,data){
@@ -23,7 +23,7 @@ export const actions = {
                     "deviceType":data.deviceType
                 }
         )).then(function (response) {
-            if(response.data.success == true){
+            if(response.data.success == true) {
                 console.log(cookie.$cookie)
                 cookie.set('userInfo',JSON.stringify(response.data))
                 router.push({path: '/home'});
@@ -71,7 +71,7 @@ export const actions = {
         )).then(function (response) {
                 if(response.data.success == false){
 
-                    alert(response.data.msg) 
+                    alert(response.data.msg)
 
                 }else if(response.data.success == true){
 
