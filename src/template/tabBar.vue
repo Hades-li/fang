@@ -88,7 +88,6 @@
         height: 100%;
         img {
             height: 100%;
-            background-color: #666;
         }
         .area {
             position: relative;
