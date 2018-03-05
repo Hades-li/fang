@@ -26,17 +26,17 @@
 
       <div class="HomeDetil_list"> 
         <ul>
-          <li v-for="i in 8" @click="pagego()"> 
-            <img src="http://image.mgzf.com/imagefile/room/9/1/7219/7219_1426038499639.jpg!pc.list" alt=""> 
+          <li v-for="item in getHouseList" @click="pagego(item.id)"> 
+            <img src="http://image.mgzf.com/mogoroom/2018-01/mogoWeixin/9/1/3120619/3120619_1516100301211.jpg!pc.list"> 
             <div> 
-              <h3> 宝山区-龙湖北城天街 </h3>
-              <p> 2室1厅1卫-35.0㎡ </p>
-              <p> 距7号线潘广路494米，步行约5分钟 </p>
-              <p> <span> 整租 </span> </p>
-              <p> sb公寓 </p>
+              <h3> {{ item.addressArea }} {{ item.addressInfo }} </h3>
+              <p> {{ item.houseTypeRoomCount }}室{{ item.houseTypeHallCount }}厅{{  item.houseTypeKitchenCount }}厨{{ item.houseTypeToiletCount }}卫-{{ item.houseArea }}㎡ </p>
+              <p> {{ item.traffic  }} </p>
+              <p> <span> {{ item.rentType == 1?"整租":"合租"  }} </span> </p>
+              <p> {{ item.title  }} </p>
             </div> 
             <span class="monny">
-              2100元/月
+              {{ item.houseRental }}元/月
             </span>
           </li>
         </ul>
@@ -45,22 +45,27 @@
 </template>
 <script>
 import tabBar from "../template/tabBar.vue"
-import { mapActions } from "vuex"
+import { mapActions,mapGetters } from "vuex"
 export default{
   components:{
     tabBar:tabBar
   },
   created(){
-    this.changeTabBar(["用户","用户中心"])
+    this.setHouseList(1) 
+  },
+  computed:{
+    ...mapGetters([
+      "getHouseList"
+    ])
   },
   methods:{
     ...mapActions([
-      "changeTabBar"
+      "setHouseList"
     ]),
-    pagego(){
+    pagego(id){
         this.$Spin.show();
         setTimeout(() => {
-         this.$router.push({path: '/roomDetail'})
+         this.$router.push({path: '/roomDetail',query:{id: id}})
           this.$Spin.hide();
         }, 800);
     }

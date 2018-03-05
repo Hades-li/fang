@@ -110,6 +110,33 @@ export const actions = {
                 console.log(error);
         });
     },
+    // 获取省份列表
+    setProvince(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=310')
+            .then(function (response) {
+            response.data.success == false?alert(response.data.msg):context.commit('SET_PROVINCE', response.data.data)
+        }).catch(function (error) {
+                console.log(error);
+        });
+    },
+    // 获取市列表
+    setCity(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=311',
+            qs.stringify(
+                {
+                    'region_type':type.region_type,
+                    "parent_id":type.parent_id,
+
+                }
+        ))
+            .then(function (response) {
+            response.data.success == false?alert(response.data.msg):context.commit('SET_CITY', response.data.data)
+        }).catch(function (error) {
+                console.log(error);
+        });
+    },
 
     changeTabBar(context,tabBar){
         context.commit(types.SET_TABBAR,{
@@ -127,6 +154,12 @@ export const mutations = {
     },
     [types.SET_HOUSE_LIST](state,data){
         state.house_list = data
+    },
+    [types.SET_PROVINCE](state,data){
+        state.province_list = data
+    },
+    [types.SET_CITY](state,data){
+        state.city_list = data
     }
 };
 

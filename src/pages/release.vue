@@ -5,7 +5,12 @@
         <div class="release_mian_from">
         <Form :model="formRight" label-position="right" :label-width="100">
             <FormItem label="小区所在城市">
-                <Cascader :data="formRight.data" trigger="hover"></Cascader>
+                <Select @on-change="changevalue(formRight.model3)" v-model="formRight.model3" size="large" style="width:100px">
+                    <Option v-for="item in getProvince" :value="item.regionId" :key="item.name">{{ item.name }}</Option>
+                </Select>
+                <Select v-model="formRight.model4" size="large" style="width:200px">
+                    <Option v-for="item in getCity" :value="item.name" :key="item.name">{{ item.name }}</Option>
+                </Select>
             </FormItem>
             <FormItem label="小区">
                 <Input v-model="formRight.input1"></Input>
@@ -51,6 +56,7 @@
 
 import userTab from "../template/userTab"
 import upload from "../template/upload/index"
+import { mapActions,mapGetters } from "vuex" 
 export default{
   data(){
     return{
@@ -58,53 +64,34 @@ export default{
             input1: '',
             input2: '',
             input3: '',
-            data: [{
-                    value: 'beijing',
-                    label: '北京',
-                    children: [
-                        {
-                            value: 'gugong',
-                            label: '故宫'
-                        },
-                        {
-                            value: 'tiantan',
-                            label: '天坛'
-                        },
-                        {
-                            value: 'wangfujing',
-                            label: '王府井'
-                        }
-                    ]
-                }, {
-                    value: 'jiangsu',
-                    label: '江苏',
-                    children: [
-                        {
-                            value: 'nanjing',
-                            label: '南京',
-                            children: [
-                                {
-                                    value: 'fuzimiao',
-                                    label: '夫子庙',
-                                }
-                            ]
-                        },
-                        {
-                            value: 'suzhou',
-                            label: '苏州',
-                            children: [
-                                {
-                                    value: 'zhuozhengyuan',
-                                    label: '拙政园',
-                                },
-                                {
-                                    value: 'shizilin',
-                                    label: '狮子林',
-                                }
-                            ]
-                        }
-                    ],
-                }]
+            model4:'',
+            model4:'',
+                cityList: [
+                    {
+                        value: 'New York',
+                        label: 'New York'
+                    },
+                    {
+                        value: 'London',
+                        label: 'London'
+                    },
+                    {
+                        value: 'Sydney',
+                        label: 'Sydney'
+                    },
+                    {
+                        value: 'Ottawa',
+                        label: 'Ottawa'
+                    },
+                    {
+                        value: 'Paris',
+                        label: 'Paris'
+                    },
+                    {
+                        value: 'Canberra',
+                        label: 'Canberra'
+                    }
+                ],
         },
     }   
   },
@@ -113,10 +100,22 @@ export default{
     upload
   },
   created(){
-    
+    this.setProvince()
+  },
+  computed:{
+      ...mapGetters([
+          "getProvince",
+          "getCity"
+      ])
   },
   methods:{
-
+      ...mapActions([
+          "setProvince",
+          "setCity"
+      ]),
+      changevalue(value){
+          this.setCity({"region_type":1,"parent_id":value})
+      }
   }    
 }
 </script>
