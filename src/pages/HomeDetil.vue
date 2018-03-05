@@ -1,7 +1,9 @@
 <template>
   <div class="HomeDetil">
      <div class="HomeDetil_seach">
-       <Input icon="ios-clock-outline" placeholder="地区 小区 地铁" style="width: 200px"></Input><Button type="error">搜索</Button><Button type="info">地图找房</Button>
+       <Input icon="ios-clock-outline" placeholder="地区 小区 地铁" style="width: 400px;  margin-right: 20px;"></Input>
+       <Button type="primary" shape="circle" icon="ios-search">搜索</Button>
+       <!-- <Button type="info">地图找房</Button> -->
      </div>
      <div class="HomeDetil_type">
        <div class="HomeDetil_type_mian" v-for="i in 2">
@@ -18,7 +20,7 @@
              <strong> 共999+套房源: </strong>
               <ul>
                 <li> 
-                  <span v-for="i in 4" > 按热度 </span>
+                  <span v-for="i in 2 "> 福田区 </span>
                 </li>
               </ul>
         </div>
@@ -81,6 +83,7 @@ export default{
     margin: 0 auto;
     margin-top: 20px;
     box-sizing: border-box;
+  
   }
   .HomeDetil_type{
     border: 1px solid #e5e5e5;
@@ -97,6 +100,12 @@ export default{
   .HomeDetil_type_mian strong{
     position: absolute;
     left: 10px;
+    text-align: center;
+    color: #0f121c;
+    cursor: default;
+    letter-spacing: 2px;
+    text-indent: 5px;
+    font-weight: 500;
   }
   .HomeDetil_type_mian ul{
     padding-left: 60px;
@@ -104,6 +113,15 @@ export default{
   }
   .HomeDetil_type_mian ul span{
     margin-right: 10px;
+    display: inline-block;
+    color: inherit;
+    transition: color .3s;
+    padding: 0 10px;
+    font-size: 12px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    text-indent: 5px;
+    font-weight: 500;
   }
   .HomeDetil_main{
     padding: 10px 5px;
@@ -118,6 +136,12 @@ export default{
   .HomeDetil_main_type strong{
     position: absolute;
     left: 10px;
+    text-align: center;
+    color: #0f121c;
+    cursor: default;
+    letter-spacing: 2px;
+    text-indent: 5px;
+    font-weight: 100;
   }
   .HomeDetil_main ul{
     padding-left: 120px;
@@ -127,19 +151,21 @@ export default{
     padding: 10px 5px;
     width: 1200px;
     margin: 0 auto;
-    border: 1px solid #e5e5e5;
     margin-top: 20px;
+    border-radius: 5px;
   }
   .HomeDetil_list ul li{
     display: flex;
     border-bottom: 1px dashed #e5e5e5;
     margin-bottom: 20px;
-    padding: 20px 0;
+    padding: 20px;
     position: relative;
+    background-color: #f8f8f8;
+    border-radius: 5px;
   }
   .HomeDetil_list ul li img{
-    width: 380px;
-    height: 270px;
+    width: 280px;
+    height: 170px;
     margin-right: 20px;
   }
   .HomeDetil_list ul li .monny{
@@ -148,7 +174,25 @@ export default{
     right: 10px;
     transform: translateY(-50%);
     color: #ff5600;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 20px;
   } 
+  .HomeDetil_list{
+    letter-spacing: 2px;
+    font-weight: 500;
+    text-indent: 5px;
+  }
+  .HomeDetil_list h3{
+    font-size: 20px;
+  }
+  .HomeDetil_main_type span{
+    display: inline-block;
+    color: inherit;
+    transition: color .3s;
+    padding: 0 10px;
+    font-size: 12px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    text-indent: 5px;
+    font-weight: 500;
+  }
 </style>
