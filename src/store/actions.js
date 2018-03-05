@@ -52,7 +52,7 @@ export const actions = {
             if(response.data.success == false){
                 alert(response.data.msg)
             }else if(response.data.success == true){
-                alert(response.data.msg) 
+                alert("恭喜您 注册成功 请放回登录")
 
             }
         }).catch(function (error) {
