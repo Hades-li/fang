@@ -1,6 +1,11 @@
 <template>
-  <div class="admininfo">
-    <user-tab> </user-tab>
+  <div class="">
+      <div class="user_bg">
+
+    </div>
+    <div class="admininfo">
+          <user-tab> </user-tab>
+
     <div class="admininfo_main">
         <ul>
           <li> 
@@ -39,7 +44,9 @@
         </Form>
         </div>
 
-    </div>  
+    </div> 
+    </div>
+ 
   </div>
 </template>
 <script>
@@ -101,5 +108,11 @@ export default{
   }
   .change_userinfo h4{
     text-align: center;
+  }
+  .user_bg{
+    width: 100%;
+    height: 117px;
+    background: url("https://www.yushundai.com/css/blue/images/u_banner.jpg");
+    background-position:center;
   }
 </style>
