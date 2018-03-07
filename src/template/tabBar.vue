@@ -45,7 +45,6 @@
         },
         created(){
             this.user = JSON.parse(this.$cookie.get('userInfo')).data
-            console.log(this.user)
             // console.log(JSON.parse(this.$cookie.get('userInfo')).data.isLandlord)
             // console.log(JSON.parse(this.$cookie.get('userInfo')).data)
         },
