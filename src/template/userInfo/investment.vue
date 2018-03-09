@@ -55,5 +55,7 @@
             flex-wrap: wrap;
         }
     }
-
+    #investment{
+      margin-left: 70px;
+    }
 </style>
