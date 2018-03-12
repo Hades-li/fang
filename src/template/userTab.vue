@@ -9,26 +9,26 @@
         <MenuGroup title="资金管理">
           <MenuItem name="2" @click.native="toggleTab('records')">
             资金管理
-          </MenuItem>  
+          </MenuItem>
         </MenuGroup>
 
         <MenuGroup title="租约管理">
           <MenuItem name="6" @click.native="toggleTab('investment')">
               租约管理
-          </MenuItem>   
+          </MenuItem>
         </MenuGroup>
 
         <MenuGroup title="房源管理">
           <MenuItem name="9" @click.native="toggleTab('houseList')">
               房源列表
-          </MenuItem>  
-          <MenuItem name="10" @click.native="toggleTab('sendHouse')">
+          </MenuItem>
+          <MenuItem name="10" @click.native="toggleTab('investmentDetailBill')">
               发布房源
-          </MenuItem>  
+          </MenuItem>
         </MenuGroup>
 
     </Menu>
-    
+
     <index class="template" :is="currentTab" keep-alive></index>
 
 
@@ -40,13 +40,12 @@ import sendHouse from './userInfo/sendHouse'
 import houseList from './userInfo/houseList'
 import records from './userInfo/records'
 import investment from './userInfo/investment'
-
+import investmentDetailBill from './userInfo/investmentDetailBill'
 
 export default{
   data () {
     return {
       currentTab: 'index' // currentTab 用于标识当前触发的子组件
-     
     }
   },
   components:{
@@ -54,7 +53,8 @@ export default{
     sendHouse,
     houseList,
     records,
-    investment
+    investment,
+      investmentDetailBill
   },
   created(){
 
@@ -74,7 +74,7 @@ export default{
 
 
 
-  }    
+  }
 }
 </script>
 

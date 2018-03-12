@@ -1,7 +1,8 @@
 <template>
   <div id="investment">
-      <Menu class="menu" mode="horizontal" :theme="theme1" active-name="1">
-          <MenuItem name="1">
+      <Menu class="menu" mode="horizontal"
+            :theme="theme1" active-name="1" @on-select="change">
+          <MenuItem name="1" >
                     签约
           </MenuItem>
           <MenuItem name="2">
@@ -9,9 +10,9 @@
           </MenuItem>
       </Menu>
       <div class="mainList_ul">
-                <div class="list">
-                    <room-item class="list_deta" v-for="item in getHouseList"  v-bind:data="item"></room-item>
-                </div>
+          <div class="list" >
+              <room-item class="list_deta" v-for="item in getHouseList"  v-bind:data="item"></room-item>
+          </div>
       </div>
   </div>
 </template>
@@ -23,7 +24,8 @@
     name: 'investment',
     data() {
       return {
-        theme1: 'light'
+        theme1: 'light',
+        sign: true,
       }
     },
     components: {
@@ -41,6 +43,9 @@
       ...mapActions([
         "setHouseList"
       ]),
+      change (name) {
+
+       }
     }
   }
 </script>
@@ -50,7 +55,7 @@
         overflow: hidden;
         padding-top: 3px;
         padding-left: 3px;
-        .list {
+        .list{
             display: flex;
             flex-wrap: wrap;
         }

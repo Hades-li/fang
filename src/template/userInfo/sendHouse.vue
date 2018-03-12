@@ -1,28 +1,132 @@
 <template>
-  <div id="sendHouse">
-    <ul>
-      <li>
-          姓名:
-          <Input v-model="value" placeholder="" style="width: 300px"></Input>
-      </li>
-      <li>
-          电话号码:
-          <Input v-model="value" placeholder="" style="width: 300px"></Input>
-      </li>
-      <li>
-         <Button type="success">发布</Button>
-      </li>
-    </ul>  
-  </div>
+    <div class="sendHouse" style="padding: 30px 0">
+        <Row>
+            <Col span="14" offset="5">
+                <Form :model="formItem" :label-width="120">
+                <FormItem label="小区所在城市">
+                    <Row>
+                        <Col span="12">
+                        <Select v-model="formItem.select">
+                            <Option value="beijing">New York</Option>
+                            <Option value="shanghai">London</Option>
+                            <Option value="shenzhen">Sydney</Option>
+                        </Select>
+                        </Col>
+                        <Col span="12">
+                        <Select v-model="formItem.select">
+                            <Option value="beijing">New York</Option>
+                            <Option value="shanghai">London</Option>
+                            <Option value="shenzhen">Sydney</Option>
+                        </Select>
+                        </Col>
+                    </Row>
+                </FormItem>
+                <FormItem label="小区">
+                    <Input v-model="formItem.input" placeholder=""></Input>
+                </FormItem>
+                <FormItem label="房屋地址">
+                    <Input v-model="formItem.input" placeholder=""></Input>
+                </FormItem>
+                <FormItem label="面积">
+                    <Input v-model="formItem.input" placeholder=""></Input>
+                </FormItem>
+                <FormItem label="楼层">
+                    <Input v-model="formItem.input" placeholder=""></Input>
+                </FormItem>
+                <FormItem label="房型">
+                    <Input v-model="formItem.input" placeholder=""></Input>
+                </FormItem>
+                <FormItem label="房源配置" class="houseWaySet">
+                    <Row>
+                        <Col span="3">
+                            <Icon type="ionic"></Icon>
+                            <p>空调</p>
+                        </Col>
+                        <Col span="3">
+                            <Icon type="ionic"></Icon>
+                            <p>床</p>
+                        </Col>
+                        <Col span="3">
+                            <Icon type="ionic"></Icon>
+                            <p>空调</p>
+                        </Col>
+                        <Col span="3">
+                            <Icon type="ionic"></Icon>
+                            <p>床</p>
+                        </Col>
+                        <Col span="3">
+                            <Icon type="ionic"></Icon>
+                            <p>空调</p>
+                        </Col>
+                        <Col span="3">
+                            <Icon type="ionic"></Icon>
+                            <p>床</p>
+                        </Col>
+                        <Col span="3">
+                        <Icon type="ionic"></Icon>
+                        <p>空调</p>
+                        </Col>
+                        <Col span="3">
+                        <Icon type="ionic"></Icon>
+                        <p>床</p>
+                        </Col>
+                        <Col span="3">
+                        <Icon type="ionic"></Icon>
+                        <p>空调</p>
+                        </Col>
+                        <Col span="3">
+                        <Icon type="ionic"></Icon>
+                        <p>床</p>
+                        </Col>
+                        <Col span="3">
+                        <Icon type="ionic"></Icon>
+                        <p>空调</p>
+                        </Col>
+                        <Col span="3">
+                        <Icon type="ionic"></Icon>
+                        <p>床</p>
+                        </Col>
+                    </Row>
+                </FormItem>
+                    <FormItem label="期望租金">
+                        <Input v-model="formItem.input" placeholder=""></Input>
+                    </FormItem>
+                    <FormItem label="姓名">
+                        <Input v-model="formItem.input" placeholder=""></Input>
+                    </FormItem>
+                    <FormItem label="手机号">
+                        <Input v-model="formItem.input" placeholder=""></Input>
+                    </FormItem>
+                    <FormItem label="图形验证码">
+                        <Input v-model="formItem.input" placeholder=""></Input>
+                    </FormItem>
+                <FormItem>
+                    <Button type="primary">保存</Button>
+                    <Button type="ghost" style="margin-left: 8px">取消</Button>
+                </FormItem>
+            </Form>
+            </Col>
+        </Row>
+    </div>
 </template>
-
 <script>
 
   export default {
     name: 'sendHouse',
     data(){
       return{
-        value:''
+        value:'',
+          formItem: {
+              input: '',
+              select: '',
+              radio: 'male',
+              checkbox: [],
+              switch: true,
+              date: '',
+              time: '',
+              slider: [20, 50],
+              textarea: ''
+          }
       }
     },
     created(){
@@ -34,6 +138,15 @@
   }
 </script>
 
-<style>
-
+<style scoped>
+    .houseWaySet{
+        text-align: center;
+    }
+    .houseWaySet .ivu-icon{
+        font-size: 40px;
+    }
+    .houseWaySet p{
+        margin-bottom: 0;
+        line-height: 24px;
+    }
 </style>
