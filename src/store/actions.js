@@ -142,6 +142,11 @@ export const actions = {
         context.commit(types.SET_TABBAR,{
             tabBar:tabBar
         })
+    },
+    setCurrentTab(context,currentTab){
+        context.commit(types.SET_CURRENT_TAB,{
+            currentTab:currentTab
+        })
     }
 
 };
@@ -160,6 +165,9 @@ export const mutations = {
     },
     [types.SET_CITY](state,data){
         state.city_list = data
+    },
+    [types.SET_CURRENT_TAB](state,data){
+        state.currentTab = data.currentTab
     }
 };
 

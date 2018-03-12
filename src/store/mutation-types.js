@@ -15,4 +15,6 @@ export const SET_PROVINCE = "SET_PROVINCE"
 //获取市列表 
 export const SET_CITY = "SET_CITY"
 
+//修改组件
+export const SET_CURRENT_TAB = "SET_CURRENT_TAB"
 

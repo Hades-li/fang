@@ -2,7 +2,7 @@
   <div id="houseList">
            <div class="mainList_ul">
                 <div class="list">
-                    <room-item v-for="item in getHouseList"  v-bind:data="item"></room-item>
+                    <room-item @click.native="setCurrentTab('investmentDetail')" v-for="item in getHouseList"  v-bind:data="item"></room-item>
                 </div>
       </div>
   </div>
@@ -11,6 +11,7 @@
 <script>
   import roomItem from 'template/roomListItem'
   import { mapActions , mapGetters} from 'vuex'
+  import investmentDetail from './investmentDetail.vue'
   export default {
     name: 'investment',
     data() {
@@ -19,7 +20,8 @@
       }
     },
     components: {
-            roomItem
+      roomItem,
+      investmentDetail
     },
     created(){
       this.setHouseList(1)
@@ -31,7 +33,8 @@
     },
     methods:{
       ...mapActions([
-        "setHouseList"
+        "setHouseList",
+        "setCurrentTab"
       ]),
     }
   }

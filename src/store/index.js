@@ -17,6 +17,7 @@ const state = {
   house_list:null,
   province_list:[],
   city_list:[],
+  currentTab:"index",
 
 
 };

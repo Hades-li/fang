@@ -2,12 +2,12 @@
   <div id="index">
     <div class="index_left">
           <div>
-            <p> <b> 用户姓名: </b> 利达 </p>
-            <p> <b> 真实姓名: </b> 张利达 </p>
-            <p> <b> 手机号码: </b>13797417685 </p>
+            <p> <b> 用户姓名: </b> {{ userInfo.data.userName }} </p>
+            <p> <b> 真实姓名: </b> {{ userInfo.data.realName }} </p>
+            <p> <b> 手机号码: </b>{{ userInfo.data.mobile }} </p>
             <p> <b> 性别: </b>男 </p>
             <p> <b> 出生日期: </b>1995-02-08 </p>
-            <p> <b> 邮箱绑定: </b>gdnjsah@foxmail.com </p>
+            <p> <b> 邮箱绑定: </b> {{ userInfo.data.email }}  </p>
             <p> <Button type="success"> 修改信息 </Button> </p> 
           </div>
     </div>
@@ -29,6 +29,11 @@
 
   export default {
     name: 'index',
+    data(){
+        return{
+            userInfo:JSON.parse(this.$cookie.get('userInfo'))
+        }
+    },
     created(){
 
     },

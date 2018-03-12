@@ -28,6 +28,7 @@
       return {
           listData: [], // @:data
           loading2: false, // 分页loading
+          dataTotal:'',
           columns1: [
               { // @:columns
 //            type: 'index',
@@ -92,9 +93,7 @@
 </script>
 
 <style lang="scss" scoped>
-    #investmentDetail{
-        flex: 1;
-    }
+
     .bill-title{
         border-bottom:1px solid #ccc;
         margin: 10px 0;

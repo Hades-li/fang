@@ -14,7 +14,9 @@ export const getProvince = state =>{
 export const getCity = state =>{
     return state.city_list
 }
-
+export const getCurrentTab = state =>{
+    return state.currentTab
+}
 
 
 

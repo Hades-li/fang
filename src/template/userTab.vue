@@ -2,34 +2,34 @@
   <div class="userTab">
     <Menu theme="light" active-name="1" style="width: 160px;">
         <MenuGroup title="首页">
-        <MenuItem name="1" @click.native="toggleTab('index')">
+        <MenuItem name="1" @click.native="setCurrentTab('index')">
           个人中心
         </MenuItem>
         </MenuGroup>
         <MenuGroup title="资金管理">
-          <MenuItem name="2" @click.native="toggleTab('records')">
+          <MenuItem name="2" @click.native="setCurrentTab('records')">
             资金管理
           </MenuItem>
         </MenuGroup>
 
         <MenuGroup title="租约管理">
-          <MenuItem name="6" @click.native="toggleTab('investment')">
+          <MenuItem name="6" @click.native="setCurrentTab('investment')">
               租约管理
           </MenuItem>
         </MenuGroup>
 
         <MenuGroup title="房源管理">
-          <MenuItem name="9" @click.native="toggleTab('houseList')">
+          <MenuItem name="9" @click.native="setCurrentTab('houseList')">
               房源列表
           </MenuItem>
-          <MenuItem name="10" @click.native="toggleTab('investmentDetail')">
+          <MenuItem name="10" @click.native="setCurrentTab('sendHouse')">
               发布房源
           </MenuItem>
         </MenuGroup>
 
     </Menu>
 
-    <index class="template" :is="currentTab" keep-alive></index>
+    <index class="template" :is="getCurrentTab" keep-alive></index>
 
 
   </div>
@@ -40,13 +40,14 @@ import sendHouse from './userInfo/sendHouse'
 import houseList from './userInfo/houseList'
 import records from './userInfo/records'
 import investment from './userInfo/investment'
-import investmentDetail from './userInfo/investmentDetail'
+import investmentDetail from './userInfo/investmentDetail.vue'
 import investmentDetailBill from './userInfo/investmentDetailBill'
 
+import { mapGetters,mapActions } from "vuex"
 export default{
   data () {
     return {
-      currentTab: 'index' // currentTab 用于标识当前触发的子组件
+      // currentTab: 'index' // currentTab 用于标识当前触发的子组件
     }
   },
   components:{
@@ -57,19 +58,20 @@ export default{
     investment,
     investmentDetailBill,
     investmentDetail
+
   },
   created(){
 
   },
+  computed:{
+    ...mapGetters([
+      "getCurrentTab"
+    ])
+  },
   methods:{
-    // pagego(url){
-    //     console.log(url)
-    //     this.$Spin.show();
-    //         setTimeout(() => {
-    //             this.$router.push({path: url})
-    //             this.$Spin.hide();
-    //         }, 800);
-    // }
+    ...mapActions([
+      "setCurrentTab"
+    ]),
     toggleTab: function(tab) {
       this.currentTab = tab; // tab 为当前触发标签页的组件名
     }

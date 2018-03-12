@@ -1,6 +1,11 @@
 <template>
   <div class="">
-    <div class="user_bg"> </div>
+    <div class="user_bg"> 
+      <div class="user_some">
+        <img src="https://www.yushundai.com/css/blue/images/u_banner.jpg" alt="">
+        <span> {{ userInfo.data.userName }} </span>
+      </div>
+    </div>
     <div class="admininfo">
       <user-tab> </user-tab>
     </div>
@@ -13,7 +18,7 @@ import { mapActions } from "vuex"
 export default{
   data () {
     return {
-
+      userInfo:JSON.parse(this.$cookie.get('userInfo'))
     }
   },
   components:{
@@ -38,5 +43,18 @@ export default{
     height: 117px;
     background: url("https://www.yushundai.com/css/blue/images/u_banner.jpg");
     background-position:center;
+    overflow: hidden;
+  }
+  .user_some{
+    width: 960px;
+    height: 100px;
+    margin:  20px auto 0;
+  }
+  .user_some img{
+    width: 50px;
+    height: 50px;
+  }
+  .user_some span{
+    color: #ffffff;
   }
 </style>

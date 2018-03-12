@@ -71,7 +71,7 @@
                 </div>
                 <div class="">
                     <Button type="primary">查看合同</Button>
-                    <Button type="ghost" style="margin-left: 8px">查看账单</Button>
+                    <Button type="ghost" @click.native="setCurrentTab('investmentDetailBill')" style="margin-left: 8px">查看账单</Button>
                 </div>
           </Col>
       </Row>
@@ -84,7 +84,8 @@
     name: 'investmentDetail',
     data() {
       return {
-          value1: 0
+          value1: 0,
+          value2:''
       }
     },
     created(){
@@ -94,14 +95,17 @@
 
     },
     methods:{
-
+        ...mapActions([
+            "setCurrentTab"
+        ])
     }
   }
 </script>
 
 <style lang="scss" scoped>
     #investmentDetail{
-        flex: 1;
+        width: 960px;
+        margin-top: 20px;
     }
     .demo-carousel {
         height: 350px;
