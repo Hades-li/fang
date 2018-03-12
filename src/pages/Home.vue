@@ -31,7 +31,20 @@ export default{
 
   methods:{
             gopage(url){
-                this.$Spin.show();
+                  this.$Spin.show({
+                    render: (h) => {
+                        return h('div', [
+                            h('Icon', {
+                                'class': 'demo-spin-icon-load',
+                                props: {
+                                    type: 'load-c',
+                                    size: 18
+                                }
+                            }),
+                            h('div', 'Loading')
+                        ])
+                    }
+                });
                 setTimeout(() => {
                     this.$router.push({path: url})
                     this.$Spin.hide();

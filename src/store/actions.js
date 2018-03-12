@@ -26,7 +26,7 @@ export const actions = {
             if(response.data.success == true) {
                 console.log(cookie.$cookie)
                 cookie.set('userInfo',JSON.stringify(response.data))
-                router.push({path: '/home'});
+                router.push({path: '/admininfo'});
                 // context.commit('SET_USER_IOFN', response.data)
             }else{
                 alert(response.data.msg)
@@ -111,15 +111,16 @@ export const actions = {
         });
     },
     // 获取省份列表
-    setProvince(context,type){
+    setProvince(context){
         axios.post(
             state.state.MainUrl + '/index?opt=310')
             .then(function (response) {
-            response.data.success == false?alert(response.data.msg):context.commit('SET_PROVINCE', response.data.data)
+            response.data.success == false?console.log(response.data.msg):context.commit('SET_PROVINCE', response.data.data)
         }).catch(function (error) {
                 console.log(error);
         });
     },
+
     // 获取市列表
     setCity(context,type){
         axios.post(
@@ -130,13 +131,31 @@ export const actions = {
                     "parent_id":type.parent_id,
 
                 }
-        ))
-            .then(function (response) {
-            response.data.success == false?alert(response.data.msg):context.commit('SET_CITY', response.data.data)
+        )).then(function (response) {
+            response.data.success == false?console.log(response.data.msg):context.commit('SET_CITY', response.data.data)
         }).catch(function (error) {
                 console.log(error);
         });
     },
+
+    // 获取区列表
+    setCounty(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=311',
+            qs.stringify(
+                {
+                    'region_type':type.region_type,
+                    "parent_id":type.parent_id,
+
+                }
+        )).then(function (response) {
+            response.data.success == false?console.log(response.data.msg):context.commit('SET_COUNTY', response.data.data)
+        }).catch(function (error) {
+                console.log(error);
+        });
+    },
+
+
 
     changeTabBar(context,tabBar){
         context.commit(types.SET_TABBAR,{
@@ -146,6 +165,11 @@ export const actions = {
     setCurrentTab(context,currentTab){
         context.commit(types.SET_CURRENT_TAB,{
             currentTab:currentTab
+        })
+    },
+    setSendHouse(context,val){
+        context.commit(types.SET_SEND_HOUSE,{
+            val:val
         })
     }
 
@@ -168,7 +192,13 @@ export const mutations = {
     },
     [types.SET_CURRENT_TAB](state,data){
         state.currentTab = data.currentTab
-    }
+    },
+    [types.SET_SEND_HOUSE](state,data){
+        state.sendHouse = data.val
+    },
+    [types.SET_COUNTY](state,data){
+        state.county_list = data
+    },
 };
 
 

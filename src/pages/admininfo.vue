@@ -3,7 +3,7 @@
     <div class="user_bg"> 
       <div class="user_some">
         <img src="https://www.yushundai.com/css/blue/images/u_banner.jpg" alt="">
-        <span> {{ userInfo.data.userName }} </span>
+        <span> 欢迎你 {{ userInfo.data.userName }} </span>
       </div>
     </div>
     <div class="admininfo">

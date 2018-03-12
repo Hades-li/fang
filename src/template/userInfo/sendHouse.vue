@@ -5,21 +5,28 @@
                 <Form :model="formItem" :label-width="120">
                 <FormItem label="小区所在城市">
                     <Row>
-                        <Col span="12">
-                        <Select v-model="formItem.select">
-                            <Option value="beijing">New York</Option>
-                            <Option value="shanghai">London</Option>
-                            <Option value="shenzhen">Sydney</Option>
+                        <Col span="8">
+                        省
+                        <Select v-model="formItem.addressProvince" @on-change="setCity({parent_id:formItem.addressProvince,region_type:1})">
+                            <Option v-for="item in getProvince" :value="item.regionId">{{ item.name }}</Option>
                         </Select>
                         </Col>
-                        <Col span="12">
-                        <Select v-model="formItem.select">
-                            <Option value="beijing">New York</Option>
-                            <Option value="shanghai">London</Option>
-                            <Option value="shenzhen">Sydney</Option>
+                        <Col span="8">
+                        市
+                        <Select v-model="formItem.addressCity" @on-change="setCounty({parent_id:formItem.addressCity,region_type:2})">
+                            <Option v-for="item in getCity" :value="item.regionId">{{ item.name }}</Option>
+                        </Select>
+                        </Col>
+                        <Col span="8">
+                        区
+                        <Select v-model="formItem.addressCounty" >
+                            <Option v-for="item in getCounty" :value="item.regionId">{{ item.name }}</Option>
                         </Select>
                         </Col>
                     </Row>
+                </FormItem>
+                <FormItem label="上传图片">
+                    <updated></updated>
                 </FormItem>
                 <FormItem label="小区">
                     <Input v-model="formItem.input" placeholder=""></Input>
@@ -110,25 +117,51 @@
     </div>
 </template>
 <script>
+import updated from "../upload/index"
+import { mapActions,mapGetters } from "vuex" 
+export default {
+    data () {
+        return {
+            formItem: {
+                addressProvince: '',
+                addressCity:'',
+                addressCounty:'',
 
 
-    export default {
-        data () {
-            return {
-                formItem: {
-                    input: '',
-                    select: '',
-                    radio: 'male',
-                    checkbox: [],
-                    switch: true,
-                    date: '',
-                    time: '',
-                    slider: [20, 50],
-                    textarea: ''
-                }
+
+                input: '',
+                
+                radio: 'male',
+                checkbox: [],
+                switch: true,
+                date: '',
+                time: '',
+                slider: [20, 50],
+                textarea: ''
             }
         }
+    },
+    components:{
+        updated
+    },
+    created(){
+        this.setProvince()
+    },
+    computed:{
+        ...mapGetters([
+            "getProvince",
+            "getCity",
+            "getCounty"
+        ])
+    },
+    methods:{
+        ...mapActions([
+            "setProvince",
+            "setCity",
+            "setCounty"
+        ])
     }
+}
 </script>
 
 <style scoped>

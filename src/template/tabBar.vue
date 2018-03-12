@@ -5,24 +5,25 @@
                 <img src="../assets/logo.png" alt="logo">
                 <a class="link" href="javascript:" @click="gopage('/home')">首页</a>
                 <div class="area">
-                    <span>上海</span>
+                    <span>厦门</span>
                     <Icon type="arrow-down-b"></Icon>
                     <div class="area-list">
-                        <a href="javascript:" v-for="i in 10">上海</a>
+                        <a href="javascript:" v-for="i in ['厦门','武汉','广州','深圳','北京','上海','杭州',]">{{ i }}</a>
                     </div>
                 </div>
-                <a class="link" href="javascript:" @click="gopage('/map')">地图找房</a>
+                <!-- <a class="link" href="javascript:" @click="gopage('/map')">地图找房</a> -->
             </div>
             <!-- v-if="getuserIfo == null?true:false" -->
             <div class="tb-right" v-if="user == undefined?true:false">
-                <a href="javascript:" style="margin-right: 20px;" @click="gopage('/checkIn')" class="link">成为房东</a>
+                <!-- <a href="javascript:" style="margin-right: 20px;" @click="gopage('/checkIn')" class="link">成为房东</a> -->
                 <a href="javascript:" style="margin-right: 10px;" @click="gopage('/checkIn')" class="link"> app下载 </a>
-                <a href="javascript:" @click="gopage('/login')" class="login-btn tenant">租客登录</a>
-                <a href="javascript:" @click="gopage('/login')" class="login-btn landlord">房东登录</a>
+                <!-- <a href="javascript:" @click="gopage('/login')" class="login-btn tenant">租客登录</a> -->
+                <a href="javascript:" @click="gopage('/login')" class="login-btn landlord">用户登陆</a>
             </div>
             <div class="tb-right" v-else>
                 <!-- JSON.parse(usermsg) -->
-                <a href="javascript:" v-if = "user.isLandlord == 1?false:true" @click="gopage('/checkIn')" style="margin-right: 10px;" class="link"> 房东入驻 </a>
+                <a href="javascript:" v-if = "user.isLandlord !== 1?false:true" @click="gopage('/checkIn')" style="margin-right: 10px;" class="link"> 成为房东 </a>
+                <a href="javascript:" style="margin-right: 20px;" @click="setSendHouse(true)" class="link"> 切换房东 </a>
                 <a href="javascript:" style="margin-right: 10px" @click="gopage('/admininfo')" class="link"> 欢迎 {{ user.realName }} </a>
                 <a href="javascript:" @click="goLogin" class="link logout">退出</a>
             </div>
@@ -30,7 +31,7 @@
     </div>
 </template>
 <script>
-    import {mapGetters} from "vuex"
+    import {mapGetters, mapActions} from "vuex"
 
     export default {
         data(){
@@ -49,14 +50,31 @@
             // console.log(JSON.parse(this.$cookie.get('userInfo')).data)
         },
         methods:{
+            ...mapActions([
+                "setSendHouse",
+            ]),
             gopage(url){
-                this.$Spin.show();
+                                  this.$Spin.show({
+                    render: (h) => {
+                        return h('div', [
+                            h('Icon', {
+                                'class': 'demo-spin-icon-load',
+                                props: {
+                                    type: 'load-c',
+                                    size: 18
+                                }
+                            }),
+                            h('div', 'Loading')
+                        ])
+                    }
+                });
                 setTimeout(() => {
                     this.$router.push({path: url})
                     this.$Spin.hide();
                 }, 800);
             },
             goLogin() {
+                this.setSendHouse(false);
                 this.$cookie.remove('userInfo')
                 this.$router.push('/login')
             }

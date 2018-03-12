@@ -15,6 +15,14 @@ export const SET_PROVINCE = "SET_PROVINCE"
 //获取市列表 
 export const SET_CITY = "SET_CITY"
 
+// 获取区域列表
+export const SET_COUNTY = "SET_COUNTY"
+
+
 //修改组件
 export const SET_CURRENT_TAB = "SET_CURRENT_TAB"
+
+//切换房东
+export const SET_SEND_HOUSE = "SET_SEND_HOUSE"
+
 

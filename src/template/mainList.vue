@@ -40,7 +40,20 @@
             ]),
              // 跳转至详情
             toRoomDetail(id) {
-                this.$Spin.show();
+                                  this.$Spin.show({
+                    render: (h) => {
+                        return h('div', [
+                            h('Icon', {
+                                'class': 'demo-spin-icon-load',
+                                props: {
+                                    type: 'load-c',
+                                    size: 18
+                                }
+                            }),
+                            h('div', 'Loading')
+                        ])
+                    }
+                });
                 setTimeout(() => {
                     this.$Spin.hide();
                     this.$router.push({path:'/roomDetail',query:{id: id}})

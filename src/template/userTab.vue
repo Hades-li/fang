@@ -18,10 +18,10 @@
           </MenuItem>
         </MenuGroup>
 
-        <MenuGroup title="房源管理">
-          <MenuItem name="9" @click.native="setCurrentTab('houseList')">
+        <MenuGroup title="房源管理" v-show="getSendHouse">
+          <!-- <MenuItem name="9" @click.native="setCurrentTab('houseList')">
               房源列表
-          </MenuItem>
+          </MenuItem> -->
           <MenuItem name="10" @click.native="setCurrentTab('sendHouse')">
               发布房源
           </MenuItem>
@@ -65,7 +65,8 @@ export default{
   },
   computed:{
     ...mapGetters([
-      "getCurrentTab"
+      "getCurrentTab",
+      "getSendHouse"
     ])
   },
   methods:{
@@ -98,11 +99,7 @@ export default{
 .ivu-menu-item-group-title{
       background: #efefef;
 }
-.ivu-menu-vertical.ivu-menu-light:after {
 
-    display: block;
-    width:0px !important;
-}
 .userTab{
   display: flex;
 }
@@ -110,9 +107,5 @@ export default{
   margin-left: 20px;
   width: 1120px;
 }
-.ivu-menu-item-group>ul {
-    padding: 0 0 0 20px!important;
-    list-style: none!important;
-    text-align: center;
-}
+
 </style>

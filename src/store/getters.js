@@ -14,10 +14,16 @@ export const getProvince = state =>{
 export const getCity = state =>{
     return state.city_list
 }
+export const getCounty = state =>{
+    return state.county_list
+}
+
 export const getCurrentTab = state =>{
     return state.currentTab
 }
-
+export const getSendHouse = state =>{
+    return state.sendHouse
+}
 
 
 

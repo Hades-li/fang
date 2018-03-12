@@ -15,6 +15,7 @@
 </template>
 
 <script>
+
     export default {
         name: "upload",
         props: {
@@ -32,6 +33,7 @@
                 imgFiles: []
             }
         },
+
         methods: {
             upload (event) {
                 const file = event.target.files[0]
