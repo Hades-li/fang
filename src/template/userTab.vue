@@ -22,7 +22,7 @@
           <MenuItem name="9" @click.native="toggleTab('houseList')">
               房源列表
           </MenuItem>
-          <MenuItem name="10" @click.native="toggleTab('investmentDetailBill')">
+          <MenuItem name="10" @click.native="toggleTab('investmentDetail')">
               发布房源
           </MenuItem>
         </MenuGroup>
@@ -40,6 +40,7 @@ import sendHouse from './userInfo/sendHouse'
 import houseList from './userInfo/houseList'
 import records from './userInfo/records'
 import investment from './userInfo/investment'
+import investmentDetail from './userInfo/investmentDetail'
 import investmentDetailBill from './userInfo/investmentDetailBill'
 
 export default{
@@ -54,7 +55,8 @@ export default{
     houseList,
     records,
     investment,
-      investmentDetailBill
+    investmentDetailBill,
+    investmentDetail
   },
   created(){
 
