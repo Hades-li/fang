@@ -3,9 +3,7 @@
       <div class="records_left">
           <h1> 账户余额 </h1>
           <p> 0.00元可用,冻结金额0.00元 </p>
-          <Button type="success">充值</Button>
-          <Button type="info">提现</Button>
-          
+          <p> <Button type="success">充值</Button> <Button type="info">提现</Button> </p>
       </div>
       <div class="records_right">
         <ul>
@@ -51,9 +49,32 @@
   display: flex;
 }
 .records_left{
-  flex: 1;
+  flex: 3;
+  padding-top: 100px;
+}
+.records_left h1{
+  text-align: center;
+}
+.records_left p{
+  text-align: center;
 }
 .records_right{
   flex: 2;
+  margin-top: 80px;
 }
+.records_right li{
+  background: #efefef;
+  margin-bottom: 5px;
+  position: relative;
+  padding: 20px;
+}
+.records_right li span{
+  position:absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #2d8cf0;
+}
+
 </style>

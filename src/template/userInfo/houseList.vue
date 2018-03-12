@@ -47,5 +47,8 @@
             flex-wrap: wrap;
         }
     }
-
+    #houseList{
+      margin-left: 70px;
+      margin-top: 30px;
+    }
 </style>
