@@ -11,9 +11,27 @@ import 'vue-awesome/icons/cog'
 import 'vue-awesome/icons/angle-right'
 import 'vue-awesome/icons/gear'
 import 'vue-awesome/icons/sort'
+// 引入vue-amap
+import VueAMap from 'vue-amap';
+Vue.use(VueAMap);
 
-Vue.use(iView)
-Vue.use(myPlugin)
+// 初始化vue-amap
+VueAMap.initAMapApiLoader({
+    // 高德的key
+    key: '089242ca20e29f108f8ca5e2b7285e91',
+    // 插件集合
+    plugin: ['AMap.Autocomplete', 'AMap.MarkerClusterer','AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
+    // 高德 sdk 版本，默认为 1.4.4
+    v: '1.4.4'
+});
+
+
+Vue.use(iView);
+Vue.use(myPlugin);
+
+
+
+
 
 /* eslint-disable no-new */
 
@@ -23,9 +41,9 @@ new Vue({
   store,
   template: '<App/>',
   components: { App }
-})
+});
 
 Array.prototype.contains = function ( needle ) {
 
   return false;
-}
+};
