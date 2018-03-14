@@ -26,7 +26,7 @@
                     <li v-for="(item,index) in selData" @click="chsSel(index)">{{item}}</li>
                 </ul>
             </button>
-            <input type="text" placeholder="地区，小区，地铁">
+            <input type="text" placeholder="地区，小区">
             <button class="searchBtn">搜索</button>
         </div>
     </div>
@@ -41,8 +41,7 @@
                 selData: [
                     '全部',
                     '整租',
-                    '合租',
-                    '单身公寓'
+                    '合租'
                 ],
                 cityList: [
                     {

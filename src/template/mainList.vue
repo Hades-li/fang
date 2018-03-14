@@ -3,9 +3,9 @@
         <div class="mainList_div" >
             <h1 class="title"> 热门房源 </h1>
             <Menu class="menu" mode="horizontal" :theme="theme1" active-name="1">
-                <MenuItem name="1">
+                <!-- <MenuItem name="1">
                     放心租
-                </MenuItem>
+                </MenuItem> -->
             </Menu>
             <div class="mainList_ul">
                 <div class="list">
