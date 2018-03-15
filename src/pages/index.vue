@@ -6,6 +6,7 @@
 </template>
 <script>
   import tabBar from "../template/tabBar.vue"
+  import { mapActions , mapGetters} from 'vuex'
   export default {
     data () {
       return {
@@ -15,7 +16,9 @@
     components: {
        tabBar:tabBar,
     },
-
+    created(){
+      this.setHouseList(1)
+    },
     beforeMount () {
 
     },
@@ -26,7 +29,9 @@
 
     },
     methods: {
-    
+                 ...mapActions([
+                "setHouseList"
+            ]),
     }
   }
 </script>

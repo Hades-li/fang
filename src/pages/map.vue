@@ -1,5 +1,6 @@
 <template>
     <div class="map">
+        <!-- {{ getHouseList }} -->
         <div class="amap-page-container">
             <el-amap
                 vid="amapDemo"
@@ -16,13 +17,15 @@
 
 
 <script>
-    module.exports = {
+    import { mapActions,mapGetters } from "vuex"
+import { setTimeout } from 'timers';
+    export default {
         data: function() {
             let self = this;
 
             return {
                 zoom: 12,
-                center: [121.59996, 31.197646],
+                center: [113.332264,  23.156206],
                 markers: [],
                 markerRefs: [],
                 events: {
@@ -39,18 +42,22 @@
                 }
             };
         },
-
+        computed:{
+            ...mapGetters([
+                "getHouseList"
+            ])
+        },
         created() {
             let self = this;
             let markers = [];
-            let index = 0;
 
-            let basePosition = [121.59996, 31.197646];
-
-            while (++index <= 30) {
+            let basePosition = [113.332264, 23.156206];
+            setTimeout(()=>{
+                console.log(this.getHouseList)
+                for(var i =0;i<this.getHouseList.length;i++){
                 markers.push({
-                    position: [basePosition[0] + 0.01 * index, basePosition[1]],
-                    content: '<div style="text-align:center; background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
+                    position: [this.getHouseList[i].addressLongitude, this.getHouseList[i].addressLatitude],
+                    content: '<div style="text-align:center; background-color: hsla(180, 100%, 50%, 0.7); height: 50px; width: 50px; border: 1px solid hsl(180, 100%, 40%); border-radius: 100px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;">'+  this.getHouseList[i].addressInfo +'</div>',
                     events: {
                         init(o) {
                             self.markerRefs.push(o);
@@ -58,14 +65,18 @@
                     }
                 });
             }
+            },1000)
 
+           
             this.markers = markers;
         },
 
         methods: {
+            ...mapActions([
+
+            ]),
             _renderCluserMarker(context) {
                 const count = this.markers.length;
-
                 let factor = Math.pow(context.count/count, 1/18)
                 let div = document.createElement('div');
                 let Hue = 180 - factor* 180;
@@ -86,7 +97,7 @@
                 div.style.textAlign = 'center';
                 context.marker.setOffset(new AMap.Pixel(-size/2,-size/2));
                 context.marker.setContent(div)
-            }
+            },
         }
     };
 </script>

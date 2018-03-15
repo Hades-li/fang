@@ -26,18 +26,14 @@
                 theme1: 'light'
             }
         },
-        created(){
-            this.setHouseList(1)
-        },
+
         computed:{
             ...mapGetters([
                "getHouseList"
             ])
         },
         methods: {
-             ...mapActions([
-                "setHouseList"
-            ]),
+
              // 跳转至详情
             toRoomDetail(id) {
                                   this.$Spin.show({

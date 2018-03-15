@@ -1,7 +1,7 @@
 <template>
   <div class="home">
      <banner> </banner>
-     <div class="findHouse">
+     <!-- <div class="findHouse">
         <div class="findType"  @click="gopage('/map')">
           <img src="../assets/fang.png" alt="">  地图找房
         </div>
@@ -14,7 +14,7 @@
         <div class="findType"  @click="gopage('/homeDetil')">
           <img src="../assets/fang1.png" alt=""> 月租
         </div>
-     </div>
+     </div> -->
      <main-list> </main-list>
   </div>
 </template>
