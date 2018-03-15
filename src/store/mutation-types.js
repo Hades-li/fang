@@ -25,4 +25,8 @@ export const SET_CURRENT_TAB = "SET_CURRENT_TAB"
 //切换房东
 export const SET_SEND_HOUSE = "SET_SEND_HOUSE"
 
+//发布房源
+export const SEND_HOUSE = "SEND_HOUSE"
+
+
 
