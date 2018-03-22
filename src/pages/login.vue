@@ -21,7 +21,7 @@
                         <Icon type="ios-locked-outline" slot="prepend"></Icon>
                         </Input>
                     </FormItem>
-                    <Button class="btn" type="primary" @click="logingo(formInline1)"> 账号登陆</Button>
+                    <Button class="btn" type="primary" @click="logingo(formInline1)"> 登陆</Button>
                 </Form>
             </div>
 
@@ -40,12 +40,12 @@
                         <Button class="password_primary" type="primary" :loading="loading"
                                 @click="toLoading({'mobile':formInline2.user,'sms_type':3})">
                             <span v-if="!loading">获取验证码</span>
-                            <span v-else>短信已发</span>
+                            <span v-else>{{ time1 }}秒后获取</span>
                         </Button>
 
                     </FormItem>
                     <FormItem>
-                        <Button class="btn" type="primary" @click="logingo(formInline2)">验证码登陆</Button>
+                        <Button class="btn" type="primary" @click="logingo(formInline2)">登陆</Button>
                     </FormItem>
                 </Form>
             </div>
@@ -75,7 +75,7 @@
                     <Button class="password_primary" type="primary" :loading="loading1"
                             @click="toLoading1({'mobile':formInline3.user,'sms_type':1})">
                         <span v-if="!loading1">获取验证码</span>
-                        <span v-else>59秒后获取</span>
+                        <span v-else>{{ time2 }}秒后获取</span>
                     </Button>
 
                 </FormItem>
@@ -89,10 +89,13 @@
 </template>
 <script>
     import {mapActions} from "vuex"
+import { setInterval } from 'timers';
 
     export default {
         data() {
             return {
+                time1:60,
+                time2:60,
                 register: false,
                 login: false,
                 loading: false,
@@ -146,16 +149,26 @@
 
             },
             toLoading(data) {
+                const that = this;
                 this.loading = true;
                 this.smsMsg(data);
+                setInterval(function (param) { 
+                    that.time1-- 
+                    if(that.time1 == 0){
+                        that.loading = false;
+                    }
+                },1000)
             },
             toLoading1(data) {
+                const that = this;
                 this.loading1 = true;
                 this.smsMsg(data);
-                this.$Spin.show();
-                setTimeout(() => {
-
-                }, 800);
+                setInterval(function (param) { 
+                    that.time2-- 
+                    if(that.time2 == 0){
+                        that.loading1 = false;
+                    }
+                },1000)
             },
             changeLogin() {
                 this.login = !this.login;
