@@ -21,7 +21,7 @@
                         <Icon type="ios-locked-outline" slot="prepend"></Icon>
                         </Input>
                     </FormItem>
-                    <Button class="btn" type="primary" @click="logingo(formInline1)"> 登陆</Button>
+                    <Button class="btn" type="primary" @click="logingo(formInline1)"> 账号登陆</Button>
                 </Form>
             </div>
 
@@ -38,14 +38,14 @@
                         <Icon type="ios-locked-outline" slot="prepend"></Icon>
                         </Input>
                         <Button class="password_primary" type="primary" :loading="loading"
-                                @click="toLoading({'mobile':formInline1.user,'sms_type':3})">
+                                @click="toLoading({'mobile':formInline2.user,'sms_type':3})">
                             <span v-if="!loading">获取验证码</span>
-                            <span v-else>59秒后获取</span>
+                            <span v-else>短信已发</span>
                         </Button>
 
                     </FormItem>
                     <FormItem>
-                        <Button class="btn" type="primary" @click="logingo(formInline2)">登陆</Button>
+                        <Button class="btn" type="primary" @click="logingo(formInline2)">验证码登陆</Button>
                     </FormItem>
                 </Form>
             </div>

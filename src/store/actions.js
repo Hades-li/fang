@@ -74,7 +74,7 @@ export const actions = {
                     alert(response.data.msg)
 
                 }else if(response.data.success == true){
-
+                    // window.sessionStorage.setItem("time",60)
                 }
 
         }).catch(function (error) {
