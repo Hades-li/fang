@@ -12,7 +12,7 @@ Vue.use(Vuex);
 const state = {
 
   tabBar:666,
-  MainUrl:"http://120.79.140.174:10080/",
+  MainUrl:"http://120.79.140.174:10080",
   banner_list:null,
   house_list:null,
   province_list:[],

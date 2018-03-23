@@ -4,7 +4,7 @@ import state from "./index"
 import axios from "axios"
 import qs from "qs"
 import cookie from "js-cookie"
-
+import md5 from 'js-md5';
 import router from "router"
 // import iView from "iView"
 
@@ -17,7 +17,7 @@ export const actions = {
             qs.stringify(
                 {
                     'mobile': data.user,
-                    "password":data.password,
+                    "password":md5(data.password),
                     "smsCode":data.smsCode,
                     "type":data.type,
                     "deviceType":data.deviceType
@@ -43,7 +43,7 @@ export const actions = {
             qs.stringify(
                 {
                     'mobile':data.user,
-                    "password":data.password1,
+                    "password":md5(data.password1),
                     "imgCode":'',
                     "verificationCode":data.password,
                     "deviceType":"1"
@@ -102,7 +102,11 @@ export const actions = {
                     "currPage":1,
                     "pageSize":20,
                     "longitude":"",
-                    "latitude":""
+                    "latitude":"",
+                    "currPage":1,
+                    "pageSize":10,
+                    "province":'',
+                    "city":''
                 }
         )).then(function (response) {
             response.data.success == false?alert(response.data.msg):context.commit('SET_HOUSE_LIST', response.data.data)
@@ -205,17 +209,39 @@ export const actions = {
                     "payFees": type.payFees, /** 其它费用**/
                     "landlordPayFees": type.landlordPayFees, /** 承租人自付费用**/
                     "renterPayFees": type.renterPayFees, /** 出租人代付费用**/
-                    "houseStatus": type.houseStatus /** 房子租赁状态，0，发布中，1招租中，2已租赁，3已到期 **/
-
+                    "houseStatus": type.houseStatus, /** 房子租赁状态，0，发布中，1招租中，2已租赁，3已到期 **/
+                    "housePicture":type.housePicture, // 房子图片
+                    "ownershipCertificate":type.ownershipCertificate, //权属证明(多个用“,”分割）
+                    "leaseContract":type.leaseContract, //权属证明(多个用“,”分割）
+                    "agentAuthorization":type.agentAuthorization //代理人委托书(多个用“,”分割）
                 }
         )).then(function (response) {
-            response.data.success == false?console.log(response.data.msg):context.commit('SEND_HOUSE', response.data.data)
+            response.data.success == false?alert(response.data.msg):context.commit('SEND_HOUSE', response.data.data)
         }).catch(function (error) {
             console.log(error);
         });
     },
 
-
+    // becomeHouse成为房东
+    becomeHouse(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=405',
+            qs.stringify(
+                {
+                    "address_province":type.address_province,
+                    "address_city":type.address_city,
+                    "county":type.address_city, 
+                    "address":type.address,
+                    "houseResource":type.houseResource,
+                    "ownershipNumber":type.ownershipNumber,
+                    "user_id":type.user_id,
+                }
+        )).then(function (response) {
+            response.data.success == false?console.log(response.data.msg):context.commit('BECOME_HOUSE', response.data.data)
+        }).catch(function (error) {
+                console.log(error);
+        });
+    },
 
 
 
@@ -250,9 +276,21 @@ export const mutations = {
     },
     [types.SET_PROVINCE](state,data){
         state.province_list = data
+        for(let i = 0;i<data.length;i++){
+            data[i]["region"] = data[i].regionId+data[i].name
+        }
     },
     [types.SET_CITY](state,data){
         state.city_list = data
+        for(let i = 0;i<data.length;i++){
+            data[i]["region"] = data[i].regionId+data[i].name
+        }
+    },
+    [types.SET_COUNTY](state,data){
+        state.county_list = data
+        for(let i = 0;i<data.length;i++){
+            data[i]["region"] = data[i].regionId+data[i].name
+        }
     },
     [types.SET_CURRENT_TAB](state,data){
         state.currentTab = data.currentTab
@@ -260,9 +298,7 @@ export const mutations = {
     [types.SET_SEND_HOUSE](state,data){
         state.sendHouse = data.val
     },
-    [types.SET_COUNTY](state,data){
-        state.county_list = data
-    },
+
 };
 
 

@@ -20,7 +20,7 @@
         name: "upload",
         props: {
             value: {
-                type: Array
+                type: Array,
             }
         },
         watch: {

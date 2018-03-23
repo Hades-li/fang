@@ -2,43 +2,60 @@
   <div class="checkIn">
     <div class="checkIn_form">
     <Form class="form" :model="formTop" label-position="top">
-        <FormItem  label="姓名">
-            <Input v-model="formTop.input1"></Input>
+        
+        <FormItem  label="">
+            <Col span="8">
+                <FormItem  label="省份">
+                    <Input v-model="formTop.address_province"></Input>
+                </FormItem>
+            </Col>
+            <Col span="8">
+                <FormItem label="市">
+                    <Input v-model="formTop.address_city"></Input>
+                </FormItem>
+            </Col>
+            <Col span="8">
+                <FormItem label="县区">
+                    <Input v-model="formTop.county"></Input>
+                </FormItem>
+            </Col> 
         </FormItem>
-        <FormItem label="手机号码">
-            <Input v-model="formTop.input2"></Input>
+
+
+        <FormItem label="详细地址">
+            <Input v-model="formTop.address"></Input>
         </FormItem>
-        <FormItem label="所在城市">
-            <Input v-model="formTop.input3"></Input>
+        <FormItem label="房源数量">
+            <Input v-model="formTop.houseResource"></Input>
         </FormItem>
-        <FormItem label="公寓名称">
-            <Input v-model="formTop.input3"></Input>
+        <FormItem label="房源申请凭证">
+            <updated v-model="picList"></updated>
         </FormItem>
-        <FormItem label="公寓数量">
-            <Input v-model="formTop.input3"></Input>
-        </FormItem>
-        <Button class="primary" type="primary"> 提交 </Button>
+        <Button class="primary" type="primary" @click="becomeAdmin()"> 提交 </Button>
     </Form>
     </div>
     </div>
 </template>
 <script>
 
-
+import updated from "../template/upload/index"
 export default{
     data () {
         return {
+            picList:[],
             formTop: {
-                input1: '',
-                input2: '',
-                input3: '',
-                input4: '',
-                input5: '',
+                address_province: '',
+                address_city: '',
+                county: '',
+                address: '',
+                houseResource: '',
+                ownershipNumber:'',
+                user_id:''
             }
         }
     },
     components:{
-
+        updated
     },
     created(){
 
@@ -66,7 +83,7 @@ export default{
         text-align: center;
     }
     .form{
-        width: 300px;
+        width: 400px;
         padding: 40px 50px;
         box-sizing: border-box;
     }

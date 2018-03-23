@@ -27,7 +27,7 @@
             <div class="tb-right" v-else>
                 <!-- JSON.parse(usermsg) -->
                 <span href="javascript:" v-if = "user.isLandlord !== 1?false:true" @click="gopage('/checkIn')" style="margin-right: 10px;" class="link"> 成为房东 </span>
-                <span href="javascript:" style="margin-right: 20px;" @click="setSendHouse(true)" class="link"> 切换房东 </span>
+                <span href="javascript:" v-if = "user.isLandlord == 1?true:false" style="margin-right: 20px;" @click="setSendHouse(true)" class="link"> 切换房东 </span>
                 <span href="javascript:" style="margin-right: 10px" @click="gopage('/admininfo')" class="link"> 欢迎 {{ user.realName }} </span>
                 <span href="javascript:" @click="goLogin" class="link logout">退出</span>
             </div>
@@ -52,6 +52,7 @@
             this.user = JSON.parse(this.$cookie.get('userInfo')).data
             // console.log(JSON.parse(this.$cookie.get('userInfo')).data.isLandlord)
             // console.log(JSON.parse(this.$cookie.get('userInfo')).data)
+            // console.log(this.user)
         },
         methods:{
             ...mapActions([

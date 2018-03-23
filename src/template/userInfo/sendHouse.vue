@@ -3,29 +3,31 @@
         <Row>
             <Col span="14" offset="5">
             <Form :model="formItem" :label-width="120">
-                <FormItem label="房屋手机号">
+                <!-- <FormItem label="房屋手机号">
                     <Input v-model="formItem.houseInfoVo.landlordId" placeholder="请输入"></Input>
-                </FormItem>
+                </FormItem> -->
                 <FormItem label="标题">
                     <Input v-model="formItem.houseInfoVo.title" placeholder="请输入"></Input>
                 </FormItem>
                 <FormItem label="房屋坐落">
                     <Row>
                         <Col span="8">
-                        <Col span="16">
-                        <Select v-model="formItem.houseInfoVo.addressProvince" @on-change="setCity({parent_id:formItem.houseInfoVo.addressProvince,region_type:1})">
-                            <Option v-for="item in getProvince" :value="item.regionId">{{ item.name }}</Option>
-                        </Select>
-                        </Col>
+                            <Col span="16">
+                                <Select v-model="formItem.houseInfoVo.addressProvinceid" @on-change="province()">
+                                    <Option v-for="item in getProvince" :value="item.region">{{ item.name }}</Option>
+                                </Select>
+                            </Col>
                         <Col span="8">
-                        省
+                            省
                         </Col>
+                        
                         </Col>
+                        
                         <Col span="8">
-                        <Col span="16">
-                        <Select v-model="formItem.houseInfoVo.addressCity" @on-change="setCounty({parent_id:formItem.houseInfoVo.addressCity,region_type:2})">
-                            <Option v-for="item in getCity" :value="item.regionId">{{ item.name }}</Option>
-                        </Select>
+                            <Col span="16">
+                                <Select v-model="formItem.houseInfoVo.addressCityid" @on-change="city()">
+                                    <Option v-for="item in getCity" :value="item.region">{{ item.name }}</Option>
+                            </Select>
                         </Col>
                         <Col span="8">
                         市
@@ -33,8 +35,8 @@
                         </Col>
                         <Col span="8">
                         <Col span="16">
-                        <Select v-model="formItem.houseInfoVo.addressCounty" >
-                            <Option v-for="item in getCounty" :value="item.regionId">{{ item.name }}</Option>
+                        <Select v-model="formItem.houseInfoVo.addressCountyid" @on-change="county()">
+                            <Option v-for="item in getCounty" :value="item.region">{{ item.name }}</Option>
                         </Select>
                         </Col>
                         <Col span="8">
@@ -322,13 +324,22 @@
                     </RadioGroup>
                 </FormItem>
                 <FormItem label="创建时间">
-                    <Input v-model="formItem.houseInfoVo.createTime" placeholder="请输入"></Input>
+                  <Input v-model="formItem.houseInfoVo.createTime" placeholder="请输入"></Input>
                 </FormItem>
-                <FormItem label="图片上传">
-                    <updated></updated>
+                <FormItem label="房子图片"> 
+                    <updated v-model="picList0"></updated>
+                </FormItem>
+                <FormItem label="权属证明"> 
+                    <updated v-model="picList1"></updated>
+                </FormItem>
+                <FormItem label="一手租凭合同"> 
+                    <updated v-model="picList2"></updated>
+                </FormItem>
+                <FormItem label="代理人委托书"> 
+                    <updated v-model="picList3"></updated>
                 </FormItem>
                 <FormItem>
-                    <Button type="primary" @click="sendHouse(formItem.houseInfoVo)">保存</Button>
+                    <Button type="primary" @click="send()">保存</Button>
                     <Button type="ghost" style="margin-left: 8px">取消</Button>
                 </FormItem>
             </Form>
@@ -342,14 +353,24 @@
     export default {
         data () {
             return {
+                picList0:[],
+                picList1:[],
+                picList2:[],
+                picList3:[],
                 formItem: {
                     houseInfoVo: {
                         landlordId: '', /** 房东ID **/
                         title: '', /** 标题 **/
                         houseNo: '', /** 房源编号，唯一 **/
                         addressProvince: '', /** 省 **/
+                        addressProvinceid: '', /** 省 **/
+                        provinceid:'',/** 省 **/
                         addressCity: '', /** 市 **/
+                        addressCityid: '', /** 市 **/
+                        cityid:'',/** 市 **/
                         addressCounty: '', /** 县 **/
+                        addressCountyid: '', /** 县 **/
+                        countyid:'',/** 县 **/
                         addressInfo: '', /** 房源地址 **/
                         addressHousingEstate: '', /** 小区楼盘 **/
                         addressArea: '', /** 所属片区 **/
@@ -389,7 +410,11 @@
                         payFees: '', /** 其它费用**/
                         landlordPayFees: '', /** 承租人自付费用**/
                         renterPayFees: '', /** 出租人代付费用**/
-                        houseStatus: '' /** 房子租赁状态，0，发布中，1招租中，2已租赁，3已到期 **/
+                        houseStatus: '', /** 房子租赁状态，0，发布中，1招租中，2已租赁，3已到期 **/
+                        housePicture:'', // 房子图片
+                        ownershipCertificate:'', //权属证明(多个用“,”分割）
+                        leaseContract:'', //权属证明(多个用“,”分割）
+                        agentAuthorization:'' //代理人委托书(多个用“,”分割）
                     },
                     agentAuthorization: {
                         createTime: '', /** 创建时间 **/
@@ -428,12 +453,13 @@
             }
         },
     components:{
-      updated
-   },
+        updated
+    },
     created(){
-     this.setProvince()
-   },
-   computed:{
+        this.setProvince();
+        this.formItem.houseInfoVo.landlordId = JSON.parse(this.$cookie.get('userInfo')).data.userId  
+    },
+    computed:{
         ...mapGetters([
             'getProvince',
             'getCity',
@@ -447,6 +473,49 @@
             "setCounty",
             "sendHouse"
         ]),
+        
+        province(){
+            
+            let name =  this.formItem.houseInfoVo.addressProvinceid 
+            let reg = /[\u4e00-\u9fa5]/g;  
+            var names = name.match(reg); 
+            this.formItem.houseInfoVo.addressProvince = (name.match(reg)).join("")
+            this.formItem.houseInfoVo.provinceid = name.replace(reg, "")
+            this.setCity({parent_id:this.formItem.houseInfoVo.provinceid,region_type:1})
+        },
+        
+        city(){
+            let name =  this.formItem.houseInfoVo.addressCityid 
+            let reg = /[\u4e00-\u9fa5]/g;  
+            var names = name.match(reg); 
+            this.formItem.houseInfoVo.addressCity = (name.match(reg)).join("")
+            this.formItem.houseInfoVo.cityid = name.replace(reg, "")
+            this.setCounty({parent_id:this.formItem.houseInfoVo.cityid,region_type:2})
+        },
+        
+        county(){
+            let name =  this.formItem.houseInfoVo.addressCountyid 
+            let reg = /[\u4e00-\u9fa5]/g;  
+            var names = name.match(reg); 
+            this.formItem.houseInfoVo.addressCounty = (name.match(reg)).join("")
+            this.formItem.houseInfoVo.countyid = name.replace(reg, "")
+        },
+
+        send(){
+            // picList0
+            // housePicture:'', // 房子图片
+            // ownershipCertificate:'', //权属证明(多个用“,”分割）
+            // leaseContract:'', //权属证明(多个用“,”分割）
+            // agentAuthorization:'' //代理人委托书(多个用“,”分割）
+            this.formItem.houseInfoVo.housePicture = this.picList0.join(",")
+            this.formItem.houseInfoVo.ownershipCertificate = this.picList1.join(",")
+            this.formItem.houseInfoVo.leaseContract = this.picList2.join(",")
+            this.formItem.houseInfoVo.agentAuthorization = this.picList3.join(",")
+
+            this.sendHouse(this.formItem.houseInfoVo)
+        }
+
+
     }
 }
 </script>

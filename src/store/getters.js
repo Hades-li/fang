@@ -25,7 +25,9 @@ export const getSendHouse = state =>{
     return state.sendHouse
 }
 
-
+export const getMainUrl = state =>{
+    return state.MainUrl
+}
 
 
 

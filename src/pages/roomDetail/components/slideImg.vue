@@ -5,7 +5,7 @@
             <swiper :options="swiperOptionLarge" ref="slideLarge">
                 <!-- slides -->
                 <swiper-slide v-for="item in dataList">
-                    <img v-bind:data-src="item.url" class="swiper-lazy">
+                    <img v-bind:data-src=" item.url " class="swiper-lazy">
                     <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
                 </swiper-slide>
                 <!-- Optional controls -->
@@ -32,7 +32,7 @@
 <script>
     import 'swiper/dist/css/swiper.css'
     import {swiper, swiperSlide} from 'vue-awesome-swiper'
-
+    import { mapGetters } from "vuex"
     export default {
         name: "slide-img",
         data() {
@@ -81,6 +81,11 @@
         },
         props: {
             dataList: [Array]
+        },
+        computed: {
+            ...mapGetters([
+                "getMainUrl"
+            ])  
         },
         mounted() {
             this.$nextTick(() => {

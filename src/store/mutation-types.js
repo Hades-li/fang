@@ -28,5 +28,9 @@ export const SET_SEND_HOUSE = "SET_SEND_HOUSE"
 //发布房源
 export const SEND_HOUSE = "SEND_HOUSE"
 
+//成为房东
+export const BECOME_HOUSE = "BECOME_HOUSE"
+
+
 
 
