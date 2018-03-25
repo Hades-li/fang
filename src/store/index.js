@@ -14,7 +14,7 @@ const state = {
   tabBar:666,
   MainUrl:"http://120.79.140.174:10080",
 //   MainUrl:" http://183g310o99.imwork.net:10639",
- 
+    billList:[],
   banner_list:null,
   house_list:null,
   province_list:[],
@@ -24,6 +24,7 @@ const state = {
   houseDetail:'',
   currentTab:"index",
   sendHouse:false,
+  contract:'',
 
 
 };

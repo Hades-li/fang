@@ -34,13 +34,17 @@ export const getOrder = state =>{
 export const getHouseDetail = state =>{
     return state.houseDetail
 }
-
-export const getStores = state => {
-
+export const getContract = state => {
+    return state.contract
+}
+export const getBill = state => {
+    console.log(state.billList)
+    return state.billList
 }
 export const getUserwx = state => {
 
 }
+
 
 export const getGatewayversion = state => {
 

@@ -277,14 +277,44 @@ export const actions = {
                     "type":type.type,
                 }
         )).then(function (response) {
+            // console.log(response)
             response.data.success == false?alert(response.data.msg):context.commit('SEND_ORDER', response.data.data)
         }).catch(function (error) {
                 console.log(error);
         });
     },
 
+    // 查看合同
+    setContract(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=406',
+            qs.stringify(
+                {
+                    "pid":type.order_id,
+                }
+        )).then(function (response) {
+            response.data.success == false?alert(response.data.msg):context.commit('SET_CONTRACT', response.data.data)
+        }).catch(function (error) {
+                console.log(error);
+        });
+    },
 
-
+    // 获取账单列表
+    setBill(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=402',
+            qs.stringify(
+                {
+                    "order_id":type.order_id,
+                    "landlord_id":type.landlord_id,
+                    "user_id":type.user_id
+                }
+        )).then(function (response) {
+            response.data.success == false?alert(response.data.msg):context.commit('SET_BILL', response.data.data)
+        }).catch(function (error) {
+                console.log(error);
+        });
+    },
 
     changeTabBar(context,tabBar){
         context.commit(types.SET_TABBAR,{
@@ -302,6 +332,20 @@ export const actions = {
 
 };
 export const mutations = {
+    
+    [types.SET_BILL] (state,data){
+        function timeFormat(nS) {     
+            return new Date(parseInt(("/Date("+nS+")/").substr(6, 13))).toLocaleDateString();     
+        };
+        for(let i = 0;i<data.length;i++){
+            data[i]["repaymentTime"] = timeFormat(data[i]["repaymentTime"])
+        }
+        state.billList = data
+    },
+    [types.SET_CONTRACT] (state,data){
+
+        state.contract = data
+    },
     [types.SET_TABBAR] (state,{tabBar}){
         state.tabBar = tabBar
     },

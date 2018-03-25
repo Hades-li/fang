@@ -38,6 +38,12 @@ export const BECOME_HOUSE = "BECOME_HOUSE"
 //获取签约 未签约
 export const SEND_ORDER = "SEND_ORDER"
 
+// 获取合同
+export const SET_CONTRACT = "SET_CONTRACT"
+
+// 获取账单列表
+export const SET_BILL = "SET_BILL"
+
 
 
 

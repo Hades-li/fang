@@ -86,7 +86,5 @@
             padding: 20px 55px;
         }
     }
-    .list_deta{
 
-    }
 </style>
