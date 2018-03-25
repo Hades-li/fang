@@ -157,9 +157,7 @@
                             {{roomData.houseInfoVo.contactsPhone}}
                         </div>
                     </div>
-                    <Button class="yuyue-btn" style="font-size:16px; width: 218px; height: 46px" type="primary"
-                            icon="eye">预约看房
-                    </Button>
+                    <ment></ment>
                 </div>
             </div>
         </div>
@@ -188,7 +186,7 @@
     import slideImg from './components/slideImg'
     import roomItem from 'template/roomListItem'
     // import uploadBtn from 'template/upload'
-
+    import ment from 'template/mentHouse/index.vue'
     export default {
         name: "roomDetail",
         data() {
@@ -264,6 +262,8 @@
         components: {
             slideImg,
             roomItem,
+            ment
+            // mentHouse
             // uploadBtn
         }
     }

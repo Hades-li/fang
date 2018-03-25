@@ -45,7 +45,7 @@ export const actions = {
                     'mobile':data.user,
                     "password":md5(data.password1),
                     "imgCode":'',
-                    "verificationCode":data.password,
+                    "verificationCode":data.password3,
                     "deviceType":"1"
                 }
         )).then(function (response) {
@@ -114,6 +114,22 @@ export const actions = {
                 console.log(error);
         });
     },
+    // 房源详情
+    setHouseDetail(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=301',
+            qs.stringify(
+                {
+                    'id':type.id,
+                }
+        )).then(function (response) {
+            response.data.success == false?alert(response.data.msg):context.commit('SET_HOUSE_DRTAIL', {data:response.data.data,config:type})
+        }).catch(function (error) {
+                console.log(error);
+        });
+    },
+
+
     // 获取省份列表
     setProvince(context){
         axios.post(
@@ -149,7 +165,6 @@ export const actions = {
                 {
                     'region_type':type.region_type,
                     "parent_id":type.parent_id,
-
                 }
         )).then(function (response) {
             response.data.success == false?console.log(response.data.msg):context.commit('SET_COUNTY', response.data.data)
@@ -230,19 +245,43 @@ export const actions = {
                 {
                     "address_province":type.address_province,
                     "address_city":type.address_city,
-                    "county":type.address_city, 
+                    "address_county":type.address_city, 
                     "address":type.address,
                     "houseResource":type.houseResource,
                     "ownershipNumber":type.ownershipNumber,
                     "user_id":type.user_id,
                 }
         )).then(function (response) {
-            response.data.success == false?console.log(response.data.msg):context.commit('BECOME_HOUSE', response.data.data)
+            alert(response.data.msg)
+            // response.data.success == false?console.log(response.data.msg):alert(response.data.msg)
         }).catch(function (error) {
                 console.log(error);
         });
     },
 
+    // 预约看房
+    //verificationCode:短信验证码
+    //mobile:手机
+    // 订单列表
+
+
+    // 订单列表 查看订单状态type -1取消，1未签约，2待签约，3签约
+    setOrder(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=401',
+            qs.stringify(
+                {
+                    "order_id":type.order_id,
+                    "landlord_id":type.landlord_id,
+                    "user_id":type.user_id, 
+                    "type":type.type,
+                }
+        )).then(function (response) {
+            response.data.success == false?alert(response.data.msg):context.commit('SEND_ORDER', response.data.data)
+        }).catch(function (error) {
+                console.log(error);
+        });
+    },
 
 
 
@@ -258,9 +297,7 @@ export const actions = {
         })
     },
     setSendHouse(context,val){
-        context.commit(types.SET_SEND_HOUSE,{
-            val:val
-        })
+        context.commit(types.SET_SEND_HOUSE,val)
     }
 
 };
@@ -269,9 +306,17 @@ export const mutations = {
         state.tabBar = tabBar
     },
     [types.SET_BANNER](state,data){
+        // console.log(data)
+        for(var i = 0;i<data.length;i++){
+            data[i].imageUrl = state.MainUrl+data[i].imageUrl
+        }
         state.banner_list = data
     },
     [types.SET_HOUSE_LIST](state,data){
+        for(let i = 0;i<data.length;i++){
+
+            data[i]["housePicture"] = state.MainUrl + data[i]["housePicture"]
+        }
         state.house_list = data
     },
     [types.SET_PROVINCE](state,data){
@@ -296,9 +341,32 @@ export const mutations = {
         state.currentTab = data.currentTab
     },
     [types.SET_SEND_HOUSE](state,data){
-        state.sendHouse = data.val
-    },
 
+        state.sendHouse = data
+    },
+    [types.SEND_ORDER](state,data){
+
+        for(let i = 0;i<data.length;i++){
+            data[i]["houseInfoVo"]["orderStatusStr"] = data[i]["orderStatusStr"]
+            data[i]["houseInfoVo"]["payType"] = data[i]["payType"]
+            data[i]["houseInfoVo"]["housePicture"] = state.MainUrl + data[i]["houseInfoVo"]["housePicture"]
+        }
+        state.orderList = data
+    },
+    [types.SET_HOUSE_DRTAIL](state,data){
+        for(let i = 0;i<data.data.housePictures.length;i++){
+            data.data.housePictures[i]["picture"] = state.MainUrl + data.data.housePictures[i]["picture"]
+        }
+        function timeFormat(nS) {     
+            return new Date(parseInt(("/Date("+nS+")/").substr(6, 13))).toLocaleDateString();     
+        };
+        state.orderList[data.config.ind].houseInfoVo.createTime = timeFormat(state.orderList[data.config.ind].houseInfoVo.createTime)
+        state.orderList[data.config.ind].appointTime = timeFormat(state.orderList[data.config.ind].appointTime)
+        state.orderList[data.config.ind].createTime = timeFormat(state.orderList[data.config.ind].createTime)
+        data.data["orderList"] = state.orderList[data.config.ind]
+        state.houseDetail = data.data
+        console.log(state.houseDetail)
+    },
 };
 
 

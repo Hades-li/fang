@@ -20,7 +20,10 @@
              <strong> 共999+套房源: </strong>
               <ul>
                 <li> 
-                  <span v-for="i in 2 "> 福田区 </span>
+                  <span > 推荐排序 </span>
+                  <span > 最新发布 </span>
+                  <span > 价格 </span>
+                  <span > 面积 </span>
                 </li>
               </ul>
         </div>

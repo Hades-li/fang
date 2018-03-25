@@ -3,20 +3,11 @@
       <Row>
           <Col span="12">
           <Carousel autoplay v-model="value1" loop>
-              <CarouselItem>
-                  <div class="demo-carousel">1</div>
-              </CarouselItem>
-              <CarouselItem>
-                  <div class="demo-carousel">2</div>
-              </CarouselItem>
-              <CarouselItem>
-                  <div class="demo-carousel">3</div>
-              </CarouselItem>
-              <CarouselItem>
-                  <div class="demo-carousel">4</div>
+              <CarouselItem v-for="item in getHouseDetail.housePictures">
+                  <div class="demo-carousel"><img :src="item.picture" alt=""></div>
               </CarouselItem>
           </Carousel>
-          <Carousel  v-model="value2" loop>
+          <!-- <Carousel  v-model="value2" loop>
               <CarouselItem>
                   <div class="demo-carousel-bottom">1</div>
               </CarouselItem>
@@ -29,50 +20,72 @@
               <CarouselItem>
                   <div class="demo-carousel-bottom">4</div>
               </CarouselItem>
-          </Carousel>
+          </Carousel> -->
           </Col>
           <Col span="12" style="padding: 10px 20px">
                 <div class="investmentDetail-right">
-                    <h4>1300元/月</h4>
-                    <h4>宝安区-Foru家青年公寓-1室0厅1卫-30.0㎡</h4>
-                    <p>地段好，很优雅</p>
+                    <h4>{{ getHouseDetail.houseInfoVo.houseRental }}元/月  </h4>
+                    <h4>  
+                        {{ getHouseDetail.houseInfoVo.addressArea }} 
+                            -
+                        {{  getHouseDetail.houseInfoVo.addressInfo }}
+                            -
+                        {{  getHouseDetail.houseInfoVo.houseTypeRoomCount }}室{{ getHouseDetail.houseInfoVo.houseTypeHallCount }}厅{{ getHouseDetail.houseInfoVo.houseTypeToiletCount }}卫
+                            -
+                        {{  getHouseDetail.houseInfoVo.houseArea }}m²
+                    </h4>
+                    <p>{{ getHouseDetail.houseInfoVo.houseContent }}</p>
                 </div>
                 <div class="investmentDetail-right">
-                    <h5>退房信息</h5>
-                    <p><span>提交时间</span><span class="float">2018-01-01 12:21:21</span></p>
-                    <p><span>退房时间</span><span class="float">2018-01-01 12:21:21</span></p>
-                    <Row>
-                        <Col :span="12">
-                        <p>退房原因</p>
-                        </Col>
-                        <Col :span="12">
-                        <p>可能会说很容的内容具体职能换下行</p>
-                        </Col>
-                    </Row>
-                    <Row>
+                    <h5>预约信息</h5>
+                    <p><span>提交时间</span><span class="float">{{ getHouseDetail.orderList.createTime }}</span></p>
+                    <p><span>看房时间</span><span class="float">{{ getHouseDetail.orderList.appointTime }}</span></p>
+
+                    <!-- <Row>
                         <Col :span="12">
                         <p>备注</p>
                         </Col>
                         <Col :span="12">
-                        <p>可能会说很容的内容具体职能换下行
-                            可能会说很容的内容具体职能换下行
-                            可能会说很容的内容具体职能换下行</p>
+                        <p>  </p>
                         </Col>
-                    </Row>
-                    <p><span>总退款金额</span><span class="float">李先生</span></p>
-                    <p><span>含其他</span><span class="float">13699998888</span></p>
+                    </Row> -->
                 </div>
                 <div class="investmentDetail-right">
-                    <h5>房东信息</h5>
-                    <p><span>起止时间</span><span class="float">2017.08.01-2017.09.01</span></p>
-                    <p><span>付款方式</span><span class="float">付一</span></p>
-                    <p><span>房租</span><span class="float">1300元/月</span></p>
-                    <p><span>房东电话</span><span class="float">13300009999</span></p>
+                    <h5>租客信息</h5>
+                    <p><span>姓名</span><span class="float">{{ getHouseDetail.orderList.userName }}</span></p>
+                    <p><span>手机号</span><span class="float">{{ getHouseDetail.orderList.userMobile }}</span></p>
                 </div>
-                <div class="">
-                    <Button type="primary">查看合同</Button>
+
+                <div class="investmentDetail-right">
+                    <h5>房东信息</h5>
+                    <p><span>姓名</span><span class="float">{{ getHouseDetail.orderList.landlordName }}</span></p>
+                </div>
+
+                <div class="investmentDetail-right">
+                    <h5>订单信息</h5>
+                    <p><span>订单号</span><span class="float">{{ getHouseDetail.orderList.id }}</span></p>
+                    <p><span>创建时间</span><span class="float">{{  getHouseDetail.orderList.houseInfoVo.createTime }}</span></p>
+                </div>
+
+
+                <div v-if="getHouseDetail.orderList.orderStatus == 3">
+                    <Button type="primary">查看账单</Button>
                     <Button type="ghost" @click.native="setCurrentTab('investmentDetailBill')" style="margin-left: 8px">查看账单</Button>
                 </div>
+                <div v-else>
+                    <div class="" v-if="userInfogo">
+                        <Button type="primary">生成合同</Button>
+                        <!-- <Button type="ghost" @click.native="setCurrentTab('investmentDetailBill')" style="margin-left: 8px">查看账单</Button> -->
+                    </div>
+                    
+                    <div class=""  v-if="getHouseDetail.orderList.orderStatus == 2">
+                        <Button type="primary">确认合同</Button>
+                        <!-- <Button type="ghost" @click.native="setCurrentTab('investmentDetailBill')" style="margin-left: 8px">查看账单</Button> -->
+                    </div>
+
+                </div>
+
+
           </Col>
       </Row>
   </div>
@@ -85,18 +98,23 @@
     data() {
       return {
           value1: 0,
-          value2:''
+          value2:'',
+          userInfogo:true,
       }
     },
     created(){
-
+        let userInfo = JSON.parse(this.$cookie.get('userInfo'));
+        userInfo.data.isLandlord == 0?this.userInfogo = false : this.userInfogo =  true
     },
     computed:{
-
+        ...mapGetters([
+            "getHouseDetail"
+        ])
     },
     methods:{
         ...mapActions([
-            "setCurrentTab"
+            "setCurrentTab",
+           
         ])
     }
   }
@@ -128,5 +146,9 @@
         .float{
             float: right;
         }
+    }
+    .demo-carousel img{
+        width: 485px;
+        height: 380px;
     }
 </style>

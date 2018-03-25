@@ -3,11 +3,7 @@
         <div class="tabBar_main">
             <div class="tb-left">
                 <img src="../assets/logo.png" alt="logo">
-                <span class="link" href="javascript:" @click="gopage('/home')">首页</span>
-                <span class="link" href="javascript:" @click="gopage('/map')">地图找房</span>
-                <span class="link" href="javascript:" @click="gopage('/homeDetil')">月付找房</span>
-                <span class="link" href="javascript:" @click="gopage('/homeDetil')">整租</span>
-                <span class="link" href="javascript:" @click="gopage('/homeDetil')">合租</span>
+
                 <div class="area">
                     <span>厦门</span>
                     <Icon type="arrow-down-b"></Icon>
@@ -15,6 +11,12 @@
                         <span href="javascript:" v-for="i in ['厦门','武汉','广州','深圳','北京','上海','杭州',]">{{ i }}</span>
                     </div>
                 </div>
+                <span class="link" href="javascript:" @click="gopage('/home')">首页</span>
+                
+                <span class="link" href="javascript:" @click="gopage('/homeDetil')">月付找房</span>
+                <span class="link" href="javascript:" @click="gopage('/homeDetil')">整租</span>
+                <span class="link" href="javascript:" @click="gopage('/homeDetil')">合租</span>
+                <span class="link" href="javascript:" @click="gopage('/map')">地图找房</span>
 
             </div>
             <!-- v-if="getuserIfo == null?true:false" -->
@@ -26,9 +28,9 @@
             </div>
             <div class="tb-right" v-else>
                 <!-- JSON.parse(usermsg) -->
-                <span href="javascript:" v-if = "user.isLandlord !== 1?false:true" @click="gopage('/checkIn')" style="margin-right: 10px;" class="link"> 成为房东 </span>
-                <span href="javascript:" v-if = "user.isLandlord == 1?true:false" style="margin-right: 20px;" @click="setSendHouse(true)" class="link"> 切换房东 </span>
-                <span href="javascript:" style="margin-right: 10px" @click="gopage('/admininfo')" class="link"> 欢迎 {{ user.realName }} </span>
+                <span href="javascript:" v-if = "user.isLandlord == 1?false:true" @click="gopage('/checkIn')" style="margin-right: 10px;" class="link"> 成为房东 </span>
+                <span href="javascript:" v-if = "user.isLandlord == 1?true:false" style="margin-right: 20px;" @click="getSendHouse?setSendHouse(false):setSendHouse(true)" class="link"> {{ getSendHouse?"切换用户":"切换房东" }} </span>
+                <span href="javascript:" style="margin-right: 10px" @click="gopage('/admininfo')" class="link"> 欢迎 {{ user.userName }} </span>
                 <span href="javascript:" @click="goLogin" class="link logout">退出</span>
             </div>
         </div>
@@ -46,6 +48,7 @@
         computed: {
             ...mapGetters([
                 // "getuserIfo"
+                "getSendHouse"
             ])
         },
         created(){
@@ -57,6 +60,7 @@
         methods:{
             ...mapActions([
                 "setSendHouse",
+                "setCurrentTab"
             ]),
             gopage(url){
                                   this.$Spin.show({
@@ -79,6 +83,7 @@
                 }, 800);
             },
             goLogin() {
+                this.setCurrentTab('index')
                 this.setSendHouse(false);
                 this.$cookie.remove('userInfo')
                 this.$router.push('/login')
@@ -199,14 +204,14 @@
         }
     }
 
-    .link::after{
-        content: "";
-        position: absolute;
-        width: 1px;
-        height: 10px;
-        right: 0;
-        top: 50%;
-        background: #999;
-        transform: translateY(-50%);
-    }
+    // .link::after{
+    //     content: "";
+    //     position: absolute;
+    //     width: 1px;
+    //     height: 10px;
+    //     right: 0;
+    //     top: 50%;
+    //     background: #999;
+    //     transform: translateY(-50%);
+    // }
 </style>

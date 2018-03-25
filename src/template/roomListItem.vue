@@ -3,7 +3,7 @@
     <div class="roomItem">
         <div class="item-content">
             <img style="height: 178px;width: 282px;"
-                 src="http://image.mgzf.com/mogoroom/2018-01/mogoWeixin/9/1/3120619/3120619_1516100301211.jpg!pc.list">
+                 :src="data.housePicture">
             <div class="item-inf">
                 <div class="money">
                     {{ data.houseRental }} <span>元/月</span>
@@ -16,7 +16,9 @@
                     {{ data.ancillaryFacilities }},{{ data.apartmentConvention }}
                 </div>
             </div>
+            <Tag class="tag" v-show="data.orderStatusStr"  color="blue">{{ data.orderStatusStr }}</Tag>
         </div>
+       
     </div>
     </div>
 
@@ -56,6 +58,7 @@
             color:#000;
             transition: all 300ms;
             cursor: pointer;
+            position: relative;
             &:hover{
                 box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
             }
@@ -86,5 +89,10 @@
                 }
             }
         }
+    }
+    .tag{
+        position: absolute;
+        right: 0;
+        top: 5px;
     }
 </style>

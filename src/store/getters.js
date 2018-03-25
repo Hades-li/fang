@@ -28,8 +28,12 @@ export const getSendHouse = state =>{
 export const getMainUrl = state =>{
     return state.MainUrl
 }
-
-
+export const getOrder = state =>{
+    return state.orderList
+}
+export const getHouseDetail = state =>{
+    return state.houseDetail
+}
 
 export const getStores = state => {
 

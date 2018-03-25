@@ -121,7 +121,7 @@ import { setInterval } from 'timers';
                     user: '',
                     password: '',
                     smsCode: '',
-                    type: 2,
+                    type: 1,
                     deviceType: "1"
                 },
                 ruleInline2: {},

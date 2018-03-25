@@ -1,20 +1,20 @@
 <template>
   <div id="investment">
       <Menu class="menu" mode="horizontal"
-            :theme="theme1" active-name="1" @on-select="change">
-          <MenuItem name="1" >
+            :theme="theme1" active-name="2" @on-select="change">
+          <!-- <MenuItem name="1" >
                     签约
-          </MenuItem>
-          <!-- <MenuItem name="2">
-                    未签约
           </MenuItem> -->
+          <MenuItem name="2">
+                    未签约
+          </MenuItem>
       </Menu>
       <div class="mainList_ul">
           <div class="list" >
               <room-item  @click.native="go(item.houseInfoVo.id,index)"  class="list_deta" v-for="(item,index) in getOrder"  v-bind:data="item.houseInfoVo">
               </room-item>
               <!-- <div v-show="getOrder.length>0?false:true">
-                  暂无签约
+                  暂无未签约
               </div> -->
           </div>
       </div>
@@ -38,23 +38,21 @@
             investmentDetail
     },
     created(){
-      console.log(JSON.parse(this.$cookie.get('userInfo')))
-      let pram,userInfo = JSON.parse(this.$cookie.get('userInfo'));
-      userInfo.data.isLandlord == 0?
-          pram = {
-            "order_id":'',
-            "landlord_id":'',
-            "user_id":userInfo.data.userId, 
-            "type":3,
-          }:
-          pram = {
-            "order_id":'',
-            "landlord_id":userInfo.data.userId,
-            "user_id":'', 
-            "type":3,
-          };
-          // type -1 订单取消 ； 0 待房东审核 ； 1 待看房 ； 2 待签约 3 ：签约完成
-      this.setOrder(pram)
+      this.setHouseList(1)
+      const user = JSON.parse(this.$cookie.get('userInfo'))
+      let landlord_id = '',user_id='' ;
+      user.data.isLandlord == 0?
+        user_id = user.data.userId
+        : 
+        landlord_id = user.data.userId
+
+      console.log(user)
+      this.setOrder({
+          "order_id":"",
+          "landlord_id":landlord_id,
+          "user_id":user_id, 
+          "type":1,        
+      })
     },
     computed:{
       ...mapGetters([
@@ -63,13 +61,12 @@
     },
     methods:{
       ...mapActions([
-        "setOrder",
+        "setHouseList",
         "setCurrentTab",
+        "setOrder",
         "setHouseDetail"
       ]),
-      change (name) {
-
-       },
+      change(){},
       go (name,index) {
         this.setHouseDetail({id:name,ind:index})
         this.setCurrentTab('investmentDetail')
@@ -89,5 +86,7 @@
             padding: 20px 55px;
         }
     }
+    .list_deta{
 
+    }
 </style>

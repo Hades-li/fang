@@ -6,17 +6,23 @@
         <FormItem  label="">
             <Col span="8">
                 <FormItem  label="省份">
-                    <Input v-model="formTop.address_province"></Input>
+                    <Select v-model="formTop.addressProvinceid" @on-change="province()">
+                        <Option v-for="item in getProvince" :value="item.region">{{ item.name }}</Option>
+                    </Select>
                 </FormItem>
             </Col>
             <Col span="8">
                 <FormItem label="市">
-                    <Input v-model="formTop.address_city"></Input>
+                    <Select v-model="formTop.addressCityid" @on-change="city()">
+                        <Option v-for="item in getCity" :value="item.region">{{ item.name }}</Option>
+                    </Select>
                 </FormItem>
             </Col>
             <Col span="8">
-                <FormItem label="县区">
-                    <Input v-model="formTop.county"></Input>
+                <FormItem label="市">
+                    <Select v-model="formTop.addressCountyid" @on-change="county()">
+                        <Option v-for="item in getCounty" :value="item.region">{{ item.name }}</Option>
+                    </Select>
                 </FormItem>
             </Col> 
         </FormItem>
@@ -37,7 +43,7 @@
     </div>
 </template>
 <script>
-
+import { mapGetters , mapActions } from "vuex"
 import updated from "../template/upload/index"
 export default{
     data () {
@@ -50,7 +56,16 @@ export default{
                 address: '',
                 houseResource: '',
                 ownershipNumber:'',
-                user_id:''
+                user_id:'',
+                addressProvinceid:'',
+                addressProvince:'',
+                provinceid:'',
+                addressCityid:'',
+                addressCity:'',
+                cityid:'',
+                addressCountyid:'',
+                addressCounty:'',
+                countyid:''
             }
         }
     },
@@ -58,10 +73,58 @@ export default{
         updated
     },
     created(){
-
+        this.setProvince();
+    },
+    computed:{
+        ...mapGetters([
+            'getProvince',
+            'getCity',
+            'getCounty'
+        ])
     },
     methods:{
-
+        ...mapActions([
+            "setProvince",
+            "setCity",
+            "setCounty",
+            "sendHouse",
+            "becomeHouse"
+        ]),
+        province(){
+            
+            let name =  this.formTop.addressProvinceid 
+            let reg = /[\u4e00-\u9fa5]/g;  
+            var names = name.match(reg); 
+            this.formTop.address_province = (name.match(reg)).join("")
+            this.formTop.provinceid = name.replace(reg, "")
+            this.setCity({parent_id:this.formTop.provinceid,region_type:1})
+        },
+        
+        city(){
+            let name =  this.formTop.addressCityid 
+            let reg = /[\u4e00-\u9fa5]/g;  
+            var names = name.match(reg); 
+            this.formTop.address_city = (name.match(reg)).join("")
+            this.formTop.cityid = name.replace(reg, "")
+            this.setCounty({parent_id:this.formTop.cityid,region_type:2})
+        },
+        
+        county(){
+            let name =  this.formTop.addressCountyid 
+            let reg = /[\u4e00-\u9fa5]/g;  
+            var names = name.match(reg); 
+            this.formTop.county = (name.match(reg)).join("")
+            this.formTop.countyid = name.replace(reg, "")
+        },
+        becomeAdmin(){
+            this.formTop.ownershipNumber = this.picList.join(",")
+    
+            console.log(this.formTop)
+            // this.sendHouse(this.formItem.houseInfoVo)
+            console.log(JSON.parse(this.$cookie.get('userInfo')))
+             this.formTop.user_id = JSON.parse(this.$cookie.get('userInfo')).data.userId  
+            this.becomeHouse(this.formTop)
+        }
     }
 }
 </script>

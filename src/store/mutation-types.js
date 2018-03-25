@@ -9,6 +9,10 @@ export const SET_BANNER = "SET_BANNER"
 // 获取首页房源列表
 export const SET_HOUSE_LIST = "SET_HOUSE_LIST"
 
+// 获取房源详情
+export const SET_HOUSE_DRTAIL = "SET_HOUSE_DRTAIL"
+
+
 //获取省列表 
 export const SET_PROVINCE = "SET_PROVINCE"
 
@@ -30,6 +34,10 @@ export const SEND_HOUSE = "SEND_HOUSE"
 
 //成为房东
 export const BECOME_HOUSE = "BECOME_HOUSE"
+
+//获取签约 未签约
+export const SEND_ORDER = "SEND_ORDER"
+
 
 
 

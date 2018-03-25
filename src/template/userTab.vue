@@ -16,6 +16,9 @@
           <MenuItem name="6" @click.native="setCurrentTab('investment')">
               租约管理
           </MenuItem>
+          <MenuItem name="7" @click.native="setCurrentTab('notinvestment')">
+              看房足迹
+          </MenuItem>
         </MenuGroup>
 
         <MenuGroup title="房源管理" v-show="getSendHouse">
@@ -40,6 +43,7 @@ import sendHouse from './userInfo/sendHouse'
 import houseList from './userInfo/houseList'
 import records from './userInfo/records'
 import investment from './userInfo/investment'
+import notinvestment from './userInfo/notinvestment'
 import investmentDetail from './userInfo/investmentDetail.vue'
 import investmentDetailBill from './userInfo/investmentDetailBill'
 
@@ -57,7 +61,8 @@ export default{
     records,
     investment,
     investmentDetailBill,
-    investmentDetail
+    investmentDetail,
+    notinvestment
 
   },
   created(){
