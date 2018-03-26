@@ -32,7 +32,7 @@
       <div class="HomeDetil_list"> 
         <ul>
           <li v-for="item in getHouseList" @click="pagego(item.id)"> 
-            <img src="http://image.mgzf.com/mogoroom/2018-01/mogoWeixin/9/1/3120619/3120619_1516100301211.jpg!pc.list"> 
+            <img :src="item.housePicture"> 
             <div> 
               <h3> {{ item.addressArea }} {{ item.addressInfo }} </h3>
               <p> {{ item.houseTypeRoomCount }}室{{ item.houseTypeHallCount }}厅{{  item.houseTypeKitchenCount }}厨{{ item.houseTypeToiletCount }}卫-{{ item.houseArea }}㎡ </p>
@@ -189,7 +189,7 @@ export default{
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
-    color: #ff5600;
+    color: #2d8cf0;
     font-size: 20px;
   } 
   .HomeDetil_list{

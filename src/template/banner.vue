@@ -169,7 +169,7 @@
             color: #fff;
             border: 0 none;
             font-size: 18px;
-            background-color: #f65000;
+            background-color: #2d8cf0;
             border-top-right-radius: 4px;
             border-bottom-right-radius: 4px;
             &:hover{

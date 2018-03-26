@@ -313,7 +313,7 @@
                 font-size: 16px;
             }
             .price {
-                color: #f65000;
+                color: #2d8cf0;
                 font-size: 30px;
                 span {
                     font-size: 18px;
@@ -341,7 +341,7 @@
                 padding-bottom: 10px;
             }
             .phone {
-                color: #f65000;
+                color: #2d8cf0;
                 .icon-phone {
                     font-size: 20px;
                     margin-right: 5px;
@@ -377,8 +377,8 @@
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 &:hover {
-                    border-color: #f65000;
-                    color: #f65000;
+                    border-color: #2d8cf0;
+                    color: #2d8cf0;
                 }
             }
         }

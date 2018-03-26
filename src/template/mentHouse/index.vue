@@ -1,7 +1,8 @@
 <template>
     <div>
         
-        <Button class="yuyue-btn" @click="modal1 = true" style="font-size:16px; width: 218px; height: 46px" type="primary" icon="eye">预约看房
+        <Button class="yuyue-btn" @click="modal1 = true" style="font-size:16px; width: 218px; height: 46px;    margin-top: 20px;
+    margin-left: 40px;" type="primary" icon="eye">预约看房
         </Button>
         <Modal
             v-model="modal1"
@@ -15,12 +16,12 @@
                         </Input>
                     </FormItem>
                     <FormItem class="from2_password" prop="password" inline>
-                        <Col span="15">
+                        <Col span="10">
                             <Input type="password" v-model="formInline2.smsCode" placeholder="验证码">
                                 <Icon type="ios-locked-outline" slot="prepend"></Icon>
                             </Input>
                         </Col>    
-                        <Col span="">
+                        <Col span="12">
                             <Button class="password_primary" type="primary" :loading="loading"
                                 @click="toLoading({'mobile':formInline2.user,'sms_type':5})">
                                 <span v-if="!loading">获取验证码</span>
@@ -32,7 +33,7 @@
                     <FormItem >
                         <Row>
                             <Col span="10">
-                                <DatePicker type="date" format="yyyy-MM-dd" value="yyyy-MM-dd" placeholder="预约日期" v-model="formInline2.date"></DatePicker>
+                                <DatePicker type="date" :options="options3" format="yyyy-MM-dd" value="yyyy-MM-dd" placeholder="预约日期" v-model="formInline2.date"></DatePicker>
                             </Col>
                             <Col span="4" style="text-align: center">-</Col>
                             <Col span="10">
@@ -50,6 +51,7 @@
 <script>
      import {mapActions , mapState, mapGetters} from "vuex"
      import qs from "qs"
+import { clearInterval } from 'timers';
     export default {
         data () {
             return {
@@ -67,6 +69,11 @@
                     date:'',
                     time:''
                 },
+                options3: {
+                    disabledDate (date) {
+                        return date && date.valueOf() < Date.now() - 86400000;
+                    }
+                },
             }
         },
         computed:{
@@ -82,10 +89,12 @@
                 const that = this;
                 this.loading = true;
                 this.smsMsg(data);
-                setInterval(function (param) { 
+                let timer = setInterval(function (param) { 
                     that.time1-- 
                     if(that.time1 == 0){
                         that.loading = false;
+                        clearInterval(timer)
+                        that.time1 = 60;
                     }
                 },1000)
             },

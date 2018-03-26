@@ -89,7 +89,7 @@
 </template>
 <script>
     import {mapActions} from "vuex"
-import { setInterval } from 'timers';
+import { setInterval, clearInterval } from 'timers';
 
     export default {
         data() {
@@ -143,7 +143,7 @@ import { setInterval } from 'timers';
                 "smsMsg"
             ]),
             handleSubmit(name) {
-
+                // 
             },
             formLoginReset(name) {
 
@@ -152,10 +152,12 @@ import { setInterval } from 'timers';
                 const that = this;
                 this.loading = true;
                 this.smsMsg(data);
-                setInterval(function (param) { 
+                let timer =  setInterval(function (param) { 
                     that.time1-- 
                     if(that.time1 == 0){
                         that.loading = false;
+                        clearInterval(timer);
+                        that.time1 = 60;
                     }
                 },1000)
             },
@@ -163,10 +165,12 @@ import { setInterval } from 'timers';
                 const that = this;
                 this.loading1 = true;
                 this.smsMsg(data);
-                setInterval(function (param) { 
+                let timer = setInterval(function (param) { 
                     that.time2-- 
                     if(that.time2 == 0){
                         that.loading1 = false;
+                        clearInterval(timer);
+                        that.time2 = 60;
                     }
                 },1000)
             },
@@ -261,7 +265,7 @@ import { setInterval } from 'timers';
 
     .group_method .active {
         background-color: #edebee;
-        color: #f65000;
+        color: #2d8cf0;
     }
 
     .ivu-input {
@@ -271,7 +275,7 @@ import { setInterval } from 'timers';
     .rsgister {
         position: absolute;
         bottom: -30px;
-        color: #f65000;
+        color: #2d8cf0;
         right: 0;
         cursor: pointer;
     }
@@ -279,7 +283,7 @@ import { setInterval } from 'timers';
     .gohome {
         position: absolute;
         bottom: -30px;
-        color: #f65000;
+        color: #2d8cf0;
         left: 0;
         cursor: pointer;
     }
@@ -302,7 +306,7 @@ import { setInterval } from 'timers';
     }
 
     .method_2 h4 {
-        color: #f65000;
+        color: #2d8cf0;
         width: 100%;
         text-align: center;
         margin-bottom: 30px;

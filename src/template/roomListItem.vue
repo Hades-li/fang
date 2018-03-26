@@ -69,7 +69,7 @@
                 padding: 18px 15px;
                 background-color: #fff;
                 .money{
-                    color: #f65000;
+                    color: #2d8cf0;
                     font-size: 20px;
                     font-weight: 700;
                     span{

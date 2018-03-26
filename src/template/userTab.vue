@@ -91,13 +91,13 @@ export default{
 <style>
 .ivu-menu-light.ivu-menu-vertical .ivu-menu-item-active:not(.ivu-menu-submenu) {
     color: #fff;
-    background: #7fd4f3 !important;
+    background: #2d8cf0 !important;
     border-right: 2px solid #7fd4f3 !important;
     z-index: 2;
 }
 .ivu-menu-item:hover{
     color: #fff !important;
-    background: #7fd4f3 !important;
+    background: #2d8cf0 !important;
     border-right: 2px solid #7fd4f3 !important;
     z-index: 2;
 }

@@ -130,7 +130,7 @@
                 .area-list {
                     display: block;
                 }
-                color: #FF661A;;
+                color: #2d8cf0;;
             }
             .area-list {
                 display: none;
@@ -147,7 +147,7 @@
                     padding: 0 12px;
                     line-height: 30px;
                     &:hover {
-                        color: #f65000;
+                        color: #2d8cf0;
                     }
                 }
             }
@@ -158,7 +158,7 @@
             font-weight: bolder;
             position: relative;
             &:hover, &.active {
-                color: #FF661A;
+                color: #2d8cf0;
             }
 
         }
@@ -172,10 +172,10 @@
             font-weight: bolder;
 
             &:hover, &.active {
-                color: #FF661A;
+                color: #2d8cf0;
             }
             &.logout{
-                color: #FF661A;
+                color: #2d8cf0;
             }
         }
         .login-btn{
@@ -193,10 +193,10 @@
                 }
             }
             &.landlord{
-                color: #FF661A;
-                border-color: #FF661A;
+                color: #2d8cf0;
+                border-color: #2d8cf0;
                 &:hover{
-                    background-color: #FF661A;
+                    background-color: #2d8cf0;
                     color: #fff;
                 }
             }
