@@ -15,17 +15,17 @@ const state = {
   MainUrl:"http://120.79.140.174:10080",
 //   MainUrl:" http://183g310o99.imwork.net:10639",
     billList:[],
-  banner_list:null,
-  house_list:null,
-  province_list:[],
-  city_list:[],
-  county_list:[],
-  orderList:[],
-  houseDetail:'',
-  currentTab:"index",
-  sendHouse:false,
-  contract:'',
-
+    banner_list:null,
+    house_list:null,
+    province_list:[],
+    city_list:[],
+    county_list:[],
+    orderList:[],
+    houseDetail:'',
+    currentTab:"index",
+    sendHouse:false,
+    contract:'',
+    isBoss:false,
 
 };
 

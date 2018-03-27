@@ -38,9 +38,8 @@
             investmentDetail
     },
     created(){
-      console.log(JSON.parse(this.$cookie.get('userInfo')))
       let pram,userInfo = JSON.parse(this.$cookie.get('userInfo'));
-      userInfo.data.isLandlord == 0?
+      this.getBoss== false?
           pram = {
             "order_id":'',
             "landlord_id":'',
@@ -58,14 +57,15 @@
     },
     computed:{
       ...mapGetters([
-        "getOrder"
+        "getOrder",
+        "getBoss"
       ])
     },
     methods:{
       ...mapActions([
         "setOrder",
         "setCurrentTab",
-        "setHouseDetail"
+        "setHouseDetail",
       ]),
       change (name) {
 

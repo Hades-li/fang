@@ -51,7 +51,7 @@
 <script>
      import {mapActions , mapState, mapGetters} from "vuex"
      import qs from "qs"
-import { clearInterval } from 'timers';
+import { clearInterval, setTimeout, setInterval } from 'timers';
     export default {
         data () {
             return {
@@ -67,7 +67,8 @@ import { clearInterval } from 'timers';
                     houseId: '',
                     appointTime: '',
                     date:'',
-                    time:''
+                    time:'',
+                    timer:''
                 },
                 options3: {
                     disabledDate (date) {
@@ -81,6 +82,9 @@ import { clearInterval } from 'timers';
                 "getMainUrl"
             ])
         },
+        created(){
+
+        },
         methods: {
             ...mapActions([
                 "smsMsg"
@@ -89,16 +93,24 @@ import { clearInterval } from 'timers';
                 const that = this;
                 this.loading = true;
                 this.smsMsg(data);
-                let timer = setInterval(function (param) { 
-                    that.time1-- 
-                    if(that.time1 == 0){
+
+                this.timer = setInterval(() => { 
+                    that.time1--;
+                    if(that.time1<=0){
+                        this.clearTime();
                         that.loading = false;
-                        clearInterval(timer)
                         that.time1 = 60;
                     }
                 },1000)
+
+
             },
-                        //             userId:userInfo.data.userId,
+
+            clearTime(){
+                clearInterval(this.timer)
+            },
+
+                        //             userId:userInfo.data.userId, 18666209792
                         // houseId:that.$route.query.id, 
                         // appointTime:that.appointTime,
                         // verificationCode:that.smsCode,

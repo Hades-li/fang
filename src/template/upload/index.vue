@@ -8,14 +8,14 @@
         </div>
         <ul class="imgList">
             <li v-for="url in imgFiles">
-                <img v-bind:src="url" alt="">
+                <img v-bind:src="`${$host}${url}`" alt="">
             </li>
         </ul>
     </div>
 </template>
 
 <script>
-
+    import lrz from "lrz"
     export default {
         name: "upload",
         props: {
@@ -36,30 +36,51 @@
 
         methods: {
             upload (event) {
+                const that = this
                 const file = event.target.files[0]
                 const fd = new FormData()
-                if (file) {
-                    const msg = this.$Message.loading({
+                console.log(file)
+                console.log("压缩前："　+　file.size)
+                lrz(file,{width:300}).then(function (rest) {
+                rest.file["name"] = "ic_ga-brnn.png"  
+
+ 
+                console.log(rest)    
+                console.log("压缩前后："　+ rest.file.size)
+    
+                if(rest.file.size>1024000){
+                    that.$Message.error('图片太大（温馨提示：不能超过１Ｍ哟）');
+                }else{
+
+                if (rest.file) {
+                    const msg = that.$Message.loading({
                         content: '正在上传...',
                         duration: 0
                     });
-                    fd.append('imgFile', file)
-                    this.$axios.post(`${this.$host}/global/imgupload`,fd, {
+                    fd.append('imgFile', rest.file, file.name)
+                    that.$axios.post(`${that.$host}/global/imgupload`,fd, {
                         method: 'post',
                         headers: {'Content-Type': 'multipart/form-data'}
                     }).then((res) => {
                         msg()
                         if (res.data.code === 0) {
-                            this.imgFiles.push(`${this.$host}${res.data.url}`)
-                            this.$Message.success('上传成功');
+                            that.imgFiles.push(res.data.url)
+                            // that.imgFiles.push(`${that.$host}${res.data.url}`)
+                            that.$Message.success('上传成功');
                         } else {
-                            this.$Message.error('上传失败');
+                            that.$Message.error('上传失败');
                         }
                     }).catch((error) => {
                         msg()
-                        this.$Message.error('上传失败');
+                        that.$Message.error('上传失败');
                     })
                 }
+                }
+
+                });
+
+
+
             }
         }
     }

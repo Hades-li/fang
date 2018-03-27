@@ -89,7 +89,7 @@
 </template>
 <script>
     import {mapActions} from "vuex"
-import { setInterval, clearInterval } from 'timers';
+    import { setInterval, clearInterval } from 'timers';
 
     export default {
         data() {

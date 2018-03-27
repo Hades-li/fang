@@ -114,13 +114,14 @@
     },
     created(){
         let userInfo = JSON.parse(this.$cookie.get('userInfo'));
-        userInfo.data.isLandlord == 0?this.userInfogo = false : this.userInfogo =  true
+        this.getBoss == false?this.userInfogo = false : this.userInfogo =  true
     },
     computed:{
         ...mapGetters([
             "getHouseDetail",
             "getMainUrl",
-            "getContract"
+            "getContract",
+            "getBoss"
         ])
     },
     methods:{
@@ -141,7 +142,7 @@
             let userInfo = JSON.parse(this.$cookie.get('userInfo'));
             let landlord_id = "",user_id="";
             
-            userInfo.data.isLandlord == 0?user_id = userInfo.data.userId : landlord_id =  userInfo.data.userId
+            this.getBoss == false ?user_id = userInfo.data.userId : landlord_id =  userInfo.data.userId
             this.setBill({
                 "order_id":this.getHouseDetail.orderList.order_id,
                 "landlord_id":landlord_id,

@@ -41,7 +41,7 @@
       this.setHouseList(1)
       const user = JSON.parse(this.$cookie.get('userInfo'))
       let landlord_id = '',user_id='' ;
-      user.data.isLandlord == 0?
+      this.getBoss == false?
         user_id = user.data.userId
         : 
         landlord_id = user.data.userId
@@ -56,7 +56,8 @@
     },
     computed:{
       ...mapGetters([
-        "getOrder"
+        "getOrder",
+        "getBoss"
       ])
     },
     methods:{

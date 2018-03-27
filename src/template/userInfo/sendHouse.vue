@@ -76,10 +76,10 @@
                     <Col span="12">
                     <FormItem label="品牌公寓">
                         <RadioGroup v-model="formItem.houseInfoVo.isBrandApartment">
-                            <Radio label="1">
+                            <Radio label="true">
                                 <span>是</span>
                             </Radio>
-                            <Radio label="2">
+                            <Radio label="false">
                                 <span>否</span>
                             </Radio>
                         </RadioGroup>
@@ -247,8 +247,8 @@
                 </Row>
                 <FormItem label="提供发票">
                     <RadioGroup v-model="formItem.houseInfoVo.isInvoice">
-                        <Radio label="1">是</Radio>
-                        <Radio label="2">否</Radio>
+                        <Radio label="true">是</Radio>
+                        <Radio label="false">否</Radio>
                     </RadioGroup>
                 </FormItem>
                 <FormItem label="付租方式">
@@ -315,7 +315,7 @@
                     </FormItem>
                     </Col>
                 </Row>
-                <FormItem label="房子租赁状态">
+                <!-- <FormItem label="房子租赁状态">
                     <RadioGroup v-model="formItem.houseInfoVo.houseStatus">
                         <Radio label="0">发布中</Radio>
                         <Radio label="1">招租中</Radio>
@@ -325,7 +325,7 @@
                 </FormItem>
                 <FormItem label="创建时间">
                   <Input v-model="formItem.houseInfoVo.createTime" placeholder="请输入"></Input>
-                </FormItem>
+                </FormItem> -->
                 <FormItem label="房子图片"> 
                     <updated v-model="picList0"></updated>
                 </FormItem>
@@ -507,10 +507,32 @@
             // ownershipCertificate:'', //权属证明(多个用“,”分割）
             // leaseContract:'', //权属证明(多个用“,”分割）
             // agentAuthorization:'' //代理人委托书(多个用“,”分割）
+            console.log(this.picList0)
             this.formItem.houseInfoVo.housePicture = this.picList0.join(",")
             this.formItem.houseInfoVo.ownershipCertificate = this.picList1.join(",")
             this.formItem.houseInfoVo.leaseContract = this.picList2.join(",")
             this.formItem.houseInfoVo.agentAuthorization = this.picList3.join(",")
+
+Date.prototype.Format = function (fmt) {  
+    var o = {
+        "M+": this.getMonth() + 1, //月份 
+        "d+": this.getDate(), //日 
+        "h+": this.getHours(), //小时 
+        "m+": this.getMinutes(), //分 
+        "s+": this.getSeconds(), //秒 
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+        "S": this.getMilliseconds() //毫秒 
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
+}
+
+        this.formItem.houseInfoVo.rentPeroidMin = new Date(this.formItem.houseInfoVo.rentPeroidMin).Format("yyyy-MM-dd")
+        this.formItem.houseInfoVo.rentPeroidMax = new Date(this.formItem.houseInfoVo.rentPeroidMax).Format("yyyy-MM-dd")
+        
+
 
             this.sendHouse(this.formItem.houseInfoVo)
         }

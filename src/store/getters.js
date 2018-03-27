@@ -38,12 +38,11 @@ export const getContract = state => {
     return state.contract
 }
 export const getBill = state => {
-    console.log(state.billList)
     return state.billList
 }
-export const getUserwx = state => {
-
-}
+export const getBoss = state => {
+    return state.isBoss
+}   
 
 
 export const getGatewayversion = state => {

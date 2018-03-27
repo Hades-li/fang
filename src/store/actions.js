@@ -10,7 +10,7 @@ import router from "router"
 
 // document.cookie = 'key=value';
 export const actions = {
-    // 登陆 15913351558 234567
+    // 登陆 15913351558 234567 18859253925
     logingo(context,data){
         axios.post(
             state.state.MainUrl + '/index?opt=100',
@@ -181,7 +181,7 @@ export const actions = {
                 {
                     "landlordId": type.landlordId, /** 房东ID **/
                     "title": type.title, /** 标题 **/
-                    "houseNo": type.houseNo, /** 房源编号，唯一 **/
+                    // "houseNo": 1, /** 房源编号，唯一 **/
                     "addressProvince": type.addressProvince, /** 省 **/
                     "addressCity": type.addressCity, /** 市 **/
                     "addressCounty": type.addressCounty, /** 县 **/
@@ -211,7 +211,7 @@ export const actions = {
                     "traffic": type.traffic, /** 附近交通 **/
                     "houseContent": type.houseContent, /** 详情描述 **/
                     "isInvoice": type.isInvoice, /** 是否提供发票 **/
-                    "createTime": type.createTime, /** 创建时间 **/
+                    // "createTime": type.createTime, /** 创建时间 **/
                     "contacts": type.contacts, /** 看房联系人 **/
                     "contactsPhone": type.contactsPhone, /** 看房联系电话 **/
                     "houseTypeRoomCount": type.houseTypeRoomCount, /** 户型-室 **/
@@ -224,14 +224,15 @@ export const actions = {
                     "payFees": type.payFees, /** 其它费用**/
                     "landlordPayFees": type.landlordPayFees, /** 承租人自付费用**/
                     "renterPayFees": type.renterPayFees, /** 出租人代付费用**/
-                    "houseStatus": type.houseStatus, /** 房子租赁状态，0，发布中，1招租中，2已租赁，3已到期 **/
+                    // "houseStatus": type.houseStatus, /** 房子租赁状态，0，发布中，1招租中，2已租赁，3已到期 **/
                     "housePicture":type.housePicture, // 房子图片
                     "ownershipCertificate":type.ownershipCertificate, //权属证明(多个用“,”分割）
                     "leaseContract":type.leaseContract, //权属证明(多个用“,”分割）
                     "agentAuthorization":type.agentAuthorization //代理人委托书(多个用“,”分割）
                 }
         )).then(function (response) {
-            response.data.success == false?alert(response.data.msg):context.commit('SEND_HOUSE', response.data.data)
+            alert(response.data.msg)
+            // response.data.success == false?alert(response.data.msg):context.commit('SEND_HOUSE', response.data.data)
         }).catch(function (error) {
             console.log(error);
         });
@@ -328,11 +329,16 @@ export const actions = {
     },
     setSendHouse(context,val){
         context.commit(types.SET_SEND_HOUSE,val)
+    },
+    becomeBoss(context,val){
+        context.commit(types.BECOME_BOSS,val)
     }
 
 };
 export const mutations = {
-    
+    [types.BECOME_BOSS] (state,data){
+        state.isBoss = data
+    },
     [types.SET_BILL] (state,data){
         function timeFormat(nS) {     
             return new Date(parseInt(("/Date("+nS+")/").substr(6, 13))).toLocaleDateString();     

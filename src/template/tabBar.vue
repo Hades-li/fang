@@ -29,7 +29,7 @@
             <div class="tb-right" v-else>
                 <!-- JSON.parse(usermsg) -->
                 <span href="javascript:" v-if = "user.isLandlord == 1?false:true" @click="gopage('/checkIn')" style="margin-right: 10px;" class="link"> 成为房东 </span>
-                <span href="javascript:" v-if = "user.isLandlord == 1?true:false" style="margin-right: 20px;" @click="getSendHouse?setSendHouse(false):setSendHouse(true)" class="link"> {{ getSendHouse?"切换用户":"切换房东" }} </span>
+                <span href="javascript:" v-if = "user.isLandlord == 1?true:false" style="margin-right: 20px;" @click="getBoss?house(false):house(true)" class="link"> {{ getBoss?"切换用户":"切换房东" }} </span>
                 <span href="javascript:" style="margin-right: 10px" @click="gopage('/admininfo')" class="link"> 欢迎 {{ user.userName }} </span>
                 <span href="javascript:" @click="goLogin" class="link logout">退出</span>
             </div>
@@ -48,7 +48,9 @@
         computed: {
             ...mapGetters([
                 // "getuserIfo"
-                "getSendHouse"
+                "getSendHouse",
+                "getBoss",
+                "getCurrentTab"
             ])
         },
         created(){
@@ -60,8 +62,15 @@
         methods:{
             ...mapActions([
                 "setSendHouse",
-                "setCurrentTab"
+                "setCurrentTab",
+                "becomeBoss"
             ]),
+            house(val){
+                // this.setSendHouse(val)
+                this.setCurrentTab('index')
+                this.becomeBoss(val)
+                this.gopage('/home')
+            },
             gopage(url){
                                   this.$Spin.show({
                     render: (h) => {
@@ -83,8 +92,9 @@
                 }, 800);
             },
             goLogin() {
+
                 this.setCurrentTab('index')
-                this.setSendHouse(false);
+                this.becomeBoss(false);
                 this.$cookie.remove('userInfo')
                 this.$router.push('/login')
             }

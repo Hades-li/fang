@@ -8,10 +8,14 @@
 
 <script>
   import { mapActions } from "vuex"
+import { setInterval, clearInterval } from 'timers';
   export default {
     name: 'app',
     created(){
       // this.login()
+    },
+    created(){
+
     },
     methods:{
       ...mapActions([

@@ -227,7 +227,7 @@
                     const that = this;
                     let userInfo =JSON.parse(this.$cookie.get('userInfo')) ;
                     // console.log(params)
-                    if( userInfo.data.isLandlord == 1){
+                    if( that.getBoss == true){
                     if(params.row.status == 1){
                     return h('Button', {
                                 props: {
@@ -261,7 +261,7 @@
                             },"未支付");
                     }
                     }
-                    if( userInfo.data.isLandlord == 0){
+                    if( that.getBoss == false){
                     if(params.row.status == 2){
                     return h('Button', {
                                 props: {
@@ -310,7 +310,8 @@
     computed:{
         ...mapGetters([
             "getBill",
-            "getMainUrl"
+            "getMainUrl",
+            "getBoss"
         ])
     },
     methods:{

@@ -82,3 +82,51 @@
                     realName:'',/** 真实姓名 **/
                     mobile:''/** 手机 **/
                 },
+
+landlordId: 9
+title: 1
+addressProvince: 江西省
+addressCity: 赣州市
+addressCounty: 兴国县
+addressInfo: 江西省赣州市兴国县
+addressHousingEstate: 1
+addressArea: 1
+addressLongitude: 1
+addressLatitude: 1
+isBrandApartment: true
+brandApartmentName: 1
+houseType: 1
+houseFloor: 1
+houseFloorMax: 1
+houseArea: 1
+houseTowards: 1
+decorationType: 1
+ancillaryFacilities: 1
+apartmentConvention: 1
+rentType: 1
+rentPeroidMin: 2018-03-28
+rentPeroidMax: 2018-03-28
+payType: 1
+discountType: 0
+discountValue: 1
+houseRental: 1
+houseDeposit: 1
+traffic: 1
+houseContent: 1
+isInvoice: true
+contacts: 1
+contactsPhone: 1
+houseTypeRoomCount: 1
+houseTypeHallCount: 1
+houseTypeKitchenCount: 1
+houseTypeToiletCount: 1
+houseTypeBalconyCount: 1
+landlordOwnershipRelation: 1
+ownershipNumber: 1
+payFees: 1
+landlordPayFees: 1
+renterPayFees: 1
+housePicture: http://120.79.140.174:10080/static/upload/image/2018/3/27/89aaf282-4704-48b3-8a85-4ef2d27c424f.png
+ownershipCertificate: http://120.79.140.174:10080/static/upload/image/2018/3/27/b5e8bb5e-1977-4e10-9bb6-439d83a6dc16.png
+leaseContract: http://120.79.140.174:10080/static/upload/image/2018/3/27/306b929d-1693-48c9-bc13-2883c9d02298.png
+agentAuthorization: http://120.79.140.174:10080/static/upload/image/2018/3/27/24101c1d-838c-4408-9173-92cc82cb7413.png

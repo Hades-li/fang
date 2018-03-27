@@ -44,6 +44,8 @@ export const SET_CONTRACT = "SET_CONTRACT"
 // 获取账单列表
 export const SET_BILL = "SET_BILL"
 
+// 成为ｂｏｓｓ
+export const BECOME_BOSS = "BECOME_BOSS"
 
 
 

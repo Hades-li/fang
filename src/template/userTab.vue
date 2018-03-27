@@ -1,6 +1,6 @@
 <template>
   <div class="userTab">
-    <Menu theme="light" active-name="1" style="width: 160px;">
+    <Menu theme="light" active-name="1"  style="width: 160px;">
         <MenuGroup title="首页">
         <MenuItem name="1" @click.native="setCurrentTab('index')">
           个人中心
@@ -13,19 +13,19 @@
         </MenuGroup>
 
         <MenuGroup title="租约管理">
-          <MenuItem name="6" @click.native="setCurrentTab('investment')">
+          <MenuItem name="3" @click.native="setCurrentTab('investment')">
               租约管理
           </MenuItem>
-          <MenuItem name="7" @click.native="setCurrentTab('notinvestment')">
+          <MenuItem name="4" @click.native="setCurrentTab('notinvestment')">
               看房足迹
           </MenuItem>
         </MenuGroup>
 
-        <MenuGroup title="房源管理" v-show="getSendHouse">
+        <MenuGroup title="房源管理" v-show="getBoss">
           <!-- <MenuItem name="9" @click.native="setCurrentTab('houseList')">
               房源列表
           </MenuItem> -->
-          <MenuItem name="10" @click.native="setCurrentTab('sendHouse')">
+          <MenuItem name="5" @click.native="setCurrentTab('sendHouse')">
               发布房源
           </MenuItem>
         </MenuGroup>
@@ -51,7 +51,7 @@ import { mapGetters,mapActions } from "vuex"
 export default{
   data () {
     return {
-      // currentTab: 'index' // currentTab 用于标识当前触发的子组件
+      tab: 1 // currentTab 用于标识当前触发的子组件
     }
   },
   components:{
@@ -71,7 +71,8 @@ export default{
   computed:{
     ...mapGetters([
       "getCurrentTab",
-      "getSendHouse"
+      "getSendHouse",
+      "getBoss"
     ])
   },
   methods:{
