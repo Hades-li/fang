@@ -16,17 +16,19 @@
         </div>
      </div> -->
      <main-list> </main-list>
+     <footer-list>  </footer-list>
   </div>
 </template>
 <script>
 
 import mainList from "../template/mainList.vue"
 import banner from "../template/banner.vue"
-
+import footerList from "../template/footerList.vue"
 export default{
   components:{
     mainList:mainList,
-    banner:banner
+    banner:banner,
+    footerList:footerList
   },
 
   methods:{

@@ -1,9 +1,9 @@
 <template>
   <div id="houseList">
-           <div class="mainList_ul">
-                <div class="list">
-                    <room-item @click.native="setCurrentTab('investmentDetail')" v-for="item in getHouseList"  v-bind:data="item"></room-item>
-                </div>
+      <div class="mainList_ul">
+          <div class="list">
+            <room-item @click.native="setCurrentTab('investmentDetail')" v-for="item in getHouseList"  v-bind:data="item"></room-item>
+          </div>
       </div>
   </div>
 </template>

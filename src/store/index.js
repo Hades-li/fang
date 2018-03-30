@@ -22,7 +22,7 @@ const state = {
     county_list:[],
     orderList:[],
     houseDetail:'',
-    currentTab:"index",
+    currentTab:{'page':'index','tab':['个人中心','基本信息']},
     sendHouse:false,
     contract:'',
     isBoss:false,

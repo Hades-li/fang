@@ -31,7 +31,9 @@
 
       <div class="HomeDetil_list"> 
         <ul>
-          <li v-for="item in getHouseList" @click="pagego(item.id)"> 
+          <li v-for="item in getHouseList" @click="pagego(item.id)" > 
+            <Row class="HouseList_row">
+            <Col span="20" class="HouseList_Col">
             <img :src="item.housePicture"> 
             <div> 
               <h3> {{ item.addressArea }} {{ item.addressInfo }} </h3>
@@ -39,10 +41,19 @@
               <p> {{ item.traffic  }} </p>
               <p> <span> {{ item.rentType == 1?"整租":"合租"  }} </span> </p>
               <p> {{ item.title  }} </p>
+              <p> <Tag  type="border">{{ item.ancillaryFacilities }}</Tag> <Tag  type="border">{{ item.apartmentConvention }}</Tag> </p>
             </div> 
+            </Col>
+            <Col span="4">
             <span class="monny">
               {{ item.houseRental }}元/月
             </span>
+            <div class="read_more">
+              <Button class="ghost" type="ghost">查看详情</Button>
+            </div>
+            
+            </Col>
+            </Row>
           </li>
         </ul>
       </div>
@@ -172,25 +183,23 @@ export default{
   }
   .HomeDetil_list ul li{
     display: flex;
-    border-bottom: 1px dashed #e5e5e5;
     margin-bottom: 20px;
-    padding: 20px;
-    position: relative;
-    background-color: #f8f8f8;
+    border: 1px solid #e5e5e5;
     border-radius: 5px;
   }
   .HomeDetil_list ul li img{
-    width: 280px;
-    height: 170px;
     margin-right: 20px;
+    width: 389px;
+    height: 289px;
   }
   .HomeDetil_list ul li .monny{
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
+
     color: #2d8cf0;
     font-size: 20px;
+    text-align: center;
+    line-height: 200px;
+    display: block;
+    width: 100%;
   } 
   .HomeDetil_list{
     letter-spacing: 2px;
@@ -210,5 +219,34 @@ export default{
     letter-spacing: 2px;
     text-indent: 5px;
     font-weight: 500;
+  }
+  .HouseList_row{
+    width: 100%;
+    position: relative;
+  }
+  .HouseList_row div{
+    float: left;
+  }
+  .HouseList_row img{
+    float: left;
+  }
+  .HouseList_Col::after{
+    content: "";
+    width: 1px;
+    position: absolute;
+    right: 0px;
+    top:18.5px;
+    height: 250px;
+    background: #f8f8f8;
+  }
+  .read_more{
+    position: relative;
+    width: 100%;
+  }
+  .ghost{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
   }
 </style>

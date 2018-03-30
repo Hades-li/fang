@@ -2,15 +2,13 @@
     <div>
     <div class="roomItem">
         <div class="item-content">
-            <img style="height: 178px;width: 282px;"
-                 :src="data.housePicture">
+            <img :src="data.housePicture">
             <div class="item-inf">
                 <div class="money">
                     {{ data.houseRental }} <span>元/月</span>
                 </div>
                 <div class="text">
                     {{ data.addressCity }} {{ data.addressCounty }} {{ data.addressArea }} {{ data.addressInfo}}
-                    <!-- 嘉定区-索纳特酒店公寓（曹安店）-1室1厅1卫-35.0㎡ -->
                 </div>
                 <div class="sub-text">
                     {{ data.ancillaryFacilities }},{{ data.apartmentConvention }}
@@ -51,27 +49,33 @@
         margin-right: 24px;
         .item-content{
             display: block;
-            width: 282px;
-            height: 282px;
             border-radius: 3px;
             overflow: hidden;
             color:#000;
             transition: all 300ms;
             cursor: pointer;
             position: relative;
+            width: 100%;
             &:hover{
                 box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
             }
             img{
                 display: block;
+                width: 100%;
             }
             .item-inf{
                 padding: 18px 15px;
                 background-color: #fff;
+                position: relative;
                 .money{
                     color: #2d8cf0;
                     font-size: 20px;
                     font-weight: 700;
+                    position: absolute;
+                    right: 15px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    -ms-transform: translateY(-50%);
                     span{
                         font-size: 14px;
                     }
@@ -94,5 +98,17 @@
         position: absolute;
         right: 0;
         top: 5px;
+    }
+    .notinveslist_deta .money{
+      top: -15px !important;
+      right: 5px  !important;;
+    }
+    .inveslist_deta .money{
+      top: -15px !important;
+      right: 5px  !important;;
+    }
+    .userRentMgt_list .money{
+      top: -15px !important;
+      right: 5px  !important;;
     }
 </style>

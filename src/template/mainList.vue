@@ -1,15 +1,24 @@
 <template>
     <div class="mainList">
         <div class="mainList_div" >
-            <h1 class="title"> 热门房源 </h1>
-            <Menu class="menu" mode="horizontal" :theme="theme1" active-name="1">
-                <!-- <MenuItem name="1">
-                    放心租
-                </MenuItem> -->
-            </Menu>
+            <h1 class="title"> 
+                <img src="../assets/002.png" alt="">
+            </h1>
+
             <div class="mainList_ul">
                 <div class="list">
-                    <room-item v-for="item in getHouseList"  v-on:click.native="toRoomDetail(item.id)" v-bind:data="item"></room-item>
+                    <room-item class="list_item" v-for="item in getHouseList"  v-on:click.native="toRoomDetail(item.id)" v-bind:data="item"></room-item>
+                </div>
+            </div>
+        </div>
+        <div class="mainList_div" >
+            <h1 class="title"> 
+                <img src="../assets/001.png" alt="">
+            </h1>
+
+            <div class="mainList_ul">
+                <div class="list">
+                    <room-item class="list_item" v-for="item in getHouseList"  v-on:click.native="toRoomDetail(item.id)" v-bind:data="item"></room-item>
                 </div>
             </div>
         </div>
@@ -73,7 +82,6 @@
     .mainList_div {
         width: 1200px;
         margin: 0 auto;
-        padding-top: 30px;
     }
 
     .ivu-card-body {
@@ -106,5 +114,9 @@
     .title {
         margin: 0;
         font-size: 30px;
+        text-align: center;
+    }
+    .list_item{
+        width: 33.33%;
     }
 </style>

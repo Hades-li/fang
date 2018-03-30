@@ -2,16 +2,25 @@
     <div class="tabBar">
         <div class="tabBar_main">
             <div class="tb-left">
-                <img src="../assets/logo.png" alt="logo">
+                <img src="../assets/logo.png"  @click="gopage('/home')" alt="logo">
 
                 <div class="area">
-                    <span>厦门</span>
+                    <!-- <span></span>
                     <Icon type="arrow-down-b"></Icon>
                     <div class="area-list">
                         <span href="javascript:" v-for="i in ['厦门','武汉','广州','深圳','北京','上海','杭州',]">{{ i }}</span>
-                    </div>
+                    </div> -->
+                    <Dropdown>
+                        <span href="javascript:void(0)">
+                            厦门
+                            <Icon type="arrow-down-b"></Icon>
+                        </span>
+                        <DropdownMenu slot="list">
+                            <DropdownItem v-for="i in ['厦门','武汉','广州','深圳','北京','上海','杭州',]">{{ i }}</DropdownItem>
+                        </DropdownMenu>
+                    </Dropdown>
                 </div>
-                <span class="link" href="javascript:" @click="gopage('/home')">首页</span>
+                <span class="link" v-if="user == undefined?false:true" href="javascript:" @click="gopage('/admininfo')">个人中心</span>
                 
                 <span class="link" href="javascript:" @click="gopage('/homeDetil')">月付找房</span>
                 <span class="link" href="javascript:" @click="gopage('/homeDetil')">整租</span>
@@ -21,14 +30,17 @@
             </div>
             <!-- v-if="getuserIfo == null?true:false" -->
             <div class="tb-right" v-if="user == undefined?true:false">
-                <!-- <a href="javascript:" style="margin-right: 20px;" @click="gopage('/checkIn')" class="link">成为房东</a> -->
+                <a href="javascript:" style="margin-right: 20px;" @click="gopage('/checkIn')" class="link">成为房东</a>
                 <span href="javascript:" style="margin-right: 10px;" @click="gopage('/checkIn')" class="link"> app下载 </span>
                 <!-- <a href="javascript:" @click="gopage('/login')" class="login-btn tenant">租客登录</a> -->
-                <span href="javascript:" @click="gopage('/login')" class="login-btn landlord">用户登陆</span>
+                <span href="javascript:" @click="gopage('/login')" class="login-btn landlord">登陆</span>
+                <span href="javascript:" @click="gopage('/login')" class="login-btn landlord">注册</span>
             </div>
             <div class="tb-right" v-else>
                 <!-- JSON.parse(usermsg) -->
-                <span href="javascript:" v-if = "user.isLandlord == 1?false:true" @click="gopage('/checkIn')" style="margin-right: 10px;" class="link"> 成为房东 </span>
+                <!-- <span href="javascript:" v-if = "user.isLandlord == 1?false:true" @click="gopage('/checkIn')" style="margin-right: 10px;" class="link"> 成为房东 </span> -->
+               
+                <a href="javascript:" style="margin-right: 20px;" @click="gopage('/checkIn')" class="link">成为房东</a>
                 <span href="javascript:" v-if = "user.isLandlord == 1?true:false" style="margin-right: 20px;" @click="getBoss?house(false):house(true)" class="link"> {{ getBoss?"切换用户":"切换房东" }} </span>
                 <span href="javascript:" style="margin-right: 10px" @click="gopage('/admininfo')" class="link"> 欢迎 {{ user.userName }} </span>
                 <span href="javascript:" @click="goLogin" class="link logout">退出</span>
@@ -128,6 +140,7 @@
         height: 100%;
         img {
             height: 100%;
+            cursor: pointer;
         }
         .area {
             position: relative;

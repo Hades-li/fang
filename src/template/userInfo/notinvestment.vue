@@ -1,17 +1,17 @@
 <template>
   <div id="investment">
-      <Menu class="menu" mode="horizontal"
+      <!-- <Menu class="menu" mode="horizontal"
             :theme="theme1" active-name="2" @on-select="change">
-          <!-- <MenuItem name="1" >
+          <MenuItem name="1" >
                     签约
-          </MenuItem> -->
+          </MenuItem>
           <MenuItem name="2">
                     未签约
           </MenuItem>
-      </Menu>
+      </Menu> -->
       <div class="mainList_ul">
           <div class="list" >
-              <room-item  @click.native="go(item.houseInfoVo.id,index)"  class="list_deta" v-for="(item,index) in getOrder"  v-bind:data="item.houseInfoVo">
+              <room-item  @click.native="go(item.houseInfoVo.id,index)"  class="notinveslist_deta" v-for="(item,index) in getOrder"  v-bind:data="item.houseInfoVo">
               </room-item>
               <!-- <div v-show="getOrder.length>0?false:true">
                   暂无未签约
@@ -70,7 +70,7 @@
       change(){},
       go (name,index) {
         this.setHouseDetail({id:name,ind:index})
-        this.setCurrentTab('investmentDetail')
+        this.setCurrentTab({'page':'investmentDetail','tab':['签约管理','未签约','详情']})
       }
     }
   }
@@ -84,8 +84,12 @@
         .list{
             display: flex;
             flex-wrap: wrap;
-            padding: 20px 55px;
+            padding: 20px 0;
+            .notinveslist_deta{
+              width: 20%;
+            }
         }
+
     }
 
 </style>

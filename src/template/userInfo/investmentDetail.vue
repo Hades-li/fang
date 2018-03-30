@@ -148,7 +148,7 @@
                 "landlord_id":landlord_id,
                 "user_id":user_id
             })
-            this.setCurrentTab('investmentDetailBill')
+            this.setCurrentTab({'page':'investmentDetailBill','tab':['签约管理','账单']})
         },
         contract (name) {
             const that = this;
@@ -184,7 +184,8 @@
 <style lang="scss" scoped>
     #investmentDetail{
         width: 960px;
-        margin-top: 20px;
+        margin-top: 50px;
+
     }
     .demo-carousel {
         height: 350px;

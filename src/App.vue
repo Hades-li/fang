@@ -29,7 +29,7 @@ import { setInterval, clearInterval } from 'timers';
 *{
   padding: 0;
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:"PingFang SC", "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
 }
 
 ul>li{
