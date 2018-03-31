@@ -56,18 +56,22 @@
                     
                     <div class=""  v-if="getHouseDetail.orderList.orderStatus == 2&&!userInfogo">
                         <Button @click='changeShows()'   type="primary">查看合同</Button>
-                        <Button @click.native="contract({id:3,title:'签约合同',contant:'确定签约合同吗？'})" type="primary">确认合同</Button>
+                        <!-- <Button @click.native="contract({id:3,title:'签约合同',contant:'确定签约合同吗？'})" type="primary">确认合同</Button> -->
                     </div>
             </div>   
-                   
+
         </div>
 
 
       <div class="contract" v-show="contractShow">
-          <Button class="contract_btn" @click="changeShow()">关闭</Button>
-          <div class="contract_mian" v-html="getContract.content">
+            <div class="contract_top">
+                <Button  v-if="getHouseDetail.orderList.orderStatus == 2&&!userInfogo" @click.native="contract({id:3,title:'签约合同',contant:'确定签约合同吗？'})" type="primary">确认合同</Button>
+                <Button class="contract_btn" @click="changeShow()">关闭</Button>
+            </div>
+         
+            <div class="contract_mian" v-html="getContract.content">
               
-          </div>
+            </div>
       </div>
   </div>
 </template>
@@ -201,5 +205,26 @@
     .float{
         float: right;
         color: #2d8cf0;
+    }
+    .contract{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.7);
+        z-index: 9999;
+    }
+    .contract_mian{
+        width: 960px;
+        margin: 0 auto;
+        background: #ffffff;
+        overflow: scroll;
+    }
+    .contract_top{
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
     }
 </style>
