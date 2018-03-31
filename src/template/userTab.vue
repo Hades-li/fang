@@ -35,13 +35,13 @@
 
         <MenuGroup title="账单管理">
           <MenuItem name="7" @click.native="setCurrentTab({'page':'bill','tab':['账单管理','已付账单']})">
-              已付账单
+              {{ getBoss?"已收账单":"已付账单" }}
           </MenuItem>
           <MenuItem name="8" @click.native="setCurrentTab({'page':'bill','tab':['账单管理','未付账单']})">
-              未付账单
+              {{ getBoss?"未收账单":"未付账单" }}
           </MenuItem>
           <MenuItem name="9" @click.native="setCurrentTab({'page':'bill','tab':['账单管理','待付账单']})">
-              待付账单
+              {{ getBoss?"待收账单":"待付账单" }}
           </MenuItem>
         </MenuGroup>
 

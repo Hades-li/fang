@@ -1,94 +1,67 @@
 <template>
   <div id="investmentDetail">
-      <Row>
-          <Col span="12">
-          <Carousel autoplay v-model="value1" loop>
-              <CarouselItem v-for="item in getHouseDetail.housePictures">
-                  <div class="demo-carousel"><img :src="item.picture" alt=""></div>
-              </CarouselItem>
-          </Carousel>
-          <!-- <Carousel  v-model="value2" loop>
-              <CarouselItem>
-                  <div class="demo-carousel-bottom">1</div>
-              </CarouselItem>
-              <CarouselItem>
-                  <div class="demo-carousel-bottom">2</div>
-              </CarouselItem>
-              <CarouselItem>
-                  <div class="demo-carousel-bottom">3</div>
-              </CarouselItem>
-              <CarouselItem>
-                  <div class="demo-carousel-bottom">4</div>
-              </CarouselItem>
-          </Carousel> -->
-          </Col>
-          <Col span="12" style="padding: 10px 20px">
-                <div class="investmentDetail-right">
-                    <h4>{{ getHouseDetail.houseInfoVo.houseRental }}元/月  </h4>
-                    <h4>  
-                        {{ getHouseDetail.houseInfoVo.addressArea }} 
-                            -
-                        {{  getHouseDetail.houseInfoVo.addressInfo }}
-                            -
-                        {{  getHouseDetail.houseInfoVo.houseTypeRoomCount }}室{{ getHouseDetail.houseInfoVo.houseTypeHallCount }}厅{{ getHouseDetail.houseInfoVo.houseTypeToiletCount }}卫
-                            -
-                        {{  getHouseDetail.houseInfoVo.houseArea }}m²
-                    </h4>
-                    <p>{{ getHouseDetail.houseInfoVo.houseContent }}</p>
-                </div>
-                <div class="investmentDetail-right">
-                    <h5>预约信息</h5>
-                    <p><span>提交时间</span><span class="float">{{ getHouseDetail.orderList.createTime }}</span></p>
-                    <p><span>看房时间</span><span class="float">{{ getHouseDetail.orderList.appointTime }}</span></p>
+ 
+        <Carousel class="demo-carousel"  v-model="value1" loop  :autoplay="autoplay">
+            <CarouselItem v-for="item in getHouseDetail.housePictures">
+                <div> <img  class="carousel_img" :src="item.picture" alt=""> </div>
+            </CarouselItem>
+        </Carousel>
+        
 
-                    <!-- <Row>
-                        <Col :span="12">
-                        <p>备注</p>
-                        </Col>
-                        <Col :span="12">
-                        <p>  </p>
-                        </Col>
-                    </Row> -->
-                </div>
-                <div class="investmentDetail-right">
-                    <h5>租客信息</h5>
-                    <p><span>姓名</span><span class="float">{{ getHouseDetail.orderList.userName }}</span></p>
-                    <p><span>手机号</span><span class="float">{{ getHouseDetail.orderList.userMobile }}</span></p>
-                </div>
+        <div class="main">
+            <div class="investmentDetail-right">
+                <h4 class="house_monny">{{ getHouseDetail.houseInfoVo.houseRental }}元/月  </h4>
+                <h4>  
+                    {{ getHouseDetail.houseInfoVo.addressArea }} 
+                        -
+                    {{  getHouseDetail.houseInfoVo.addressInfo }}
+                        -
+                    {{  getHouseDetail.houseInfoVo.houseTypeRoomCount }}室{{ getHouseDetail.houseInfoVo.houseTypeHallCount }}厅{{ getHouseDetail.houseInfoVo.houseTypeToiletCount }}卫
+                        -
+                    {{  getHouseDetail.houseInfoVo.houseArea }}m²
+                </h4>
+                <p>{{ getHouseDetail.houseInfoVo.houseContent }}</p>
+            </div>
+        </div>
 
-                <div class="investmentDetail-right">
-                    <h5>房东信息</h5>
-                    <p><span>姓名</span><span class="float">{{ getHouseDetail.orderList.landlordName }}</span></p>
-                </div>
-
-                <div class="investmentDetail-right">
-                    <h5>订单信息</h5>
-                    <p><span>订单号</span><span class="float">{{ getHouseDetail.orderList.order_id }}</span></p>
-                    <p><span>创建时间</span><span class="float">{{  getHouseDetail.orderList.houseInfoVo.createTime }}</span></p>
-                </div>
+        <div class="investmentDetail_right">
+            <div class="timo">
+                <h5>预约信息</h5>
+                <p><span>提交时间</span><span class="float">{{ getHouseDetail.orderList.createTime }}</span></p>
+                <p><span>看房时间</span><span class="float">{{ getHouseDetail.orderList.appointTime }}</span></p>
+            </div>
 
 
-                <div v-if="getHouseDetail.orderList.orderStatus == 3">
+            <div class="timo">
+                <h5>房东信息</h5>
+                <p><span>姓名</span><span class="float">{{ getHouseDetail.orderList.landlordName }}</span></p>
+                <p><span>手机</span><span class="float">{{ getHouseDetail.orderList.landlordMobile }}</span></p>
+            </div>
+
+            <div class="timo">
+                <h5>订单信息</h5>
+                <p><span>订单号</span><span class="float">{{ getHouseDetail.orderList.order_id }}</span></p>
+                <p><span>创建时间</span><span class="float">{{  getHouseDetail.orderList.houseInfoVo.createTime }}</span></p>
+            </div>  
+            
+            <div v-if="getHouseDetail.orderList.orderStatus == 3">
                     <Button @click='changeShows()' type="primary">查看合同</Button>
                     <Button type="ghost" @click.native="goBill()" style="margin-left: 8px">查看账单</Button>
                 </div>
                 <div v-else>
                     <div class="" v-if="userInfogo">
-                        <Button @click.native="contract({id:2,title:'生成合同',contant:'确定生成合同吗？'})"  v-if="getHouseDetail.orderList.orderStatus == 1" type="primary">生成合同{{ getHouseDetail.orderList.orderStatus }}</Button>
+                        <Button @click.native="contract({id:2,title:'生成合同',contant:'确定生成合同吗？'})"  v-if="getHouseDetail.orderList.orderStatus == 1" type="primary">生成合同</Button>
                         <Button @click='changeShows()'  v-if="getHouseDetail.orderList.orderStatus !== 1" type="primary">查看合同</Button>
-                        <!-- <Button type="ghost" @click.native="setCurrentTab('investmentDetailBill')" style="margin-left: 8px">查看账单</Button> -->
                     </div>
                     
                     <div class=""  v-if="getHouseDetail.orderList.orderStatus == 2&&!userInfogo">
+                        <Button @click='changeShows()'   type="primary">查看合同</Button>
                         <Button @click.native="contract({id:3,title:'签约合同',contant:'确定签约合同吗？'})" type="primary">确认合同</Button>
-                        <!-- <Button type="ghost" @click.native="setCurrentTab('investmentDetailBill')" style="margin-left: 8px">查看账单</Button> -->
                     </div>
+            </div>   
+                   
+        </div>
 
-                </div>
-
-
-          </Col>
-      </Row>
 
       <div class="contract" v-show="contractShow">
           <Button class="contract_btn" @click="changeShow()">关闭</Button>
@@ -106,6 +79,7 @@
     name: 'investmentDetail',
     data() {
       return {
+          autoplay:false,
           value1: 0,
           value2:'',
           userInfogo:true,
@@ -185,55 +159,47 @@
     #investmentDetail{
         width: 960px;
         margin-top: 50px;
-
+        position: relative;
     }
     .demo-carousel {
-        height: 350px;
-        line-height: 350px;
-        text-align: center;
-        color: #fff;
-        font-size: 20px;
-        background: #506b9e;
+        width: 800px;
+
     }
-    .demo-carousel-bottom {
-        height: 100px;
-        line-height: 100px;
-        text-align: center;
-        color: #fff;
-        font-size: 20px;
-        background: red;
+    .carousel_img{
+        width: 800px;
+        height: 450px;
     }
-    .investmentDetail-right{
-            border-bottom:1px solid #ccc;
-        .float{
-            float: right;
-        }
+    .main{
+        width: 800px;
     }
-    .demo-carousel img{
-        width: 485px;
-        height: 380px;
+    .house_monny{
+        float: right;
+        color: #2d8cf0;
     }
-    .contract{
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background: rgba(0, 0, 0, 0.7);
-        z-index: 999;
-    }
-    .contract_mian{
+    .investmentDetail_right{
         position: absolute;
+        width: 195px;
+        right: -60px;
         top: 0;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 900px;
-        background: #ffffff;
     }
-    .contract_btn{
-        position: absolute;
-        right: 0;
-        top: 0;
+    .timo{
+        width: 100%;
+        height: 120px;
+        // background: #f8f8f8;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #f8f8f8;
+    }
+    .timo h5{
+        line-height: 40px;
+        margin: 0;
+        font-weight: bold;
+    }
+    .timo p{
+        line-height: 40px;
+        margin-bottom: 0;
+    }
+    .float{
+        float: right;
+        color: #2d8cf0;
     }
 </style>
