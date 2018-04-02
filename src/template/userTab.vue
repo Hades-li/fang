@@ -15,6 +15,16 @@
           证件信息
         </MenuItem>
         </MenuGroup>
+
+        <MenuGroup title="我的足迹">
+        <MenuItem name="12" @click.native="setCurrentTab({'page':'myHouse','tab':['我的足迹','看房足迹']})">
+          看房足迹
+        </MenuItem>
+        <MenuItem name="13" @click.native="setCurrentTab({'page':'myHouse','tab':['我的足迹','我的收藏']})">
+          我的收藏
+        </MenuItem>
+
+        </MenuGroup>
         <MenuGroup title="资金管理">
           <MenuItem name="3" @click.native="setCurrentTab({'page':'myMoney','tab':['资金管理','账户信息']})">
             账户信息

@@ -1,122 +1,241 @@
 <template>
-    <div class="map">
-        <!-- {{ getHouseList }} -->
-        <div class="amap-page-container">
-            <el-amap
-                vid="amapDemo"
-                :center="center"
-                :zoom="zoom"
-                class="amap-demo"
-                :events="events">
-                <el-amap-marker v-for="marker in markers" :position="marker.position" :content="marker.content" :events="marker.events"></el-amap-marker>
-            </el-amap>
-        </div>
+    <div class="amap-page-container">
+      <el-amap-search-box class="search-box" :search-option="searchOption" :on-search-result="onSearchResult"></el-amap-search-box>
+      <el-amap
+        vid="amapDemo"  
+        :center="center"
+        :zoom="zoom"
+        class="amap-demo"
+        :events="events">
+        <el-amap-marker v-for="marker in markers" :position="marker.position" :content="marker.content" :events="marker.events">
+            <Tooltip :content="marker.mark.addressInfo" placement="right">
+            <div class="markers"> 
+                <span class="price" @click="houseDetail(marker.mark)"> 
+                    <i>¥</i> <em>{{ marker.mark.houseRental }} </em>  
+                </span>  
+            </div>
+            </Tooltip>
+        </el-amap-marker>
+        </el-amap>
+        <Modal
+            v-model="modal6"
+           
+            title="房源"
+            :loading="loading"
+            @on-ok="asyncOK">
+            <room-item class="item_house" v-for="item in HouseList"  v-on:click.native="toRoomDetail(item.id)" v-bind:data="item"></room-item>
+    </Modal>
     </div>
-</template>
+  </template>
 
 
 
-<script>
-    import { mapActions,mapGetters } from "vuex"
-import { setTimeout } from 'timers';
+  <script>
+    import roomItem from '../template/roomListItem'
+    import { mapGetters , mapActions } from "vuex"
     export default {
-        data: function() {
-            let self = this;
-
-            return {
-                zoom: 12,
-                center: [113.332264,  23.156206],
-                markers: [],
-                markerRefs: [],
-                events: {
-                    init(o) {
-                        setTimeout(() => {
-                            // console.log(self.markerRefs);
-                            let cluster = new AMap.MarkerClusterer(o, self.markerRefs,{
-                                gridSize: 80,
-                                renderCluserMarker: self._renderCluserMarker
-                            });
-                            // console.log(cluster);
-                        }, 1000);
-                    }
+      data: function() {
+        let self = this;  
+        return {
+            HouseList:[],
+            modal6: false,
+            closable:false,
+            loading: true,
+            zoom: 5,
+            center: [113.332264, 22.156206],
+            markers: [],
+            markerRefs: [],
+            searchOption: {
+                city: '广东',
+                citylimit: true
+            },
+            events: {
+                init(o) {
+                    setTimeout(() => {
+                        // console.log(self.markerRefs);
+                        let cluster = new AMap.MarkerClusterer(o, self.markerRefs,{
+                        gridSize: 80,
+                        renderCluserMarker: self._renderCluserMarker
+                    });
+                        // console.log(cluster);
+                    }, 1000);
                 }
-            };
-        },
-        computed:{
-            ...mapGetters([
-                "getHouseList"
-            ])
-        },
-        created() {
-            let self = this;
+            }
+        };
+      },
+      created(){
+        this.setHouseList(1);
+        let self = this;
+        setTimeout(()=>{
             let markers = [];
-
-            let basePosition = [113.332264, 23.156206];
-            setTimeout(()=>{
-                console.log(this.getHouseList)
-                for(var i =0;i<this.getHouseList.length;i++){
+            
+            let basePosition =self.getHouseList;
+            for(var i = 0 ; i<basePosition.length;i++ ){
+                let addressLongitude = basePosition[i].addressLongitude
+                let addressLatitude = basePosition[i].addressLatitude
                 markers.push({
-                    position: [this.getHouseList[i].addressLongitude, this.getHouseList[i].addressLatitude],
-                    content: '<div style="text-align:center; background-color: hsla(180, 100%, 50%, 0.7); height: 50px; width: 50px; border: 1px solid hsl(180, 100%, 40%); border-radius: 100px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;">'+  this.getHouseList[i].addressInfo +'</div>',
+                    position: [addressLongitude, addressLatitude],
                     events: {
                         init(o) {
                             self.markerRefs.push(o);
-                        }
-                    }
+                        },
+                    },
+                    mark:basePosition[i]
                 });
             }
-            },1000)
+            self.markers = markers;
+        },500) 
 
-           
-            this.markers = markers;
+      },
+      components: {
+        roomItem  
+      },
+      computed: {
+          ...mapGetters([
+              "getHouseList"
+          ])
+      },
+      methods: {
+        ...mapActions([
+            "setHouseList",
+        ]),
+        
+        _renderCluserMarker(context) {
+            const count = this.markers.length;
+            let factor = Math.pow(context.count/count, 2/18)
+            let div = document.createElement('div');
+            let Hue = 180 - factor* 180;
+            let bgColor = 'hsla('+Hue+',100%,50%,0.7)';
+            let fontColor = 'hsla('+Hue+',100%,20%,1)';
+            let borderColor = 'hsla('+Hue+',100%,40%,1)';
+            let shadowColor = 'hsla('+Hue+',100%,50%,1)';
+            div.style.backgroundColor = bgColor
+            let size = Math.round(30 + Math.pow(context.count/count,1/5) * 20);
+            div.style.width = div.style.height = size*(1.2)+'px';
+            div.style.border = 'solid 1px '+ borderColor;
+            div.style.borderRadius = size/1 + 'px';
+            div.style.boxShadow = '0 0 1px '+ shadowColor;
+            div.innerHTML = context.count+"套";
+            div.style.lineHeight = size*(1.2)+'px';
+            div.style.color = fontColor;
+            div.style.fontSize = '18px';
+            div.style.textAlign = 'center';
+            context.marker.setOffset(new AMap.Pixel(-size/2,-size/2));
+            context.marker.setContent(div)
         },
 
-        methods: {
-            ...mapActions([
+        onSearchResult(pois) {
+        
+        },
+        houseDetail(maker){
+            this.HouseList =[];
+            this.HouseList.push(maker)
+            this.modal6 = true;
+        },
+        asyncOK(){
+            this.modal6 = false;
+        },
+                     // 跳转至详情
+            toRoomDetail(id) {
+                                  this.$Spin.show({
+                    render: (h) => {
+                        return h('div', [
+                            h('Icon', {
+                                'class': 'demo-spin-icon-load',
+                                props: {
+                                    type: 'load-c',
+                                    size: 18
+                                }
+                            }),
+                            h('div', 'Loading')
+                        ])
+                    }
+                });
+                setTimeout(() => {
+                    this.$Spin.hide();
+                    this.$router.push({path:'/roomDetail',query:{id: id}})
+                }, 800);
 
-            ]),
-            _renderCluserMarker(context) {
-                const count = this.markers.length;
-                let factor = Math.pow(context.count/count, 1/18)
-                let div = document.createElement('div');
-                let Hue = 180 - factor* 180;
-                let bgColor = 'hsla('+Hue+',100%,50%,0.7)';
-                let fontColor = 'hsla('+Hue+',100%,20%,1)';
-                let borderColor = 'hsla('+Hue+',100%,40%,1)';
-                let shadowColor = 'hsla('+Hue+',100%,50%,1)';
-                div.style.backgroundColor = bgColor
-                let size = Math.round(30 + Math.pow(context.count/count,1/5) * 20);
-                div.style.width = div.style.height = size+'px';
-                div.style.border = 'solid 1px '+ borderColor;
-                div.style.borderRadius = size/2 + 'px';
-                div.style.boxShadow = '0 0 1px '+ shadowColor;
-                div.innerHTML = context.count;
-                div.style.lineHeight = size+'px';
-                div.style.color = fontColor;
-                div.style.fontSize = '14px';
-                div.style.textAlign = 'center';
-                context.marker.setOffset(new AMap.Pixel(-size/2,-size/2));
-                context.marker.setContent(div)
-            },
-        }
+            }
+      }
     };
 </script>
+
 <style>
-    .map{
-        position: fixed;
-        top: 50px;
-        left: 0;
-        right: 0;
-        bottom: 0;
-    }
-    .amap-page-container{
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-    }
     .amap-demo {
-        height: 300px;
+      height: 300px;
+    }
+
+    .search-box {
+      position: absolute;
+      top: 80px;
+      left: 20px;
+    }
+
+    .amap-page-container {
+      position: fixed;
+      top: 0px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+    }
+    .markers{
+        text-align: center;
+       
+    }
+    .item_house .item-content{
+        margin: 0 auto;
+    }
+    .price{
+        font-size: 14px;
+        background-color: #fd5038;
+        color: white;
+        border-radius: 16px;
+        border: 1px solid white;
+        float: left;
+        line-height: 26px;
+        padding: 0 10px 0 20px;
+        position: relative;
+    }
+    .price:before {
+        border-top: 10px solid white;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        bottom: -9px;
+        left: 10px;
+        z-index: -1;
+    }
+    .price:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        line-height: 0;
+        border-top: 11px solid #fd5038;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        left: 10px;
+        bottom: -9px;
+    }
+    .price i {
+        position: absolute;
+        line-height: 28px;
+        display: block;
+        height: 28px;
+        width: 20px;
+        text-align: center;
+        left: 3px;
+        top: 0;
+        font-size: .8em;
+        font-family: arial;
+        color: inherit;
+    }
+    .price em {
+        color: inherit;
+        font-style: normal;
+    }
+    .title{
+        float: left;
     }
 </style>
