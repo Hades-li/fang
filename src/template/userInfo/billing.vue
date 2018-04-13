@@ -75,7 +75,7 @@ export default{
   watch:{
      getBill(newVal,oldVal){
         for(var  i = 0 ;  i<newVal.length;i++){
-            if(newVal[i].status == 2){ this.bill.push(newVal[i])}
+            if(newVal[i].status == 3){ this.bill.push(newVal[i])}
         }
     }, 
 

@@ -47,10 +47,10 @@
           <MenuItem name="7" @click.native="setCurrentTab({'page':'bill','tab':['账单管理','已付账单']})">
               {{ getBoss?"已收账单":"已付账单" }}
           </MenuItem>
-          <MenuItem name="8" @click.native="setCurrentTab({'page':'bill','tab':['账单管理','未付账单']})">
+          <MenuItem name="8" @click.native="setCurrentTab({'page':'notbill','tab':['账单管理','未付账单']})">
               {{ getBoss?"未收账单":"未付账单" }}
           </MenuItem>
-          <MenuItem name="9" @click.native="setCurrentTab({'page':'bill','tab':['账单管理','待付账单']})">
+          <MenuItem name="9" @click.native="setCurrentTab({'page':'billing','tab':['账单管理','待付账单']})">
               {{ getBoss?"待收账单":"待付账单" }}
           </MenuItem>
         </MenuGroup>
@@ -71,7 +71,7 @@
     <Breadcrumb separator="/" class="userInfo_tab">
         <BreadcrumbItem v-for="item in getCurrentTab.tab">{{ item }}</BreadcrumbItem>
     </Breadcrumb>
-    <index class="template" :is="getCurrentTab.page" keep-alive>
+    <index class="template"  :is="getCurrentTab.page" keep-alive>
     </index>
 
 
@@ -82,6 +82,8 @@ import index from './userInfo/index'
 import myHouse from './userInfo/myHouse'
 import myMoney from './userInfo/myMoney'
 import bill from './userInfo/bill'
+import notbill from './userInfo/notbill'
+import billing from './userInfo/billing'
 import card from './userInfo/card'
 import sendHouse from './userInfo/sendHouse'
 import houseList from './userInfo/houseList'
@@ -111,7 +113,9 @@ export default{
     notinvestment,
     myMoney,
     bill,
-    myHouse
+    myHouse,
+    notbill,
+    billing
 
   },
   created(){
