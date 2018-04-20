@@ -6,7 +6,7 @@
                 <div >
                     <p> 账户余额: </p>
                     <h3> 999.99元 </h3>
-                    <p class="btn"> <Button type="success">充值</Button> <Button type="info">提现</Button>  </p>
+                    <p class="btn"> <Button type="success" >充值</Button> <Button type="info" @click="modal1 = true">提现</Button>  </p>
                 </div>
             </Card>
             </Col>
@@ -23,6 +23,23 @@
         <div>
              <Table :loading="loading2" :data="data" :columns="columns1"  ref="table" @on-select="" @on-selection-change=""></Table>
         </div> 
+        <Modal
+            v-model="modal1"
+            title="提现">
+        <Form :model="formItem" >
+        <FormItem label="卡号">
+            <Select v-model="formItem.select">
+                <Option value="beijing"> 656454*****123121 农业银行 </Option>
+                <Option value="shanghai"> 656454*****123121 工商银行</Option>
+                <Option value="shenzhen"> 656454*****123121 中国银行</Option>
+            </Select>
+        </FormItem>
+        <FormItem label="金额">
+            <Input v-model="formItem.input" placeholder="0.00"></Input>
+        </FormItem>
+        </Form>
+        </Modal>
+
   </div>
 </template>
 <script>
@@ -30,7 +47,12 @@
 export default{
   data(){
       return{
+          modal1: false,
           loading2: false, // 分页loading
+          formItem:{
+                    input: '',
+                    select: '',
+          },
            columns1: [
                 { 
                     

@@ -317,6 +317,100 @@ export const actions = {
         });
     },
 
+    // 个人信息:http://120.79.140.174:10080/index?opt=200&userId=7
+
+    // 修改个人信息:http://120.79.140.174:10080/index?opt=201&userName=n7123123&userId=16&email=11111111111111@qq.com&headImage=1&sex=2
+
+    // 获取身份证信息: http://120.79.140.174:10080/index?opt=203&userId=1
+
+    // 房源收藏列表: http://120.79.140.174:10080/index?opt=206&userId=1&currPage=1&pageSize=10
+
+    // 收藏或取消收藏房源: http://120.79.140.174:10080/index?opt=207&userId=1&houseId=1&remark=备注
+
+    // 获取个人信息
+    setUserInfo(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=200',
+            qs.stringify(
+                {
+                    "userId":1,
+                }
+        )).then(function (response) {
+            
+        }).catch(function (error) {
+                
+        });
+    },
+
+    // 修改个人信息
+    changeUserInfo(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=201',
+            qs.stringify(
+                {
+                    "userName":type.order_id,
+                    "userId":type.landlord_id,
+                    "email":type.user_id,
+                    "headImage":'1',
+                    "sex":'2'
+                }
+        )).then(function (response) {
+            
+        }).catch(function (error) {
+                
+        });
+    },
+
+    // 获取身份证信息
+    setIdCard(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=203',
+            qs.stringify(
+                {
+                    "userId":7
+                }
+        )).then(function (response) {
+            
+        }).catch(function (error) {
+                
+        });
+    },
+
+    // 房源收藏列表
+    setLikeList(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=206',
+            qs.stringify(
+                {
+                    "userId":1,
+                    "currPage":1,
+                    "pageSize":10
+                }
+        )).then(function (response) {
+            
+        }).catch(function (error) {
+                
+        });
+    },
+
+    // 收藏或取消收藏房源
+    setLikeHouse(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=207',
+            qs.stringify(
+                {
+                    "userId":1,
+                    "houseId":1,
+                    "remark":"备注"
+                }
+        )).then(function (response) {
+            
+        }).catch(function (error) {
+                
+        });
+    },
+
+
     changeTabBar(context,tabBar){
         context.commit(types.SET_TABBAR,{
             tabBar:tabBar

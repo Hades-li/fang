@@ -3,6 +3,7 @@
     <!--<keep-alive>-->
     <router-view></router-view>
     <!--</keep-alive>-->
+    <BackTop></BackTop>
   </div>
 </template>
 
