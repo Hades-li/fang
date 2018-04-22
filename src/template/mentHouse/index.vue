@@ -1,9 +1,13 @@
 <template>
     <div>
-        
-        <Button class="yuyue-btn" @click="modal1 = true" style="font-size:16px; width: 218px; height: 46px;    margin-top: 20px;
-    margin-left: 40px;" type="primary" icon="eye">预约看房
+    
+        <Button class="yuyue-btn" @click="setLikeHouse()"  style="width:100px;margin: 20px 0 0 20px;" type="primary" icon="plus-circled" >收藏
         </Button>
+        <Button class="yuyue-btn" @click="seehouse()" style="width:100px;margin: 20px 0 0 20px;" type="primary"  icon="eye">预约看房</Button>
+   
+
+        
+
         <Modal
             v-model="modal1"
             title="预约看房"
@@ -158,6 +162,45 @@ Date.prototype.Format = function (fmt) {
             },
             cancel () {
                 this.$Message.info('您取消了预约看房');
+            },
+            setLikeHouse(){
+                const that = this;
+                if(this.$cookie.get('userInfo') == undefined){
+                    this.$Message.info("请您先登录，在预约哦");
+                }else{
+                let userInfo =JSON.parse(this.$cookie.get('userInfo'))
+                this.$axios.post(
+                    that.getMainUrl + '/index?opt=207',
+                    qs.stringify(
+                    {
+                        "userId":userInfo.data.userId,
+                        "houseId":that.$route.query.id,
+                        "remark":"备注"
+                    }
+                    )).then(function (response) {
+                        that.$Message.info(response.data.msg);
+                    }).catch(function (error) {
+                
+                    });
+                }
+
+            },
+            seehouse(){
+    
+                if(this.$cookie.get('userInfo') == undefined){
+                    this.$Message.info("请您先登录，在预约哦");
+                }else{
+                    // let userInfo =JSON.parse(this.$cookie.get('userInfo'))
+                    // console.log(userInfo)
+                    // if(userInfo.data.paymentAccount == ""){
+                    //     this.$Message.info("请您先开户哦");
+                    // }else{
+                        this.modal1 = true
+                    // }
+                    
+                }
+               
+                
             }
         }
     }

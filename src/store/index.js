@@ -26,6 +26,12 @@ const state = {
     sendHouse:false,
     contract:'',
     isBoss:false,
+    userInfo:Object,
+    idCard:Object,
+    likeList:[Object],
+    myHouse:[Object],
+    bill:Object,
+    billListBoss:[Object],
 
 };
 

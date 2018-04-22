@@ -171,14 +171,14 @@
         </div>
         <div class="line mt30"></div>
         <!--相似房源-->
-        <div class="fy-list">
+        <!-- <div class="fy-list">
             <h3 class="titleMargin">相似房源</h3>
             <div class="list">
                 <div class="wrap">
-                    <!--<room-item v-for="i in 10" v-on:click.native="toRoomDetail"></room-item>-->
+                    <room-item v-for="i in 10" v-on:click.native="toRoomDetail"></room-item>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 

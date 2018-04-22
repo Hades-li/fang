@@ -46,17 +46,17 @@
             
             <div v-if="getHouseDetail.orderList.orderStatus == 3">
                     <Button @click='changeShows()' type="primary">查看合同</Button>
-                    <Button type="ghost" @click.native="goBill()" style="margin-left: 8px">查看账单</Button>
+                    <!-- <Button type="ghost" @click.native="goBill()" style="margin-left: 8px">查看账单</Button> -->
                 </div>
                 <div v-else>
-                    <div class="" v-if="userInfogo">
+                    <div class="" v-if="!userInfogo">
                         <Button @click.native="contract({id:2,title:'生成合同',contant:'确定生成合同吗？'})"  v-if="getHouseDetail.orderList.orderStatus == 1" type="primary">生成合同</Button>
-                        <Button @click='changeShows()'  v-if="getHouseDetail.orderList.orderStatus !== 1" type="primary">查看合同</Button>
-                    </div>
-                    
-                    <div class=""  v-if="getHouseDetail.orderList.orderStatus == 2&&!userInfogo">
                         <Button @click='changeShows()'   type="primary">查看合同</Button>
-                        <!-- <Button @click.native="contract({id:3,title:'签约合同',contant:'确定签约合同吗？'})" type="primary">确认合同</Button> -->
+                    </div>
+               
+                    <div class=""  v-if=" userInfogo">
+                        <Button @click='changeShows()'   type="primary">查看合同</Button>
+                        <Button v-if="getHouseDetail.orderList.orderStatus == 2" @click.native="contract({id:3,title:'签约合同',contant:'确定签约合同吗？'})" type="primary">确认合同</Button>
                     </div>
             </div>   
 
@@ -65,11 +65,11 @@
 
       <div class="contract" v-show="contractShow">
             <div class="contract_top">
-                <Button  v-if="getHouseDetail.orderList.orderStatus == 2&&!userInfogo" @click.native="contract({id:3,title:'签约合同',contant:'确定签约合同吗？'})" type="primary">确认合同</Button>
+                <!-- <Button  v-if="getHouseDetail.orderList.orderStatus == 2&&!userInfogo" @click.native="contract({id:3,title:'签约合同',contant:'确定签约合同吗？'})" type="primary">确认合同</Button> -->
                 <Button class="contract_btn" @click="changeShow()">关闭</Button>
             </div>
          
-            <div class="contract_mian" v-html="getContract.content">
+            <div class="contract_mian" >
               
             </div>
       </div>

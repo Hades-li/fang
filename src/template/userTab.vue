@@ -17,7 +17,7 @@
         </MenuGroup>
 
         <MenuGroup title="我的足迹">
-        <MenuItem name="12" @click.native="setCurrentTab({'page':'myHouse','tab':['我的足迹','看房足迹']})">
+        <MenuItem name="12" @click.native="setCurrentTab({'page':'notinvestment','tab':['我的足迹','看房足迹']})">
           看房足迹
         </MenuItem>
         <MenuItem name="13" @click.native="setCurrentTab({'page':'myHouse','tab':['我的足迹','我的收藏']})">
@@ -26,9 +26,9 @@
 
         </MenuGroup>
         <MenuGroup title="资金管理">
-          <MenuItem name="3" @click.native="setCurrentTab({'page':'myMoney','tab':['资金管理','账户信息']})">
+          <!-- <MenuItem name="3" @click.native="setCurrentTab({'page':'myMoney','tab':['资金管理','账户信息']})">
             账户信息
-          </MenuItem>
+          </MenuItem> -->
           <MenuItem name="4" @click.native="setCurrentTab({'page':'records','tab':['资金管理','资金明细']})">
             资金明细
           </MenuItem>
@@ -62,7 +62,7 @@
           <MenuItem name="10" @click.native="setCurrentTab({'page':'sendHouse','tab':['房源管理','发布房源']})">
               发布房源
           </MenuItem>
-          <MenuItem name="11" @click.native="setCurrentTab({'page':'myHouse','tab':['房源管理','个人房源']})">
+          <MenuItem name="11" @click.native="setCurrentTab({'page':'bosshouse','tab':['房源管理','个人房源']})">
               个人房源
           </MenuItem>
         </MenuGroup>
@@ -92,6 +92,7 @@ import investment from './userInfo/investment'
 import notinvestment from './userInfo/notinvestment'
 import investmentDetail from './userInfo/investmentDetail.vue'
 import investmentDetailBill from './userInfo/investmentDetailBill'
+import bosshouse from './userInfo/bosshouse'
 
 import { mapGetters,mapActions } from "vuex"
 export default{
@@ -115,23 +116,37 @@ export default{
     bill,
     myHouse,
     notbill,
-    billing
+    billing,
+    bosshouse
 
   },
   created(){
     this.user_ifo =JSON.parse( this.$cookie.get('userInfo'))
-    console.log(this.user_ifo.data.realName )
+    // console.log(this.user_ifo.data.userId )
+    this.setUserInfo(this.user_ifo.data.userId)
+    this.setIdCard(this.user_ifo.data.userId)
+    this.setLikeList(this.user_ifo.data.userId)
+    this.setMyHouse(this.user_ifo.data.userId)
+    this.setBill(this.user_ifo.data.userId)
+    this.setBillList(this.user_ifo.data.userId)
   },
   computed:{
     ...mapGetters([
       "getCurrentTab",
       "getSendHouse",
-      "getBoss"
+      "getBoss",
+    
     ])
   },
   methods:{
     ...mapActions([
-      "setCurrentTab"
+      "setCurrentTab",
+      "setUserInfo",
+      "setIdCard",
+      "setLikeList",
+      "setMyHouse",
+      "setBill",
+      "setBillList"
     ]),
     toggleTab: function(tab) {
       this.currentTab = tab; // tab 为当前触发标签页的组件名
@@ -187,5 +202,6 @@ export default{
 .user_ifon p{
   line-height: 35px;
   margin-bottom: 0 !important;
+  
 }
 </style>

@@ -47,6 +47,20 @@ export const SET_BILL = "SET_BILL"
 // 成为ｂｏｓｓ
 export const BECOME_BOSS = "BECOME_BOSS"
 
+// 获取个人信息
+export const SET_USER_INFO = "SET_USER_INFO"
 
+// 获取身份证信息
+export const SET_ID_CARD = "SET_ID_CARD"
 
+// 获取收藏列表
+export const SET_LIKE_LISE = "SET_LIKE_LISE"
 
+// 获取我的房源
+export const SET_MY_HOUSE = "SET_MY_HOUSE"
+
+// 资金
+export const SET_BILL_BOSS = "SET_BILL_BOSS"
+
+// 资金列表
+export const SET_BILL_LIST = "SET_BILL_LIST"

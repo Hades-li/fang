@@ -43,8 +43,24 @@ export const getBill = state => {
 export const getBoss = state => {
     return state.isBoss
 }   
-
-
+export const getUserInfo = state => {
+    return state.userInfo
+}
+export const getIdCard = state => {
+    return state.idCard
+}
+export const getLikeList = state => {
+    return state.likeList
+}
+export const getMyHouse = state => {
+    return state.myHouse
+}
+export const getBillListBoss = state => {
+    return state.billListBoss
+}
+export const getBillBoss = state => {
+    return state.bill
+}
 export const getGatewayversion = state => {
 
 }

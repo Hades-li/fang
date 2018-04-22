@@ -2,8 +2,9 @@
   <div class="">
     <div class="user_bg"> 
       <div class="user_some">
-        <img src="https://www.yushundai.com/css/blue/images/u_banner.jpg" alt="">
-        <span> 欢迎你 {{ userInfo.data.realName }} </span>
+        <img v-if="getUserInfo.headImage" :src="`${$host}${getUserInfo.headImage}`" alt=""> 
+        <div class="text" v-if="!getUserInfo.headImage" > 暂无图片 </div>
+        <span> 欢迎你 {{ getUserInfo.userName }} </span>
       </div>
     </div>
     <div class="admininfo">
@@ -14,11 +15,11 @@
 </template>
 <script>
 import userTab from "../template/userTab"
-import { mapActions } from "vuex"
+import { mapActions ,mapGetters } from "vuex"
 export default{
   data () {
     return {
-      userInfo:JSON.parse(this.$cookie.get('userInfo'))
+      headImage:require("../assets/fang.png")
     }
   },
   components:{
@@ -27,13 +28,18 @@ export default{
   created(){
     
   },
+  computed:{
+    ...mapGetters([
+      "getUserInfo"
+    ])
+  },
   methods:{
 
   }    
 }
 </script>
 
-<style>
+<style scoped>
   .admininfo{
     width: 1200px;
     margin: 0 auto;
@@ -57,4 +63,14 @@ export default{
   .user_some span{
     color: #ffffff;
   }
+  .text{
+    width: 80px;
+    height: 80px;
+    background: #cccccc;
+    display: inline-block;
+    border-radius: 100px;
+    line-height: 80px;
+    text-align: center;
+    color: #ffffff;
+}
 </style>

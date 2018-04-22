@@ -327,16 +327,21 @@ export const actions = {
 
     // 收藏或取消收藏房源: http://120.79.140.174:10080/index?opt=207&userId=1&houseId=1&remark=备注
 
+    // 获取资金页面接口：http://120.79.140.174:10080/index?opt=501&pageType=3&userId=2&reciveUserId=1111&transAmt=1033.01&orderNo=1234511111111
+    // pageType=1注册，2绑卡，3支付，3提现
+
     // 获取个人信息
     setUserInfo(context,type){
         axios.post(
             state.state.MainUrl + '/index?opt=200',
             qs.stringify(
                 {
-                    "userId":1,
+                    "userId":type,
                 }
         )).then(function (response) {
-            
+            console.log(response.data.data)
+            context.commit('SET_USER_INFO', response.data.data)
+
         }).catch(function (error) {
                 
         });
@@ -348,14 +353,14 @@ export const actions = {
             state.state.MainUrl + '/index?opt=201',
             qs.stringify(
                 {
-                    "userName":type.order_id,
-                    "userId":type.landlord_id,
-                    "email":type.user_id,
-                    "headImage":'1',
+                    "userName":type.userName,
+                    "userId":type.userId,
+                    "email":type.email,
+                    "headImage":type.headImage,
                     "sex":'2'
                 }
         )).then(function (response) {
-            
+           
         }).catch(function (error) {
                 
         });
@@ -367,10 +372,10 @@ export const actions = {
             state.state.MainUrl + '/index?opt=203',
             qs.stringify(
                 {
-                    "userId":7
+                    "userId":type
                 }
         )).then(function (response) {
-            
+            context.commit('SET_ID_CARD', response.data.data)
         }).catch(function (error) {
                 
         });
@@ -382,12 +387,12 @@ export const actions = {
             state.state.MainUrl + '/index?opt=206',
             qs.stringify(
                 {
-                    "userId":1,
-                    "currPage":1,
-                    "pageSize":10
+                    "userId":type,
+                    // "currPage":1,
+                    // "pageSize":10
                 }
         )).then(function (response) {
-            
+            context.commit('SET_LIKE_LISE', response.data.data)
         }).catch(function (error) {
                 
         });
@@ -405,6 +410,48 @@ export const actions = {
                 }
         )).then(function (response) {
             
+        }).catch(function (error) {
+                
+        });
+    },
+
+    // 我的房源  http://120.79.140.174:10080/index?opt=303&userId=1&status=1   可用余额 balance 可取现余额 cash_balance 账户余额 acct_balance 
+    setMyHouse(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=303',
+            qs.stringify(
+                {
+                    "userId":type,
+                    "status":-1,
+                }
+        )).then(function (response) {
+            context.commit('SET_MY_HOUSE', response.data.data)
+        }).catch(function (error) {
+                
+        });
+    },
+    setBill(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=204',
+            qs.stringify(
+                {
+                    "userId":type,
+                }
+        )).then(function (response) {
+            context.commit('SET_BILL_BOSS', response.data.data)
+        }).catch(function (error) {
+                
+        });
+    },
+    setBillList(context,type){
+        axios.post(
+            state.state.MainUrl + '/index?opt=210',
+            qs.stringify(
+                {
+                    "userId":type,
+                }
+        )).then(function (response) {
+            context.commit('SET_BILL_LIST', response.data.data)
         }).catch(function (error) {
                 
         });
@@ -511,6 +558,33 @@ export const mutations = {
         state.houseDetail = data.data
         console.log(state.houseDetail)
     },
+    [types.SET_USER_INFO](state,data){
+        state.userInfo = data
+    },    
+    [types.SET_ID_CARD](state,data){
+        state.idCard = data  
+    },
+    [types.SET_LIKE_LISE](state,data){
+        for(let i = 0;i<data.length;i++){
+
+            data[i]["housePicture"] = state.MainUrl + data[i]["housePicture"]
+        }
+        state.likeList = data
+    },
+    [types.SET_MY_HOUSE](state,data){
+        for(let i = 0;i<data.length;i++){
+
+            data[i]["housePicture"] = state.MainUrl + data[i]["housePicture"]
+        }
+        state.myHouse = data  
+    },
+    [types.SET_BILL_LIST](state,data){
+        state.bill = data  
+    },
+    [types.SET_BILL_BOSS](state,data){
+        state.billListBoss = data  
+    },
+    
 };
 
 

@@ -1,7 +1,7 @@
 <template>
   <div class="userRentMgt">
           <div class="list" >
-              <room-item v-on:click.native="toRoomDetail(item.id)"   class="userRentMgt_list" v-for="(item,index) in getLikeList"  v-bind:data="item">
+              <room-item v-on:click.native="toRoomDetail(item.id)"   class="userRentMgt_list" v-for="(item,index) in getMyHouse"  v-bind:data="item">
               </room-item>
           </div>
   </div>
@@ -15,7 +15,7 @@ export default{
   },
   computed:{
     ...mapGetters([
-        "getLikeList"
+        "getMyHouse"
     ])
   },
   created(){
