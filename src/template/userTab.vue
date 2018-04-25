@@ -127,7 +127,7 @@ export default{
     this.setIdCard(this.user_ifo.data.userId)
     this.setLikeList(this.user_ifo.data.userId)
     this.setMyHouse(this.user_ifo.data.userId)
-    this.setBill(this.user_ifo.data.userId)
+    this.setBills(this.user_ifo.data.userId)
     this.setBillList(this.user_ifo.data.userId)
   },
   computed:{
@@ -145,7 +145,7 @@ export default{
       "setIdCard",
       "setLikeList",
       "setMyHouse",
-      "setBill",
+      "setBills",
       "setBillList"
     ]),
     toggleTab: function(tab) {

@@ -48,7 +48,7 @@
                 <FormItem label="详细地址">
                     <Input v-model="formItem.houseInfoVo.addressInfo" placeholder="请输入"></Input>
                 </FormItem>
-                <Row>
+                <!-- <Row>
                     <Col span="12">
                     <FormItem label="经度">
                         <Input v-model="formItem.houseInfoVo.addressLongitude" placeholder=""></Input>
@@ -59,7 +59,7 @@
                         <Input v-model="formItem.houseInfoVo.addressLatitude" placeholder=""></Input>
                     </FormItem>
                     </Col>
-                </Row>
+                </Row> -->
                 <Row>
                     <Col span="12">
                     <FormItem label="小区楼盘">
@@ -270,23 +270,63 @@
                 <FormItem label="优惠值">
                     <Input v-model="formItem.houseInfoVo.discountValue" placeholder="请输入"></Input>
                 </FormItem>
-                <Row>
-                    <Col span="8">
-                    <FormItem label="其它费用">
-                        <Input v-model="formItem.houseInfoVo.payFees" placeholder="请输入"></Input>
-                    </FormItem>
-                    </Col>
-                    <Col span="8">
-                    <FormItem label="承租人自付费用">
-                        <Input v-model="formItem.houseInfoVo.landlordPayFees" placeholder="请输入"></Input>
-                    </FormItem>
-                    </Col>
-                    <Col span="8">
-                    <FormItem label="出租人代付费用">
-                        <Input v-model="formItem.houseInfoVo.renterPayFees" placeholder="请输入"></Input>
-                    </FormItem>
-                    </Col>
-                </Row>
+
+                <FormItem label="包含费用">
+                        <CheckboxGroup  v-model="checkboxList1">
+                            <Checkbox label="1">物业管理费用（含公维金，公摊费）</Checkbox>
+                            <Checkbox label="2">电费</Checkbox>
+                            <Checkbox label="3">水费</Checkbox>
+                            <Checkbox label="4">燃气费</Checkbox>
+                            <Checkbox label="5">宽带费</Checkbox>
+                            <Checkbox label="6">有限电视费</Checkbox>
+                            <Checkbox label="7">停车管理费</Checkbox>
+                            <Checkbox label="8">采暖费</Checkbox>
+                            <Checkbox label="9">卫生费</Checkbox>
+                            <Checkbox label="10">保洁费</Checkbox>
+                        </CheckboxGroup >
+                </FormItem>
+
+               
+                <FormItem label="租人自付">
+                    <!-- <Input v-model="formItem.houseInfoVo.landlordPayFees" placeholder="请输入"></Input> -->
+                        <CheckboxGroup  v-model="checkboxList2">
+                            <Checkbox label="1">物业管理费用（含公维金，公摊费）</Checkbox>
+                            <Checkbox label="2">电费</Checkbox>
+                            <Checkbox label="3">水费</Checkbox>
+                            <Checkbox label="4">燃气费</Checkbox>
+                            <Checkbox label="5">宽带费</Checkbox>
+                            <Checkbox label="6">有限电视费</Checkbox>
+                            <Checkbox label="7">停车管理费</Checkbox>
+                            <Checkbox label="8">采暖费</Checkbox>
+                            <Checkbox label="9">卫生费</Checkbox>
+                            <Checkbox label="10">保洁费</Checkbox>
+                        </CheckboxGroup >                    
+                </FormItem>
+              
+                <FormItem label="租人代付">
+                    <!-- <Input v-model="formItem.houseInfoVo.renterPayFees" placeholder="请输入"></Input> -->
+                        <CheckboxGroup  v-model="checkboxList3">
+                            <Checkbox label="1">物业管理费用（含公维金，公摊费）</Checkbox>
+                            <Checkbox label="2">电费</Checkbox>
+                            <Checkbox label="3">水费</Checkbox>
+                            <Checkbox label="4">燃气费</Checkbox>
+                            <Checkbox label="5">宽带费</Checkbox>
+                            <Checkbox label="6">有限电视费</Checkbox>
+                            <Checkbox label="7">停车管理费</Checkbox>
+                            <Checkbox label="8">采暖费</Checkbox>
+                            <Checkbox label="9">卫生费</Checkbox>
+                            <Checkbox label="10">保洁费</Checkbox>
+                        </CheckboxGroup >                     
+                </FormItem>
+                
+                <FormItem label="合同允许编辑">
+                        <RadioGroup  v-model="radioboxList4">
+                            <Radio label="1">租金</Radio>
+                            <Radio label="2">其他金额</Radio>
+                            <Radio label="3">不允许</Radio>
+                        </RadioGroup >                     
+                </FormItem>
+                
                 <Row>
                     <Col span="12">
                     <FormItem label="看房联系人">
@@ -357,6 +397,10 @@
                 picList1:[],
                 picList2:[],
                 picList3:[],
+                radioboxList4:[],
+                checkboxList1:[],
+                checkboxList2:[],
+                checkboxList3:[],
                 formItem: {
                     houseInfoVo: {
                         landlordId: '', /** 房东ID **/
@@ -407,9 +451,9 @@
                         houseTypeBalconyCount: '', /** 户型-阳台 **/
                         landlordOwnershipRelation: '', /** 房东产权人关系（1：同一人，2：代理关系，3：二房东） **/
                         ownershipNumber: '', /** 权属编号 **/
-                        payFees: '', /** 其它费用**/
-                        landlordPayFees: '', /** 承租人自付费用**/
-                        renterPayFees: '', /** 出租人代付费用**/
+                        payFees: [], /** 其它费用**/
+                        landlordPayFees: [], /** 承租人自付费用**/
+                        renterPayFees: [], /** 出租人代付费用**/
                         houseStatus: '', /** 房子租赁状态，0，发布中，1招租中，2已租赁，3已到期 **/
                         housePicture:'', // 房子图片
                         ownershipCertificate:'', //权属证明(多个用“,”分割）
@@ -507,12 +551,15 @@
             // ownershipCertificate:'', //权属证明(多个用“,”分割）
             // leaseContract:'', //权属证明(多个用“,”分割）
             // agentAuthorization:'' //代理人委托书(多个用“,”分割）
-            console.log(this.picList0)
+            console.log(this.formItem.houseInfoVo)
+            console.log(this.checkboxList1)
             this.formItem.houseInfoVo.housePicture = this.picList0.join(",")
             this.formItem.houseInfoVo.ownershipCertificate = this.picList1.join(",")
             this.formItem.houseInfoVo.leaseContract = this.picList2.join(",")
             this.formItem.houseInfoVo.agentAuthorization = this.picList3.join(",")
-
+            this.formItem.houseInfoVo.payFees = this.checkboxList1.join(",")
+            this.formItem.houseInfoVo.landlordPayFees = this.checkboxList2.join(",")
+            this.formItem.houseInfoVo.renterPayFees  = this.checkboxList3.join(",")
 Date.prototype.Format = function (fmt) {  
     var o = {
         "M+": this.getMonth() + 1, //月份 

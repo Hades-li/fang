@@ -430,7 +430,7 @@ export const actions = {
                 
         });
     },
-    setBill(context,type){
+    setBills(context,type){
         axios.post(
             state.state.MainUrl + '/index?opt=204',
             qs.stringify(

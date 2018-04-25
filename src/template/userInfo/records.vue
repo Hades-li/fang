@@ -1,7 +1,7 @@
 <template>
   <div id="records">
 
-      <div class="records_right">
+      <div class="records_right" v-if="getBillListBoss">
         <ul>
           <li>
         <p> 姓名 : {{ getUserInfo.userName }}  </p> 
@@ -33,15 +33,23 @@
         </ul>
         <Table :loading="loading2" :data="getBillBoss" :columns="columns1"  ref="table" @on-select="" @on-selection-change=""></Table>
       </div>
+      <div   class="open_id" v-if="!getBillListBoss" @click="open(getUserInfo.userId)">
+        <img src="../../assets/icon-add.png" alt="">
+        <p> 立即开户 </p> 
+      </div>
+
   </div>
 </template>
 
 <script>
   import { mapGetters } from "vuex"
+  import qs from "qs"
+import { setTimeout } from 'timers';
   export default {
     name: 'records',
     data(){
        return{
+          href:"#",
           loading2: false, // 分页loading
            columns1: [
                 { 
@@ -89,11 +97,40 @@
       ...mapGetters([
         "getBillBoss",
         "getBillListBoss",
-        "getUserInfo"
+        "getUserInfo",
+        "getMainUrl"
       ])
     },
     methods:{
-
+      
+      open(userId){
+          const that = this;
+          var createNewTab = window.open('about:blank', '_blank');
+          this.$axios.post(
+            that.getMainUrl + '/index?opt=501',
+            qs.stringify(
+                {
+                  userId:userId,
+                  pageType:1, 
+                }
+            )).then(function (response) {
+                console.log(response)
+                if(response.data.success == true){
+                  // window.open(response.data.url)
+         
+                      setTimeout(function() {
+                    createNewTab.location.href =response.data.url;
+              }, 100)
+             
+                 
+                }else {
+        // close the blank tab
+               alert(response.data.msg)
+                createNewTab.close();
+              }
+            }).catch(function (error) {
+            });        
+      }
     }
   }
 </script>
@@ -138,4 +175,26 @@
 .myacont{
   margin-top: 20px;
 }
+.open_id{
+  display: block;
+  width: 300px;
+  height: 200px;
+  margin: 200px auto;
+  border: 1px  dashed #2d8cf0;
+  position: relative;
+}
+.open_id img{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-100%);
+}
+.open_id p{
+  line-height: 200px;
+  text-align: center;
+  margin-top: 20px;
+  color: #2d8cf0;
+  cursor: pointer;
+}
+
 </style>
